@@ -1,0 +1,317 @@
+import win32gui
+import win32api
+import win32ui
+import win32con
+import win32process
+import ctypes
+import cv2
+import pyautogui
+import time
+import numpy as np
+import random
+from enum import Enum
+from PIL import ImageGrab
+
+
+def Find_windows(title):
+    """
+    寻找与标题相符的句柄
+    :param title:   窗口标题
+    :return:        返回符合的窗口列表
+    """
+
+    # 枚举窗口
+    def callback(hwnd, hwnds):
+        if win32gui.IsWindowVisible(hwnd) and title in win32gui.GetWindowText(hwnd):
+            hwnds.append(hwnd)
+        return True
+
+    hwnds = []
+    win32gui.EnumWindows(callback, hwnds)
+    return hwnds
+
+
+def Find_in_windows(Hwnd, Model_path, Threshold, Flag_show):
+    """
+    全屏截图 找到与模板匹配的图片区域
+    :param Hwnd:            窗口句柄
+    :param Model_path:      用来检测的模板图片的路径
+    :param Threshold:       匹配的方差阈值 越小越好
+    :param Flag_show:       是否输出框选后图片 1为输出
+    :return:                返回检测到的区域范围坐标左上和右下
+    """
+
+    # 获取窗口位置和大小（考虑 DPI 缩放）
+    window_rect = win32gui.GetWindowRect(Hwnd)
+    left, top, right, bottom = window_rect
+
+    # 获取DPI缩放因子
+    # dpi_scale = win32api.GetDeviceCaps(win32api.GetDC(Hwnd), win32con.LOGPIXELSX) / 96.0
+    # 此处因为不明原因无法获取 1K分辨路下默认缩放为0.5
+    dpi_scale = 0.5
+
+    # 计算实际截图大小，考虑DPI缩放
+    width = int((right - left) * dpi_scale)
+    height = int((bottom - top) * dpi_scale)
+
+    # 使用BitBlt截取窗口图像
+    hdc_window = win32gui.GetWindowDC(Hwnd)
+    hdc_mfc = win32ui.CreateDCFromHandle(hdc_window)
+    memdc = hdc_mfc.CreateCompatibleDC()
+    bmp = win32ui.CreateBitmap()
+    bmp.CreateCompatibleBitmap(hdc_mfc, width, height)
+    memdc.SelectObject(bmp)
+    memdc.BitBlt((0, 0), (width, height), hdc_mfc, (0, 0), win32con.SRCCOPY)
+
+    # 将截图数据转换为OpenCV可以处理的格式
+    bmp_info = bmp.GetInfo()
+    bmp_str = bmp.GetBitmapBits(True)
+    screenshot = np.frombuffer(bmp_str, dtype=np.uint8).reshape((height, width, 4))
+
+    # 将RGBA格式的 screenshot 转换为RGB格式
+    Img = cv2.cvtColor(screenshot, cv2.COLOR_RGBA2RGB)
+
+    # 根据DPI缩放因子调整图像大小
+    Img = cv2.resize(Img, (int(width / dpi_scale), int(height / dpi_scale)))
+
+    # 加载图像模板 并读取宽高
+    Img_model = cv2.imread(Model_path)
+    Img_model_height, Img_model_width = Img_model.shape[0:2]
+
+    # 确保 Img 和 Img_model 的数据类型为 np.uint8
+    Img = np.uint8(Img)
+    Img_model = np.uint8(Img_model)
+
+    # 进行模板匹配 归一化平方差匹配方法 越小越好
+    Result = cv2.matchTemplate(Img, Img_model, cv2.TM_SQDIFF_NORMED)
+
+    ##  # 进行模板匹配 归一化相关性匹配方法 越大越好
+    ##  Result = cv2.matchTemplate(Img, Img_model, cv2.TM_CCORR_NORMED)
+
+    # 获取匹配结果中的最大值、最小值及其位置
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(Result)
+
+    # 确定识别到的区域
+    Left_up = min_loc
+    Right_down = (min_loc[0] + Img_model_width, min_loc[1] + Img_model_height)
+
+    if Flag_show:
+        # 在图像上绘制边框，并显示截取窗口部分的图像
+        cv2.rectangle(Img, Left_up, Right_down, (0, 0, 255), 2)
+
+        # 显示标记后的图像
+        cv2.imshow("Output", Img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    # 过滤方差过大的匹配结果
+    if min_val > Threshold:
+        # print("未找到匹配目标")
+        print("INFO-", f"{min_val:.3f}", end=" ")
+        return None
+
+    # print("找到匹配目标")
+    print("INFO-", f"{min_val:.3f}", end=" ")
+
+    return Left_up, Right_down
+
+
+def Find_in_screen(Img_model_path, Threshold, Flag_show):
+    """
+    全屏截图 找到与模板匹配的图片区域
+    :param Img_model_path:  用来检测的模板图片的路径
+    :param Threshold:       匹配的方差阈值 越小越好
+    :param Flag_show:       是否输出框选后图片 1为输出
+    :return: 返回检测到的区域范围坐标左上和右下
+    """
+    # 截取屏幕
+    Screenshot = pyautogui.screenshot()
+
+    # 将 PIL.Image.Image RGB 对象转换为 OpenCV 的 BGR NumPy 数组
+    Img = cv2.cvtColor(np.array(Screenshot), cv2.COLOR_RGB2BGR)
+
+    ##  ################################################################
+    ##  # 将屏幕截图保存
+    ##  pyautogui.screenshot().save("./pic/screenshot.png")
+    ##  # 载入截图
+    ##  Img = cv2.imread("./pic/screenshot.png")
+    ##  ################################################################
+
+    # 加载图像模板 并读取宽高
+    Img_model = cv2.imread(Img_model_path)
+    Img_model_height, Img_model_width = Img_model.shape[0:2]
+
+    # 进行模板匹配 归一化平方差匹配方法 越小越好
+    Result = cv2.matchTemplate(Img, Img_model, cv2.TM_SQDIFF_NORMED)
+
+    ##  # 进行模板匹配 归一化相关性匹配方法 越大越好
+    ##  Result = cv2.matchTemplate(Img, Img_model, cv2.TM_CCORR_NORMED)
+
+    # 获取匹配结果中的最大值、最小值及其位置
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(Result)
+
+    # 确定识别到的区域
+    Left_up = min_loc
+    Right_down = (min_loc[0] + Img_model_width, min_loc[1] + Img_model_height)
+
+    # 过滤方差过大的匹配结果
+    if min_val > Threshold:
+        # print("未找到匹配目标")
+        print("INFO-", f"{min_val:.3f}", end=" ")
+        if Flag_show:
+            # 图像上绘制边框
+            cv2.rectangle(Img, Left_up, Right_down, (0, 0, 255), 2)
+
+            # 输出标记区域后图案
+            cv2.imshow("Output", Img)
+            cv2.waitKey(0)
+        return None
+
+    # 显示输出图像
+    # print("找到匹配目标")
+    print("INFO-", f"{min_val:.3f}", end=" ")
+
+    if Flag_show:
+        # 图像上绘制边框
+        cv2.rectangle(Img, Left_up, Right_down, (0, 0, 255), 2)
+
+        # 输出标记区域后图案
+        cv2.imshow("Output", Img)
+        cv2.waitKey(0)
+
+    return Left_up, Right_down
+
+
+def Click(Hwnd, Loc, Wait):
+    """
+    接受一个坐标元组 自动点击
+    :param Loc:     坐标元组
+    :param Wait:    点击后自动延时的等待时间
+    :return: None
+    """
+    if Hwnd:
+        # 计算点击区域在窗口内的绝对坐标
+        window_x, window_y, _, _ = win32gui.GetWindowRect(Hwnd)
+    else:
+        window_x, window_y = 0, 0
+
+    # 计算出识别区域长宽 然后点击区域中随机坐标
+    Width = Loc[1][0] - Loc[0][0]
+    Height = Loc[1][1] - Loc[0][1]
+
+    loc_x = window_x + Loc[0][0] + Width / 4 + random.randint(0, Width) / 2
+    loc_y = window_y + Loc[0][1] + Height / 4 + random.randint(0, Height) / 2
+
+    # 点击窗口内的指定区域
+    pyautogui.click(x=loc_x, y=loc_y, button="left")
+    time.sleep(Wait)
+
+
+def Itface_Quit(Hwnd):
+    """
+    检测是否有退出界面 有则esc解除
+    :param Hwnd:    窗口句柄
+    :return: None
+    """
+    # 注：此处退出界面条件可以极为苛刻 一般识别取值为0.006
+    Range = Find_in_screen("./pic/Main/Tuichuyouxi.png", 0.01, 0)
+    if Range:
+        print("检测到退出界面")
+        Range = Find_in_screen("./pic/Main/Quxiaotuichu.png", 0.05, 0)
+        Click(None, Range, 1)
+        print("取消退出")
+    else:
+        print("未检测到退出界面")
+
+
+def Itface_Host(Hwnd):
+    """
+    检测是否处在主界面
+    :param Hwnd:    窗口句柄
+    :return: None
+    """
+    Wait = 0
+    while True:
+        # Itface_Quit(Hwnd)
+        time.sleep(0.5)
+        # 检测到庭院 退出循环
+        if Find_in_windows(Hwnd, "./pic/Main/Zhujiemian.png", 0.05, 0):
+            Itface = "Host"
+            print("检测到进入庭院")
+            return 1
+            break
+        ctypes.windll.user32.SetForegroundWindow(Hwnd)
+        Wait += 2
+        time.sleep(1)
+
+        if Wait >= 10:
+            # 按esc尝试回到主界面
+            pyautogui.press("esc")
+            print("未检测到进入庭院 尝试esc")
+            time.sleep(0.5)
+            Itface_Quit(Hwnd)
+        else:
+            print("未检测到进入庭院")
+
+        # 30s未检测到 超时退出
+        if Wait >= 30:
+            Wait = 0
+            print("EROR- ***** 进入庭院 超时退出 ********************************")
+            return 0
+            exit()
+
+
+def Itface_scroll(Hwnd):
+    """
+    位于庭院时 检测并确保卷轴打开
+    @param Hwnd:    窗口句柄
+    @return:        1正常0异常
+    """
+    # 检测是否位于庭院主界面
+    Itface_Host(Hwnd)
+
+    # 检测底部卷轴是否展开
+    Range = Find_in_windows(Hwnd, "./pic/Thr/Shishenlu.png", 0.05, 0)
+    if not Range:
+        print("检测到卷轴尚未打开 点击打开卷轴")
+        # 坐标点击展开卷轴
+        Range = ((1780, 970), (1910, 1120))
+        Click(Hwnd, Range, 2)
+
+        Range = Find_in_windows(Hwnd, "./pic/Thr/Shishenlu.png", 0.05, 0)
+        if Range:
+            print("检测到卷轴已经打开")
+        else:
+            print("打开卷轴失败")
+            return 0
+    else:
+        print("检测到卷轴已经打开")
+        return 1
+
+
+def Itface_guild(Hwnd):
+    """
+    位于庭院时 进入阴阳寮界面
+    @param Hwnd:    窗口句柄
+    @return:        1正常0异常
+    """
+    # 确保卷轴打开
+    Itface_scroll(Hwnd)
+
+    # 进入阴阳寮
+    Range = Find_in_windows(Hwnd, "./pic/Sis/Yinyangliao.png", 0.05, 0)
+    if Range:
+        Click(Hwnd, Range, 1)
+        print("进入阴阳寮")
+        time.sleep(1)
+        return 1
+    else:
+        print("进入阴阳寮失败")
+        return 0
+
+
+# 定义一个界面类型 继承自枚举类型
+class Interface(Enum):
+    Chaos = 0
+    Host = 1
+    Mail = 2

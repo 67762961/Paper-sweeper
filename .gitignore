@@ -1,0 +1,5 @@
+Else
+__pycache__
+.vscode
+.venv
+test.py

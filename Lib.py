@@ -11,6 +11,8 @@ import numpy as np
 import random
 from enum import Enum
 from PIL import ImageGrab
+import os
+import sys
 
 
 def Find_windows(title):
@@ -76,6 +78,8 @@ def Find_in_windows(Hwnd, Model_path, Threshold, Flag_show):
 
     # 加载图像模板 并读取宽高
     Img_model = cv2.imread(Model_path)
+    if Img_model is None:
+        raise ValueError(f"无法找到文件: {Img_model_path}")
     Img_model_height, Img_model_width = Img_model.shape[0:2]
 
     # 确保 Img 和 Img_model 的数据类型为 np.uint8
@@ -132,13 +136,15 @@ def Find_in_screen(Img_model_path, Threshold, Flag_show):
 
     ##  ################################################################
     ##  # 将屏幕截图保存
-    ##  pyautogui.screenshot().save("./pic/screenshot.png")
+    ##  pyautogui.screenshot().save("./pic/screenshot.png"
     ##  # 载入截图
-    ##  Img = cv2.imread("./pic/screenshot.png")
+    ##  Img = cv2.imread("./pic/screenshot.png"
     ##  ################################################################
 
     # 加载图像模板 并读取宽高
     Img_model = cv2.imread(Img_model_path)
+    if Img_model is None:
+        raise ValueError(f"无法找到文件: {Img_model_path}")
     Img_model_height, Img_model_width = Img_model.shape[0:2]
 
     # 进行模板匹配 归一化平方差匹配方法 越小越好

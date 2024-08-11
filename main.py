@@ -14,29 +14,15 @@ import win32process
 hwnds = []
 
 
-def init():
+def Init():
     """
-    提升管理员权限 获取窗口句柄 并分别登录账号
+    获取窗口句柄 并分别登录账号
     """
     global hwnds
     user32 = ctypes.windll.user32
 
     # --------------------------------------------------------------------------------------------------------------------------------
-    # region 提升管理员权限 并获取游戏窗口句柄
-
-    # 检测是否管理员用户
-    def is_admin():
-        try:
-            return ctypes.windll.shell32.IsUserAnAdmin()
-        except:
-            return False
-
-    # 请求提升权限
-    if not is_admin():
-        ctypes.windll.shell32.ShellExecuteW(
-            None, "runas", sys.executable, " ".join(sys.argv), None, 1
-        )
-        sys.exit(0)
+    # region 获取游戏窗口句柄 分别登录账号
 
     # 首先获取游戏窗口句柄列表
     hwnds = Lib.Find_windows("阴阳师-网易游戏")
@@ -45,28 +31,50 @@ def init():
     else:
         print("EROR- ***** 未找到 两个窗口 ********************************")
         sys.exit()
-
-    # endregion
+    return hwnds
     # --------------------------------------------------------------------------------------------------------------------------------
-    # region 分别登录账号
+    # endregion
 
+
+def WindowMov(Log, Hwnd):
+    """
+    修改窗口位置
+    @return: 1正常0异常
+    """
+    Pos = win32gui.GetWindowRect(Hwnd)
+    win32gui.SetWindowPos(
+        Hwnd,
+        0,
+        960,
+        540,
+        1920,
+        1158,
+        0x0040,
+    )
+    if Log == "master":
+        pyautogui.hotkey("win", "right")
+        pyautogui.hotkey("win", "left")
+        print("INIT- ····· 窗口位置和大小已修改")
+        return 1
+    else:
+        pyautogui.hotkey("win", "right")
+        pyautogui.hotkey("win", "right")
+        print("INIT- ····· 窗口位置和大小已修改")
+        return 1
+
+
+def Login():
     # 将第一个窗口设定为前台窗口 并登录主账号
-    ctypes.windll.user32.SetForegroundWindow(hwnds[0])
     log = Task_SignIn.LogIn("master", hwnds[0])
-    Task_SignIn.WindowMov("master", hwnds[0])
     if not log:
         print("EROR- ***** 主账号 登录失败 ********************************")
         sys.exit()
 
     # 将第二个窗口设定为前台窗口 并登录从账号
-    ctypes.windll.user32.SetForegroundWindow(hwnds[1])
     log = Task_SignIn.LogIn("slave", hwnds[1])
-    Task_SignIn.WindowMov("slave", hwnds[1])
     if not log:
         print("EROR- ***** 从账号 登录失败 ********************************")
         sys.exit()
-    # endregion
-    # --------------------------------------------------------------------------------------------------------------------------------
 
 
 def Sign_In():
@@ -95,6 +103,7 @@ def Sis_Foster():
     Task_SisFoster.MainTask_Sisfoster(hwnds[1])
 
 
-init()
-Sign_In()
-Sis_Foster()
+def Full_operation():
+    Login()
+    Sign_In()
+    Sis_Foster()

@@ -3,3 +3,7 @@ __pycache__
 .vscode
 .venv
 test.py
+txt.txt
+build
+dist
+GUI.spec

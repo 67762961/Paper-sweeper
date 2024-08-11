@@ -89,34 +89,6 @@ def LogIn(Log, Hwnd):
     # --------------------------------------------------------------------------------------------------------------------------------
 
 
-def WindowMov(Log, Hwnd):
-    """
-    修改窗口位置
-    @return: 1正常0异常
-    """
-    Pos = win32gui.GetWindowRect(Hwnd)
-    win32gui.SetWindowPos(
-        Hwnd,
-        0,
-        960,
-        540,
-        1920,
-        1158,
-        0x0040,
-    )
-    time.sleep(0.5)
-    if Log == "master":
-        pyautogui.hotkey("win", "right")
-        pyautogui.hotkey("win", "left")
-        print("INIT- ····· 窗口位置和大小已修改")
-        return 1
-    else:
-        pyautogui.hotkey("win", "right")
-        pyautogui.hotkey("win", "right")
-        print("INIT- ····· 窗口位置和大小已修改")
-        return 1
-
-
 def Work_Mail(Hwnd):
     """
     领取邮件奖励

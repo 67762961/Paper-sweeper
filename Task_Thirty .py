@@ -1,6 +1,7 @@
 import Lib
 import time
 import pyautogui
+from Lib import get_path
 
 
 def MainTask_Thirty(Hwnd):

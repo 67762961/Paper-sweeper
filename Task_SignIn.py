@@ -31,8 +31,16 @@ def LogIn(Log, Hwnd):
                 return 1
             else:
                 print("未检测到进入庭院")
+                # 检测弹窗
+                Range = Lib.Find_in_windows(Hwnd, "./pic/Main/Cha.png", 0.05, 0)
+                if Range:
+                    # 点击弹窗插
+                    Lib.Click(None, Range, 1)
+                    print("关闭弹窗")
+                else:
+                    print("未检测到弹窗")
 
-        if Wait >= 15:
+        if Wait >= 30:
             print("EROR- ***** 登录失败超时退出 ********************************")
             exit()
             break

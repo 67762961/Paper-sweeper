@@ -219,6 +219,7 @@ def Itface_Quit(Hwnd):
     :param Hwnd:    窗口句柄
     :return: None
     """
+    time.sleep(0.5)
     # 注：此处退出界面条件可以极为苛刻 一般识别取值为0.006
     Range = Find_in_screen("./pic/Main/Tuichuyouxi.png", 0.01, 0)
     if Range:
@@ -239,14 +240,14 @@ def Itface_Host(Hwnd):
     Wait = 0
     while True:
         # Itface_Quit(Hwnd)
-        time.sleep(0.5)
+        time.sleep(1)
         # 检测到庭院 退出循环
+        ctypes.windll.user32.SetForegroundWindow(Hwnd)
         if Find_in_windows(Hwnd, "./pic/Main/Zhujiemian.png", 0.05, 0):
             Itface = "Host"
             print("检测到进入庭院")
             return 1
             break
-        ctypes.windll.user32.SetForegroundWindow(Hwnd)
         Wait += 2
         time.sleep(1)
 
@@ -254,8 +255,16 @@ def Itface_Host(Hwnd):
             # 按esc尝试回到主界面
             pyautogui.press("esc")
             print("未检测到进入庭院 尝试esc")
-            time.sleep(0.5)
             Itface_Quit(Hwnd)
+
+            # 检测弹窗
+            Range = Find_in_windows(Hwnd, "./pic/Main/Cha.png", 0.05, 0)
+            if Range:
+                # 点击弹窗插
+                Click(None, Range, 1)
+                print("关闭弹窗")
+            else:
+                print("未检测到弹窗")
         else:
             print("未检测到进入庭院")
 

@@ -13,6 +13,7 @@ from enum import Enum
 from PIL import ImageGrab
 import os
 import sys
+import config
 
 
 def Find_windows(title):
@@ -89,9 +90,6 @@ def Find_in_windows(Hwnd, Model_path, Threshold, Flag_show):
     # 进行模板匹配 归一化平方差匹配方法 越小越好
     Result = cv2.matchTemplate(Img, Img_model, cv2.TM_SQDIFF_NORMED)
 
-    ##  # 进行模板匹配 归一化相关性匹配方法 越大越好
-    ##  Result = cv2.matchTemplate(Img, Img_model, cv2.TM_CCORR_NORMED)
-
     # 获取匹配结果中的最大值、最小值及其位置
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(Result)
 
@@ -108,16 +106,13 @@ def Find_in_windows(Hwnd, Model_path, Threshold, Flag_show):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+    print("FIND-", f"{min_val:.3f}", end=" ")
+
     # 过滤方差过大的匹配结果
     if min_val > Threshold:
-        # print("未找到匹配目标")
-        print("INFO-", f"{min_val:.3f}", end=" ")
         return None
-
-    # print("找到匹配目标")
-    print("INFO-", f"{min_val:.3f}", end=" ")
-
-    return Left_up, Right_down
+    else:
+        return Left_up, Right_down
 
 
 def Find_in_screen(Img_model_path, Threshold, Flag_show):
@@ -134,13 +129,6 @@ def Find_in_screen(Img_model_path, Threshold, Flag_show):
     # 将 PIL.Image.Image RGB 对象转换为 OpenCV 的 BGR NumPy 数组
     Img = cv2.cvtColor(np.array(Screenshot), cv2.COLOR_RGB2BGR)
 
-    ##  ################################################################
-    ##  # 将屏幕截图保存
-    ##  pyautogui.screenshot().save("./pic/screenshot.png"
-    ##  # 载入截图
-    ##  Img = cv2.imread("./pic/screenshot.png"
-    ##  ################################################################
-
     # 加载图像模板 并读取宽高
     Img_model = cv2.imread(Img_model_path)
     if Img_model is None:
@@ -150,9 +138,6 @@ def Find_in_screen(Img_model_path, Threshold, Flag_show):
     # 进行模板匹配 归一化平方差匹配方法 越小越好
     Result = cv2.matchTemplate(Img, Img_model, cv2.TM_SQDIFF_NORMED)
 
-    ##  # 进行模板匹配 归一化相关性匹配方法 越大越好
-    ##  Result = cv2.matchTemplate(Img, Img_model, cv2.TM_CCORR_NORMED)
-
     # 获取匹配结果中的最大值、最小值及其位置
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(Result)
 
@@ -160,23 +145,7 @@ def Find_in_screen(Img_model_path, Threshold, Flag_show):
     Left_up = min_loc
     Right_down = (min_loc[0] + Img_model_width, min_loc[1] + Img_model_height)
 
-    # 过滤方差过大的匹配结果
-    if min_val > Threshold:
-        # print("未找到匹配目标")
-        print("INFO-", f"{min_val:.3f}", end=" ")
-        if Flag_show:
-            # 图像上绘制边框
-            cv2.rectangle(Img, Left_up, Right_down, (0, 0, 255), 2)
-
-            # 输出标记区域后图案
-            cv2.imshow("Output", Img)
-            cv2.waitKey(0)
-        return None
-
-    # 显示输出图像
-    # print("找到匹配目标")
-    print("INFO-", f"{min_val:.3f}", end=" ")
-
+    print("FIND-", f"{min_val:.3f}", end=" ")
     if Flag_show:
         # 图像上绘制边框
         cv2.rectangle(Img, Left_up, Right_down, (0, 0, 255), 2)
@@ -185,7 +154,11 @@ def Find_in_screen(Img_model_path, Threshold, Flag_show):
         cv2.imshow("Output", Img)
         cv2.waitKey(0)
 
-    return Left_up, Right_down
+    # 过滤方差过大的匹配结果
+    if min_val > Threshold:
+        return None
+    else:
+        return Left_up, Right_down
 
 
 def Click(Hwnd, Loc, Wait):
@@ -211,6 +184,36 @@ def Click(Hwnd, Loc, Wait):
     # 点击窗口内的指定区域
     pyautogui.click(x=loc_x, y=loc_y, button="left")
     time.sleep(Wait)
+
+
+def Find_Click_windows(Hwnd, Model_path, Threshold, message_F, message_C):
+    while not config.stop_thread:
+        try:
+            Range = Find_in_windows(Hwnd, Model_path, Threshold, 0)
+            Click(Hwnd, Range, 1)
+            # pyautogui.moveTo(10, 10)
+            print(message_F)
+            break
+        except:
+            print(message_C)
+            print("EROR- XXXXX 图像识别错误 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            config.stop_thread = True
+            break
+
+
+def Find_Click_screen(Model_path, Threshold, message_F, message_C):
+    while not config.stop_thread:
+        try:
+            Range = Find_in_screen(Model_path, Threshold, 0)
+            Click(None, Range, 1)
+            # pyautogui.moveTo(10, 10)
+            print(message_F)
+            break
+        except:
+            print(message_C)
+            print("EROR- XXXXX 图像识别错误 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            config.stop_thread = True
+            break
 
 
 def Itface_Quit(Hwnd):

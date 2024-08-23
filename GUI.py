@@ -15,9 +15,9 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 from qt_material import apply_stylesheet
 from PyQt6.QtCore import QThread, pyqtSignal
-from main import Full_operation, Init, WindowMov
-
+from main import Full_operation, Init
 import ctypes
+import config
 
 hwnds = []
 
@@ -123,12 +123,8 @@ class MainWindow(QWidget):
     # 处理“完整运行”按钮点击事件
     def Button0_clicked(self):
         self.textbox.append("开始完整运行")
+        config.stop_thread = False
         hwnds = Init()
-        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        WindowMov("master", hwnds[0])
-        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        WindowMov("slave", hwnds[1])
-
         # 创建工作线程
         self.thread = WorkerThread()
         # 连接信号与槽

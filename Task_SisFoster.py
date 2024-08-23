@@ -104,8 +104,9 @@ def Work_Foster(Hwnd):
             Lib.Click(Hwnd, Range, 1)
             print("提取满的经验酒壶")
 
-            Range = Lib.Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
-            print("满层经验酒壶领取成功")
+            Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
+            pyautogui.press("esc")
+            print("经验酒壶提取上限")
 
         else:
             print("经验酒壶未满")
@@ -118,10 +119,9 @@ def Work_Foster(Hwnd):
                 Lib.Click(Hwnd, Range, 1)
                 print("提取经验酒壶")
 
-                Range = Lib.Find_in_windows(
-                    Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0
-                )
-                print("经验酒壶领取成功")
+                Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
+                pyautogui.press("esc")
+                print("经验酒壶提取上限")
             else:
                 print("未检测到经验酒壶溢出")
 

@@ -1,5 +1,4 @@
 import Lib
-import Task_SignIn
 import Task_SisFoster
 import time
 import ctypes
@@ -11,7 +10,7 @@ import pyautogui
 import win32process
 import config
 from Task_LogIn import LogIn
-
+from Task_SignIn import MainTask_Signin
 
 # 全局变量 窗口句柄列表
 hwnds = []
@@ -19,7 +18,7 @@ hwnds = []
 
 def Init():
     """
-    获取窗口句柄
+    初始化 获取窗口句柄
     """
     global hwnds
     user32 = ctypes.windll.user32
@@ -35,6 +34,9 @@ def Init():
 
 
 def Main_Login_2():
+    """
+    双账号登录
+    """
     while not config.stop_thread:
         try:
             ctypes.windll.user32.SetForegroundWindow(hwnds[0])
@@ -74,11 +76,11 @@ def Sign_In():
     while not config.stop_thread:
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        Task_SignIn.MainTask_Signin(hwnds[0])
+        MainTask_Signin(hwnds[0])
 
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        Task_SignIn.MainTask_Signin(hwnds[1])
+        MainTask_Signin(hwnds[1])
 
         break
 

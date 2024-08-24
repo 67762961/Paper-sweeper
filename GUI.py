@@ -62,9 +62,7 @@ class MainWindow(QWidget):
         button_layout = QHBoxLayout()
         button_frame = QFrame()
         button_frame.setLayout(button_layout)
-        button_frame.setStyleSheet(
-            "background-color: rgba(255, 255, 255, 0.9); padding: 5px;"
-        )
+        button_frame.setStyleSheet("background-color: rgba(255, 255, 255, 0.9); padding: 5px;")
         button_frame.setFixedSize(800, 60)
 
         # 创建描述标签
@@ -72,9 +70,7 @@ class MainWindow(QWidget):
         button_layout.addWidget(self.description_label)
 
         # 添加一个间隔项，使按钮靠右对齐
-        spacer = QSpacerItem(
-            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
-        )
+        spacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         button_layout.addItem(spacer)
 
         # 创建“完整运行”按钮

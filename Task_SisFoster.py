@@ -179,9 +179,7 @@ def Work_Foster(Hwnd):
             Lib.Click(Hwnd, Range, 1)
             print("点击星级降序")
 
-            Range = Lib.Find_in_windows(
-                Hwnd, "./pic/Sis/Shouzhangjiejieka.png", 0.05, 0
-            )
+            Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Shouzhangjiejieka.png", 0.05, 0)
             Lib.Click(Hwnd, Range, 1)
             print("点击首张结界卡")
 
@@ -254,9 +252,7 @@ def Work_Foster(Hwnd):
                     print("放上去一个奉为达摩")
                 else:
                     print("未检测到达摩素材")
-                    Range = Lib.Find_in_windows(
-                        Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0
-                    )
+                    Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
 
                     print("进入翻页区域")
                     rect = win32gui.GetWindowRect(Hwnd)
@@ -265,9 +261,7 @@ def Work_Foster(Hwnd):
                     pyautogui.moveTo(x, y)
 
                     pyautogui.scroll(-200)
-                    Range = Lib.Find_in_windows(
-                        Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0
-                    )
+                    Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
 
                     if Range:
                         Lib.Click(Hwnd, Range, 1)
@@ -310,9 +304,7 @@ def Work_Foster(Hwnd):
                     print("检测到", end="")
                     print(string)
 
-                    Range = Lib.Find_in_windows(
-                        Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, 0
-                    )
+                    Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, 0)
                     Lib.Click(Hwnd, Range, 2)
                     print("点击进入结界")
 
@@ -324,17 +316,13 @@ def Work_Foster(Hwnd):
                     Lib.Click(Hwnd, Range, 1)
                     print("选择素材")
 
-                    Range = Lib.Find_in_windows(
-                        Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0
-                    )
+                    Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
                     if Range:
                         Lib.Click(Hwnd, Range, 1)
                         print("放上去一个奉为达摩")
                     else:
                         pyautogui.scroll(-100)
-                        Range = Lib.Find_in_windows(
-                            Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0
-                        )
+                        Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
                         Lib.Click(Hwnd, Range, 2)
                         print("放上去一个奉为达摩")
 
@@ -349,9 +337,7 @@ def Work_Foster(Hwnd):
                 else:
                     print("未检测到", end="")
                     print(string)
-                    Range = Lib.Find_in_windows(
-                        Hwnd, "./pic/Sis/Jiyangliebiaomowei.png", 0.001, 0
-                    )
+                    Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Jiyangliebiaomowei.png", 0.001, 0)
 
                     if Range:
                         print("已经到寄养列表末尾")

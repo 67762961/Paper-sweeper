@@ -193,12 +193,12 @@ def Find_Click_windows(Hwnd, Model_path, Threshold, message_F, message_C):
             Click(Hwnd, Range, 1)
             # pyautogui.moveTo(10, 10)
             print(message_F)
-            break
+            return 1
         except:
             print(message_C)
-            print("EROR- XXXXX 图像识别错误 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-            config.stop_thread = True
-            break
+            time.sleep(0.5)
+            # config.stop_thread = True
+            return 0
 
 
 def Find_Click_screen(Model_path, Threshold, message_F, message_C):
@@ -208,12 +208,12 @@ def Find_Click_screen(Model_path, Threshold, message_F, message_C):
             Click(None, Range, 1)
             # pyautogui.moveTo(10, 10)
             print(message_F)
-            break
+            return 1
         except:
             print(message_C)
-            print("EROR- XXXXX 图像识别错误 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-            config.stop_thread = True
-            break
+            time.sleep(0.5)
+            # config.stop_thread = True
+            return 0
 
 
 def Itface_Quit(Hwnd):
@@ -326,10 +326,3 @@ def Itface_guild(Hwnd):
     else:
         print("进入阴阳寮失败")
         return 0
-
-
-# 定义一个界面类型 继承自枚举类型
-class Interface(Enum):
-    Chaos = 0
-    Host = 1
-    Mail = 2

@@ -217,7 +217,7 @@ def Work_Foster(Hwnd):
             # 10s未检测到 超时退出
             if Wait >= 10:
                 Wait = 0
-                print("EROR- ***** 结界育成 超时退出 ********************************")
+                print("EROR- XXXXX 结界育成 超时退出 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                 return 0
 
         # 检测是否有满级式神
@@ -390,7 +390,7 @@ def MainTask_Sisfoster(Hwnd):
     if Work_Salary(Hwnd):
         print("TASK- ----- 领取工资任务完成 --------------------------------")
     else:
-        print("EROR- ***** 领取工资任务失败 ********************************")
+        print("EROR- XXXXX 领取工资任务失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
     # 开始结界寄养任务
     print("TASK- +++++ 开始结界寄养任务 ++++++++++++++++++++++++++++++++")
@@ -398,4 +398,4 @@ def MainTask_Sisfoster(Hwnd):
     if Work_Foster(Hwnd):
         print("TASK- ----- 结界寄养任务完成 --------------------------------")
     else:
-        print("EROR- ***** 结界寄养任务失败 ********************************")
+        print("EROR- XXXXX 结界寄养任务失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")

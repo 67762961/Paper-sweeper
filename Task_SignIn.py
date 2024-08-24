@@ -85,38 +85,28 @@ def Work_Sign(Hwnd):
             Flag_fudai = 1
             pyautogui.press("esc")
             time.sleep(0.5)
-    #######################################################################################
+
     Wait = 0
     while True:
         # 检测签到小纸人
-        Range = Find_in_windows(Hwnd, "./pic/Sign/Qiandaoxiaozhiren.png", 0.05, 0)
-        if not Range:
-            print("未检测到签到小纸人")
+        if Find_Click_windows(Hwnd, "./pic/Sign/Qiandaoxiaozhiren.png", 0.05, "检测到签到小纸人", "未检测到签到小纸人"):
+            # 点击签到小人后
+            if Find_Click_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, "每日一签", "签到异常"):
+                pyautogui.press("esc")
+                time.sleep(0.5)
+                break
+        else:
             time.sleep(0.5)
             Wait += 1
             if Wait >= 3:
                 break
-        else:
-            print("检测到签到小纸人")
-            Click(Hwnd, Range, 1)
-            Range = Find_in_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, 0)
-            print("每日一签")
-            Click(Hwnd, Range, 2)
-            Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
-            print("每日一签成功")
-            pyautogui.press("esc")
-            time.sleep(0.01)
-            break
 
     Itface_Host(Hwnd)
 
+    # 检测福袋小纸人
     if not Flag_fudai:
-        Range = Find_in_windows(Hwnd, "./pic/Sign/Fudaixiaozhiren.png", 0.05, 0)
-        if not Range:
-            print("未检测到福袋小纸人")
-        else:
-            print("检测到福袋小纸人")
-            Click(Hwnd, Range, 1)
+        if Find_Click_windows(Hwnd, "./pic/Sign/Fudaixiaozhiren.png", 0.05, "检测到福袋小纸人", "未检测到福袋小纸人"):
+            # 点击福袋小人后检测领取状态
             Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
             print("福袋领取成功")
             Flag_fudai = 1
@@ -126,12 +116,7 @@ def Work_Sign(Hwnd):
     Itface_Host(Hwnd)
 
     # 检测体力小纸人
-    Range = Find_in_windows(Hwnd, "./pic/Sign/Tilixiaozhire.png", 0.05, 0)
-    if not Range:
-        print("未检测到体力小纸人")
-    else:
-        print("检测到体力小纸人")
-        Click(Hwnd, Range, 1)
+    if Find_Click_windows(Hwnd, "./pic/Sign/Tilixiaozhire.png", 0.05, "检测到体力小纸人", "未检测到体力小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("体力领取成功")
         pyautogui.press("esc")
@@ -140,12 +125,7 @@ def Work_Sign(Hwnd):
     Itface_Host(Hwnd)
 
     # 检测勾玉小纸人
-    Range = Find_in_windows(Hwnd, "./pic/Sign/Gouyuxiaozhiren.png", 0.05, 0)
-    if not Range:
-        print("未检测到勾玉小纸人")
-    else:
-        print("检测到勾玉小纸人")
-        Click(Hwnd, Range, 1)
+    if Find_Click_windows(Hwnd, "./pic/Sign/Gouyuxiaozhiren.png", 0.05, "检测到勾玉小纸人", "未检测到勾玉小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("勾玉领取成功")
         pyautogui.press("esc")
@@ -154,12 +134,7 @@ def Work_Sign(Hwnd):
     Itface_Host(Hwnd)
 
     # 检测buff小纸人
-    Range = Find_in_windows(Hwnd, "./pic/Sign/BUFFxiaozhiren.png", 0.05, 0)
-    if not Range:
-        print("未检测到BUFF小纸人")
-    else:
-        print("检测到BUFF小纸人")
-        Click(Hwnd, Range, 1)
+    if Find_Click_windows(Hwnd, "./pic/Sign/BUFFxiaozhiren.png", 0.05, "检测到BUFF小纸人", "未检测到BUFF小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("BUFF领取成功")
         pyautogui.press("esc")
@@ -181,7 +156,7 @@ def MainTask_Signin(Hwnd):
     if Work_Mail(Hwnd):
         print("TASK- ----- 邮件奖励领取成功 --------------------------------")
     else:
-        print("EROR- ***** 邮件奖励领取失败 ********************************")
+        print("EROR- XXXXX 邮件奖励领取失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
     # 检测是否位于庭院主界面
     Itface_Host(Hwnd)

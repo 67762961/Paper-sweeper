@@ -243,7 +243,7 @@ def Itface_Host(Hwnd):
     Wait = 0
     while True:
         # Itface_Quit(Hwnd)
-        time.sleep(1)
+        time.sleep(0.5)
         # 检测到庭院 退出循环
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
         if Find_in_windows(Hwnd, "./pic/Main/Zhujiemian.png", 0.05, 0):

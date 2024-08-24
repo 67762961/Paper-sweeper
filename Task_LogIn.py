@@ -29,21 +29,25 @@ def LogIn(Log, Hwnd):
             break
         else:
             Wait += 1
-            print("未检测到登录界面", Wait)
+            print("未检测到登录界面 等待:", Wait)
             time.sleep(1)
 
         if Wait >= 30:
             print("EROR- XXXXX 登录失败超时退出 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            config.stop_thread = True
             break
 
-    if Log == "master":
-        # 注：此处条件可以极为苛刻 一般识别取值为0.002
-        Find_Click_screen("./pic/Main/Qiehuanzhanghao.png", 0.005, "打开账号列表", "无法打开账号列表")
+        # 逐步点击登录
+    while not config.stop_thread:
+        if Log == "master":
+            # 注：此处条件可以极为苛刻 一般识别取值为0.002
+            Find_Click_screen("./pic/Main/Qiehuanzhanghao.png", 0.005, "打开账号列表", "无法打开账号列表")
 
-        # 注：此处条件可以极为苛刻 一般识别取值为0.000
-        Find_Click_screen("./pic/Main/Zhuzhanghao.png", 0.005, "选择主账号", "无法识别主账号区域")
-        Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
-    else:
-        Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
+            # 注：此处条件可以极为苛刻 一般识别取值为0.000
+            Find_Click_screen("./pic/Main/Zhuzhanghao.png", 0.005, "选择主账号", "无法识别主账号区域")
+            Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
+        else:
+            Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
 
-    Find_Click_screen("./pic/Main/Jinruyouxi1.png", 0.05, "点击进入游戏", "无法进入游戏")
+        Find_Click_screen("./pic/Main/Jinruyouxi1.png", 0.05, "点击进入游戏", "无法进入游戏")
+        break

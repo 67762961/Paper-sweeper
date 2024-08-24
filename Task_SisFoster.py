@@ -105,8 +105,11 @@ def Work_Foster(Hwnd):
             print("提取满的经验酒壶")
 
             Range = Lib.Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
-            pyautogui.press("esc")
-            print("经验酒壶提取上限")
+            if Range:
+                pyautogui.press("esc")
+                print("经验酒壶提取上限")
+            else:
+                print("经验酒壶提取成功")
 
         else:
             print("经验酒壶未满")

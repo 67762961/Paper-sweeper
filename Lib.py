@@ -106,7 +106,7 @@ def Find_in_windows(Hwnd, Model_path, Threshold, Flag_show):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    print("FIND-", f"{min_val:.3f}", end=" ")
+    print("INFO-", f"{min_val:.3f}", end=" ")
 
     # 过滤方差过大的匹配结果
     if min_val > Threshold:
@@ -145,7 +145,7 @@ def Find_in_screen(Img_model_path, Threshold, Flag_show):
     Left_up = min_loc
     Right_down = (min_loc[0] + Img_model_width, min_loc[1] + Img_model_height)
 
-    print("FIND-", f"{min_val:.3f}", end=" ")
+    print("INFO-", f"{min_val:.3f}", end=" ")
     if Flag_show:
         # 图像上绘制边框
         cv2.rectangle(Img, Left_up, Right_down, (0, 0, 255), 2)

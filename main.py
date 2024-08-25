@@ -9,6 +9,7 @@ import sys
 import pyautogui
 import win32process
 import config
+import subprocess
 from Task_LogIn import LogIn
 from Task_SignIn import MainTask_Signin
 
@@ -23,13 +24,30 @@ def Init():
     global hwnds
     user32 = ctypes.windll.user32
 
+    print("INIT- +++++ 程序初始化进行中 ++++++++++++++++++++++++++++++++")
+
     # 首先获取游戏窗口句柄列表
     try:
         hwnds = Lib.Find_windows("阴阳师-网易游戏")
         if len(hwnds) == 2:
             print("INIT- ----- 已捕获到两个窗口 --------------------------------")
     except:
-        print("EROR- XXXXX 未找到 两个窗口 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        print(f"获取窗口句柄时发生异常: {e}")
+
+    try:
+        process1 = subprocess.Popen([config.exe_path])
+        process2 = subprocess.Popen([config.exe_path])
+
+        # 等待进程启动
+        process1.wait()
+        process2.wait()
+
+        hwnds = Lib.Find_windows("阴阳师-网易游戏")
+        if len(hwnds) == 2:
+            print("INIT- ----- 启动并捕获阴阳师 --------------------------------")
+    except Exception as e:
+        print(f"启动进程或获取窗口句柄时发生异常: {e}")
+
     return hwnds
 
 
@@ -46,7 +64,9 @@ def Main_Login_2():
             print("TASK- ----- 主账号已登录成功 --------------------------------")
         except:
             config.stop_thread = True
+        break
 
+    while not config.stop_thread:
         pyautogui.hotkey("win", "right")
         pyautogui.hotkey("win", "left")
         print("TASK- ----- 主窗口位置已修改 --------------------------------")
@@ -61,7 +81,9 @@ def Main_Login_2():
             print("TASK- ----- 从账号已登录成功 --------------------------------")
         except:
             config.stop_thread = True
+        break
 
+    while not config.stop_thread:
         pyautogui.hotkey("win", "right")
         pyautogui.hotkey("win", "right")
         print("TASK- ----- 从窗口位置已修改 --------------------------------")

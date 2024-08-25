@@ -31,6 +31,7 @@ def LogIn(Log, Hwnd):
             Wait += 1
             print("未检测到登录界面 等待:", Wait)
             time.sleep(1)
+            ctypes.windll.user32.SetForegroundWindow(Hwnd)
 
         if Wait >= 30:
             print("EROR- XXXXX 登录失败超时退出 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
@@ -48,6 +49,6 @@ def LogIn(Log, Hwnd):
             Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
         else:
             Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
-
+        time.sleep(1)
         Find_Click_screen("./pic/Main/Jinruyouxi1.png", 0.05, "点击进入游戏", "无法进入游戏")
         break

@@ -31,22 +31,38 @@ def Init():
         hwnds = Lib.Find_windows("阴阳师-网易游戏")
         if len(hwnds) == 2:
             print("INIT- ----- 已捕获到两个窗口 --------------------------------")
+        else:
+            wait = 0
+            while True:
+                try:
+                    process1 = subprocess.Popen([config.exe_path], start_new_session=True)
+                    process2 = subprocess.Popen([config.exe_path], start_new_session=True)
+                    # 等待进程启动
+                    process1.wait()
+                    process2.wait()
+                    hwnds = Lib.Find_windows("阴阳师-网易游戏")
+                    if len(hwnds) == 2:
+                        print("INIT- ----- 启动并捕获阴阳师 --------------------------------")
+                        break
+                    else:
+                        process1.kill()
+                        process2.kill()
+                        process1 = subprocess.Popen([config.exe_path], start_new_session=True)
+                        process2 = subprocess.Popen([config.exe_path], start_new_session=True)
+                        process1.wait()
+                        process2.wait()
+                        hwnds = Lib.Find_windows("阴阳师-网易游戏")
+                        wait += 1
+                        if len(hwnds) == 2:
+                            print("INIT- ----- 启动并捕获阴阳师 --------------------------------")
+                            break
+                    if wait >= 3:
+                        print("EROR- XXXXX 启动双开程序失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                        break
+                except Exception as e:
+                    print(f"启动进程或获取窗口句柄时发生异常: {e}")
     except:
         print(f"获取窗口句柄时发生异常: {e}")
-
-    try:
-        process1 = subprocess.Popen([config.exe_path])
-        process2 = subprocess.Popen([config.exe_path])
-
-        # 等待进程启动
-        process1.wait()
-        process2.wait()
-
-        hwnds = Lib.Find_windows("阴阳师-网易游戏")
-        if len(hwnds) == 2:
-            print("INIT- ----- 启动并捕获阴阳师 --------------------------------")
-    except Exception as e:
-        print(f"启动进程或获取窗口句柄时发生异常: {e}")
 
     return hwnds
 

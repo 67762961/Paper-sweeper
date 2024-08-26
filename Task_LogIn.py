@@ -23,7 +23,7 @@ def LogIn(Log, Hwnd):
 
     Wait = 0
     while True:
-        Range = Find_in_screen("./pic/Main/Jinruyouxi.png", 0.05, 0)
+        Range = Find_in_screen("./pic/Main/Dengluzhujiemian.png", 0.05, 0)
         if Range:
             print("检测到登录界面")
             break

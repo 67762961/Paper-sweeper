@@ -9,7 +9,7 @@ from Lib import Find_in_windows, Find_in_screen, Find_Click_screen
 def LogIn(Log, Hwnd):
     """
     账号的登录 默认上次登录更晚的是副账号
-    @return:    1正常0异常
+    :return:    1正常0异常
     """
     win32gui.SetWindowPos(Hwnd, 0, 960, 540, 1920, 1158, 0x0040)
     time.sleep(1)

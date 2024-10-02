@@ -9,8 +9,8 @@ from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, read_co
 def Work_Mail(Hwnd, Account):
     """
     领取邮件奖励
-    @param Hwnd:    窗口句柄
-    @return:        1为正常 0为异常
+    :param Hwnd:    窗口句柄
+    :return:        1为正常 0为异常
     """
     # 读取上次邮件领取时间
     config = read_config("./config/Last_times.json")
@@ -219,9 +219,6 @@ def MainTask_Signin(Hwnd, Account):
         print("TASK- ----- 邮件奖励领取成功 --------------------------------")
     else:
         print("EROR- XXXXX 邮件奖励领取失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-
-    # 检测是否位于庭院主界面
-    Itface_Host(Hwnd)
 
     # 开始每日签到以及福袋领取
     print("TASK- +++++ 开始领取签到奖励 ++++++++++++++++++++++++++++++++")

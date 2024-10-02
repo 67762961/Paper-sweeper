@@ -114,11 +114,11 @@ def Sign_In():
     while not config.stop_thread:
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        MainTask_Signin(hwnds[0],"master")
+        MainTask_Signin(hwnds[0], "master")
 
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        MainTask_Signin(hwnds[1],"slaves")
+        MainTask_Signin(hwnds[1], "slaves")
 
         break
 
@@ -130,11 +130,11 @@ def Sis_Foster():
     while not config.stop_thread:
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        Task_SisFoster.MainTask_Sisfoster(hwnds[0])
+        Task_SisFoster.MainTask_Sisfoster(hwnds[0], "master")
 
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        Task_SisFoster.MainTask_Sisfoster(hwnds[1])
+        Task_SisFoster.MainTask_Sisfoster(hwnds[1], "slaves")
 
         break
 
@@ -142,4 +142,4 @@ def Sis_Foster():
 def Full_operation():
     Main_Login_2()
     Sign_In()
-    #Sis_Foster()
+    Sis_Foster()

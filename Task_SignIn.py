@@ -178,6 +178,8 @@ def Work_Sign(Hwnd, Account):
     Fudai(Hwnd, Account)
     # 每日一签
     Qiandao(Hwnd, Account)
+    # 每日福袋
+    Fudai(Hwnd, Account)
 
     Itface_Host(Hwnd)
 

@@ -111,7 +111,7 @@ def Fudai(Hwnd, Account):
         time_diff = 7 * 24
 
     # 检测福袋小纸人
-    if time_diff > 12:
+    if Times_fudai.date() != current_time.date():
         if Find_Click_windows(Hwnd, "./pic/Sign/Fudaixiaozhiren.png", 0.05, "检测到福袋小纸人", "未检测到福袋小纸人"):
             # 点击福袋小人后检测领取状态
             Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
@@ -144,7 +144,7 @@ def Qiandao(Hwnd, Account):
         write_config("./config/Last_times.json", config)
         time_diff = 7 * 24
 
-    if time_diff > 12:
+    if Times_qiandao.date() != current_time.date():
         Wait = 0
         while True:
             # 检测签到小纸人

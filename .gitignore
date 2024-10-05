@@ -8,3 +8,4 @@ build
 dist
 GUI.spec
 config/Last_times.json
+config

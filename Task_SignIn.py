@@ -48,7 +48,7 @@ def Work_Mail(Hwnd, Account):
             while 1:
                 if not Find_Click_windows(Hwnd, "./pic/Mail/Xiaoxiyoujian.png", 0.05, "发现消息邮件", "未发现消息邮件"):
                     break
-            Now = current_time.isoformat()
+            Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
             config[Account]["Times_youjian"] = Now
             print(f"TIME- ----- 本次邮件领取时间: {Now}")
             write_config("./config/Last_times.json", config)
@@ -83,7 +83,7 @@ def Work_Mail(Hwnd, Account):
                 while 1:
                     if not Find_Click_windows(Hwnd, "./pic/Mail/Xiaoxiyoujian.png", 0.05, "点击消息邮件", "未发现消息邮件"):
                         break
-                Now = current_time.isoformat()
+                Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
                 config[Account]["Times_youjian"] = Now
                 print(f"TIME- ----- 本次邮件领取时间: {Now}")
                 write_config("./config/Last_times.json", config)
@@ -121,7 +121,7 @@ def Fudai(Hwnd, Account):
             Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
             print("福袋领取成功")
             # 更新配置，写入当前时间
-            Now = current_time.isoformat()
+            Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
             config[Account]["Times_fudai"] = Now
             print(f"TIME- ----- 本次福袋领取时间: {Now}")
             write_config("./config/Last_times.json", config)
@@ -160,7 +160,7 @@ def Qiandao(Hwnd, Account):
                     Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
                     print("每日一签成功")
                     if Range:
-                        Now = current_time.isoformat()
+                        Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         config[Account]["Times_qiandao"] = Now
                         print(f"TIME- ----- 本次每日一签时间: {Now}")
                         write_config("./config/Last_times.json", config)

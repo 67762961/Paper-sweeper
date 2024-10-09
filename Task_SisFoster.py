@@ -426,7 +426,7 @@ def MainTask_Sisfoster(Hwnd, Account):
         # 开始结界寄养任务
         time.sleep(0.5)
         if Work_Foster(Hwnd):
-            Now = current_time.isoformat()
+            Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
             config[Account]["Times_jiejieyangcheng"] = Now
             print(f"TIME- ----- 本次结界养成时间: {Now}")
             write_config("./config/Last_times.json", config)

@@ -216,22 +216,25 @@ def Find_Click_screen(Model_path, Threshold, message_F, message_C):
             # config.stop_thread = True
             return 0
 
+
 def read_config(FILE_PATH):
     """
     读取配置文件
     """
     if os.path.exists(FILE_PATH):
-        with open(FILE_PATH, 'r') as file:
+        with open(FILE_PATH, "r") as file:
             return json.load(file)
     return {}
 
-def write_config(FILE_PATH,data):
+
+def write_config(FILE_PATH, data):
     """
     将配置写入 JSON 文件
     """
-    with open(FILE_PATH, 'w') as file:
+    with open(FILE_PATH, "w") as file:
         json.dump(data, file, indent=4)
-        
+
+
 def Itface_Quit(Hwnd):
     """
     检测是否有退出界面 有则esc解除
@@ -280,7 +283,7 @@ def Itface_Host(Hwnd):
             Range = Find_in_windows(Hwnd, "./pic/Main/Cha.png", 0.05, 0)
             if Range:
                 # 点击弹窗插
-                Click(None, Range, 1)
+                Click(Hwnd, Range, 1)
                 print("关闭弹窗")
             else:
                 print("未检测到弹窗")

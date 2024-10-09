@@ -110,8 +110,10 @@ def Work_Foster(Hwnd):
             if Range:
                 pyautogui.press("esc")
                 print("经验酒壶提取上限")
+                return 0
             else:
                 print("经验酒壶提取成功")
+                return 1
 
         else:
             print("经验酒壶未满")
@@ -130,8 +132,10 @@ def Work_Foster(Hwnd):
                     print("经验酒壶提取上限")
                 else:
                     print("经验酒壶提取成功")
+                    return 1
             else:
                 print("未检测到经验酒壶溢出")
+                return 0
 
     def Jiejiekajiangli():
         time.sleep(1)
@@ -147,8 +151,10 @@ def Work_Foster(Hwnd):
                 print("寄养奖励领取成功")
             else:
                 print("寄养奖励领取失败")
+            return 1
         else:
             print("未检测到结界卡奖励")
+            return 0
 
     def Jiejieka():
         time.sleep(1)
@@ -363,15 +369,18 @@ def Work_Foster(Hwnd):
                     flag_Jiyang = Jiyang("./pic/Sis/5xingdouyu.png", "六星斗鱼")
                     if flag_Jiyang:
                         return 1
-        ##
 
+    # 领取寄养
     Jiyang()
-    Jiejiekajiangli()
-    Yucheng()
+    # 领取体力食盒
     Tilishihe()
-    Jinyanjiuhu()
-    Jiejieka()
-    Yucheng()
+    # 领取经验酒壶 领取后育成
+    if Jinyanjiuhu():
+        Yucheng()
+    # 领取结界卡奖励 领取后育成和重新放卡
+    if Jiejiekajiangli():
+        Yucheng()
+        Jiejieka()
 
     # 回到寮界面
     pyautogui.press("esc")

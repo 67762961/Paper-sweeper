@@ -48,7 +48,9 @@ def Work_Mail(Hwnd, Account):
             while 1:
                 if not Find_Click_windows(Hwnd, "./pic/Mail/Xiaoxiyoujian.png", 0.05, "发现消息邮件", "未发现消息邮件"):
                     break
-            config[Account]["Times_youjian"] = current_time.isoformat()
+            Now = current_time.isoformat()
+            config[Account]["Times_youjian"] = Now
+            print(f"TIME- ----- 本次邮件领取时间: {Now}")
             write_config("./config/Last_times.json", config)
             pyautogui.press("esc")
             time.sleep(0.5)
@@ -81,7 +83,9 @@ def Work_Mail(Hwnd, Account):
                 while 1:
                     if not Find_Click_windows(Hwnd, "./pic/Mail/Xiaoxiyoujian.png", 0.05, "点击消息邮件", "未发现消息邮件"):
                         break
-                config[Account]["Times_youjian"] = current_time.isoformat()
+                Now = current_time.isoformat()
+                config[Account]["Times_youjian"] = Now
+                print(f"TIME- ----- 本次邮件领取时间: {Now}")
                 write_config("./config/Last_times.json", config)
                 pyautogui.press("esc")
                 time.sleep(0.5)
@@ -117,7 +121,9 @@ def Fudai(Hwnd, Account):
             Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
             print("福袋领取成功")
             # 更新配置，写入当前时间
-            config[Account]["Times_fudai"] = current_time.isoformat()
+            Now = current_time.isoformat()
+            config[Account]["Times_fudai"] = Now
+            print(f"TIME- ----- 本次福袋领取时间: {Now}")
             write_config("./config/Last_times.json", config)
             pyautogui.press("esc")
             time.sleep(0.5)
@@ -154,7 +160,9 @@ def Qiandao(Hwnd, Account):
                     Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
                     print("每日一签成功")
                     if Range:
-                        config[Account]["Times_qiandao"] = current_time.isoformat()
+                        Now = current_time.isoformat()
+                        config[Account]["Times_qiandao"] = Now
+                        print(f"TIME- ----- 本次每日一签时间: {Now}")
                         write_config("./config/Last_times.json", config)
                     pyautogui.press("esc")
                     time.sleep(0.5)
@@ -178,6 +186,7 @@ def Work_Sign(Hwnd, Account):
     Fudai(Hwnd, Account)
     # 每日一签
     Qiandao(Hwnd, Account)
+    Itface_Host(Hwnd)
     # 每日福袋
     Fudai(Hwnd, Account)
 

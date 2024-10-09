@@ -389,6 +389,8 @@ def MainTask_Sisfoster(Hwnd, Account):
     有关结界寄养相关任务
     :param Hwnd:    窗口句柄
     """
+    print("TASK- +++++ 开始结界寄养任务 ++++++++++++++++++++++++++++++++")
+
     # 读取上次结界任务时间
     config = read_config("./config/Last_times.json")
     Times_jiejieyangcheng_str = config[Account].get("Times_jiejieyangcheng", None)
@@ -409,21 +411,18 @@ def MainTask_Sisfoster(Hwnd, Account):
         Itface_guild(Hwnd)
 
         # 开始领取工资任务
-        print("TASK- +++++ 开始领取工资任务 ++++++++++++++++++++++++++++++++")
         time.sleep(0.5)
-        if Work_Salary(Hwnd):
-            print("TASK- ----- 领取工资任务完成 --------------------------------")
-        else:
-            print("EROR- XXXXX 领取工资任务失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        Work_Salary(Hwnd)
 
         # 开始结界寄养任务
-        print("TASK- +++++ 开始结界寄养任务 ++++++++++++++++++++++++++++++++")
         time.sleep(0.5)
         if Work_Foster(Hwnd):
-            print("TASK- ----- 结界寄养任务完成 --------------------------------")
-            config[Account]["Times_jiejieyangcheng"] = current_time.isoformat()
+            Now = current_time.isoformat()
+            config[Account]["Times_jiejieyangcheng"] = Now
+            print(f"TIME- ----- 本次结界养成时间: {Now}")
             write_config("./config/Last_times.json", config)
+            print("TASK- ----- 结界寄养任务完成 --------------------------------")
         else:
             print("EROR- XXXXX 结界寄养任务失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     else:
-        print("SKIP- ----- 跳过结界养成任务")
+        print("SKIP- ----- 跳过结界养成任务 --------------------------------")

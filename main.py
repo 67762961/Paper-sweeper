@@ -12,6 +12,7 @@ import config
 import subprocess
 from Task_LogIn import LogIn
 from Task_SignIn import MainTask_Signin
+from Task_Fengmo import MainTask_Fengmo
 
 # 全局变量 窗口句柄列表
 hwnds = []
@@ -139,7 +140,24 @@ def Sis_Foster():
         break
 
 
+def Fengmo_zhishi():
+    """
+    逢魔之时
+    """
+    while not config.stop_thread:
+        print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
+        MainTask_Fengmo(hwnds[0], "master")
+
+        print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
+        MainTask_Fengmo(hwnds[1], "slaves")
+
+        break
+
+
 def Full_operation():
     Main_Login_2()
     Sign_In()
     Sis_Foster()
+    Fengmo_zhishi()

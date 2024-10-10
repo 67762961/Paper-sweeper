@@ -106,13 +106,11 @@ def Fudai(Hwnd, Account):
     current_time = datetime.now()
     if Times_fudai is not None:
         print(f"TIME- ----- 上次福袋领取时间: {Times_fudai.strftime('%Y-%m-%d %H:%M:%S')}")
-        time_diff = (current_time - Times_fudai).total_seconds() / 60 / 60
     else:
         print("TIME- ----- 没有记录上次福袋领取时间")
         one_week_ago = current_time - timedelta(weeks=1)
         config[Account]["Times_fudai"] = one_week_ago.isoformat()
         write_config("./config/Last_times.json", config)
-        time_diff = 7 * 24
 
     # 检测福袋小纸人
     if Times_fudai.date() != current_time.date():
@@ -142,13 +140,11 @@ def Qiandao(Hwnd, Account):
     current_time = datetime.now()
     if Times_qiandao is not None:
         print(f"TIME- ----- 上次签到时间: {Times_qiandao.strftime('%Y-%m-%d %H:%M:%S')}")
-        time_diff = (current_time - Times_qiandao).total_seconds() / 60 / 60
     else:
         print("TIME- ----- 没有记录上次签到时间")
         one_week_ago = current_time - timedelta(weeks=1)
         config[Account]["Times_qiandao"] = one_week_ago.isoformat()
         write_config("./config/Last_times.json", config)
-        time_diff = 7 * 24
 
     if Times_qiandao.date() != current_time.date():
         Wait = 0

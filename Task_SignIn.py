@@ -153,9 +153,10 @@ def Qiandao(Hwnd, Account):
             if Find_Click_windows(Hwnd, "./pic/Sign/Qiandaoxiaozhiren.png", 0.05, "检测到签到小纸人", "未检测到签到小纸人"):
                 # 点击签到小人后
                 if Find_Click_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, "每日一签", "签到异常"):
-                    Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
-                    print("每日一签成功")
-                    if Range:
+                    Range0 = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
+                    Range1 = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren1.png", 0.05, 0)
+                    if Range0 or Range1:
+                        print("每日一签成功")
                         Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         config[Account]["Times_qiandao"] = Now
                         print(f"TIME- ----- 本次每日一签时间: {Now}")

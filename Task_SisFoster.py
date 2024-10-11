@@ -370,6 +370,9 @@ def Work_Foster(Hwnd):
                     if flag_Jiyang:
                         return 1
 
+    # 领取寄养
+    Jiyang()
+
     # 领取结界卡奖励 领取后育成
     if Jiejiekajiangli():
         flag_Jiejieka = 1
@@ -381,8 +384,9 @@ def Work_Foster(Hwnd):
 
     # 领取体力食盒
     Tilishihe()
-    # 领取寄养 经验酒壶 领取后育成
-    if Jiyang() or Jinyanjiuhu():
+
+    # 经验酒壶 领取后育成
+    if Jinyanjiuhu():
         Yucheng()
         flag_yucheng = 1
     else:

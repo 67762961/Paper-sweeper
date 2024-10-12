@@ -18,7 +18,8 @@ def Work_Mail(Hwnd, Account):
     Times_youjian = datetime.fromisoformat(Times_youjian_str) if Times_youjian_str else None
     current_time = datetime.now()
     if Times_youjian is not None:
-        print(f"TIME- ----- 上次邮件领取时间: {Times_youjian.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"TIME- ----- 上次邮件领取时间:")
+        print(f"TIME- ----- {Times_youjian.strftime('%Y-%m-%d %H:%M:%S')}")
         time_diff = (current_time - Times_youjian).total_seconds() / 60 / 60
     else:
         print("TIME- ----- 没有记录上次邮件领取时间")
@@ -50,7 +51,8 @@ def Work_Mail(Hwnd, Account):
                     break
             Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
             config[Account]["Times_youjian"] = Now
-            print(f"TIME- ----- 本次邮件领取时间: {Now}")
+            print(f"TIME- ----- 本次邮件领取时间: ")
+            print(f"TIME- ----- {Now}")
             write_config("./config/Last_times.json", config)
             pyautogui.press("esc")
             time.sleep(0.5)
@@ -85,7 +87,8 @@ def Work_Mail(Hwnd, Account):
                         break
                 Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
                 config[Account]["Times_youjian"] = Now
-                print(f"TIME- ----- 本次邮件领取时间: {Now}")
+                print(f"TIME- ----- 本次邮件领取时间:")
+                print(f"TIME- ----- {Now}")
                 write_config("./config/Last_times.json", config)
                 pyautogui.press("esc")
                 time.sleep(0.5)
@@ -105,7 +108,8 @@ def Fudai(Hwnd, Account):
     Times_fudai = datetime.fromisoformat(Times_fudai_str) if Times_fudai_str else None
     current_time = datetime.now()
     if Times_fudai is not None:
-        print(f"TIME- ----- 上次福袋领取时间: {Times_fudai.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"TIME- ----- 上次福袋领取时间:")
+        print(f"TIME- ----- {Times_fudai.strftime('%Y-%m-%d %H:%M:%S')}")
     else:
         print("TIME- ----- 没有记录上次福袋领取时间")
         one_week_ago = current_time - timedelta(weeks=1)
@@ -121,7 +125,8 @@ def Fudai(Hwnd, Account):
             # 更新配置，写入当前时间
             Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
             config[Account]["Times_fudai"] = Now
-            print(f"TIME- ----- 本次福袋领取时间: {Now}")
+            print(f"TIME- ----- 本次福袋领取时间:")
+            print(f"TIME- ----- {Now}")
             write_config("./config/Last_times.json", config)
             pyautogui.press("esc")
             time.sleep(0.5)
@@ -143,7 +148,8 @@ def Qiandao(Hwnd, Account):
     Times_qiandao = datetime.fromisoformat(Times_qiandao_str) if Times_qiandao_str else None
     current_time = datetime.now()
     if Times_qiandao is not None:
-        print(f"TIME- ----- 上次签到时间: {Times_qiandao.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"TIME- ----- 上次签到时间:")
+        print(f"TIME- ----- {Times_qiandao.strftime('%Y-%m-%d %H:%M:%S')}")
     else:
         print("TIME- ----- 没有记录上次签到时间")
         one_week_ago = current_time - timedelta(weeks=1)
@@ -162,7 +168,8 @@ def Qiandao(Hwnd, Account):
                         print("每日一签成功")
                         Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         config[Account]["Times_qiandao"] = Now
-                        print(f"TIME- ----- 本次每日一签时间: {Now}")
+                        print(f"TIME- ----- 本次每日一签时间:")
+                        print(f"TIME- ----- {Now}")
                         write_config("./config/Last_times.json", config)
                     else:
                         print("未检测到解签小纸人")

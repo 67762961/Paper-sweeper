@@ -113,10 +113,12 @@ def Sign_In():
     邮箱奖励与庭院收菜
     """
     while not config.stop_thread:
+        print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
         MainTask_Signin(hwnds[0], "master")
 
+        print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
         MainTask_Signin(hwnds[1], "slaves")
@@ -129,10 +131,12 @@ def Sis_Foster():
     结界收菜种菜
     """
     while not config.stop_thread:
+        print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
         Task_SisFoster.MainTask_Sisfoster(hwnds[0], "master")
 
+        print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
         Task_SisFoster.MainTask_Sisfoster(hwnds[1], "slaves")
@@ -145,10 +149,12 @@ def Fengmo_zhishi():
     逢魔之时
     """
     while not config.stop_thread:
+        print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
         MainTask_Fengmo(hwnds[0], "master")
 
+        print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
         MainTask_Fengmo(hwnds[1], "slaves")

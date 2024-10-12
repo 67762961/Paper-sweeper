@@ -3,7 +3,7 @@ import pyautogui
 import ctypes
 import win32gui
 from datetime import datetime, timedelta
-from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, read_config, write_config
+from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, read_config, write_config, Itface_scroll, check_lasttime
 
 
 def Work_Mail(Hwnd, Account):
@@ -125,8 +125,12 @@ def Fudai(Hwnd, Account):
             write_config("./config/Last_times.json", config)
             pyautogui.press("esc")
             time.sleep(0.5)
+            return 1
+        else:
+            return 0
     else:
         print("SKIP- ----- 跳过领取福袋")
+        return 1
 
 
 def Qiandao(Hwnd, Account):
@@ -154,13 +158,14 @@ def Qiandao(Hwnd, Account):
                 # 点击签到小人后
                 if Find_Click_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, "每日一签", "签到异常"):
                     Range0 = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
-                    Range1 = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren1.png", 0.05, 0)
                     if Range0 or Range1:
                         print("每日一签成功")
                         Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         config[Account]["Times_qiandao"] = Now
                         print(f"TIME- ----- 本次每日一签时间: {Now}")
                         write_config("./config/Last_times.json", config)
+                    else:
+                        print("未检测到解签小纸人")
                     pyautogui.press("esc")
                     time.sleep(0.5)
                     break
@@ -173,22 +178,10 @@ def Qiandao(Hwnd, Account):
         print("SKIP- ----- 跳过每日一签")
 
 
-def Work_Sign(Hwnd, Account):
+def zhirenjiangli(Hwnd):
     """
-    签到以及领取每日福袋
-    @param Hwnd:    窗口句柄
+    体力小纸人 勾玉小纸人 buff小纸人
     """
-    Itface_Host(Hwnd)
-    # 每日福袋
-    Fudai(Hwnd, Account)
-    # 每日一签
-    Qiandao(Hwnd, Account)
-    Itface_Host(Hwnd)
-    # 每日福袋
-    Fudai(Hwnd, Account)
-
-    Itface_Host(Hwnd)
-
     # 检测体力小纸人
     if Find_Click_windows(Hwnd, "./pic/Sign/Tilixiaozhire.png", 0.05, "检测到体力小纸人", "未检测到体力小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
@@ -209,6 +202,82 @@ def Work_Sign(Hwnd, Account):
         print("BUFF领取成功")
         pyautogui.press("esc")
         time.sleep(0.5)
+
+
+def mianfeilibao(Hwnd, Account):
+    """
+    商店免费礼包
+    """
+    # 读取上次免费礼包
+    print("TIME- ----- 读取上次免费礼包时间")
+    Times_mianfeilibao = check_lasttime(Account, "Times_mianfeilibao")
+
+    current_time = datetime.now()
+
+    if Times_mianfeilibao.date() != current_time.date():
+        # 开卷轴
+        Itface_scroll(Hwnd)
+        for i in range(1):
+            if not Find_Click_windows(Hwnd, "./pic/Sign/Shangdian.png", 0.05, "进入商店", "未检测到商店"):
+                break
+            if not Find_Click_windows(Hwnd, "./pic/Sign/Libaowu.png", 0.05, "进入礼包屋", "未检测到礼包屋"):
+                break
+            if not Find_Click_windows(Hwnd, "./pic/Sign/Tuijian.png", 0.05, "进入推荐项", "未检测到推荐项"):
+                break
+            if Find_Click_windows(Hwnd, "./pic/Sign/Mianfei.png", 0.05, "领取免费礼包", "未检测到免费礼包"):
+                # 检测领取状态
+                Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
+                print("免费礼包领取成功")
+                pyautogui.press("esc")
+                time.sleep(0.5)
+                # 更新配置，写入当前时间
+                config = read_config("./config/Last_times.json")
+                Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
+                config[Account]["Times_mianfeilibao"] = Now
+                print("TIME- ----- 本次免费礼包领取时间")
+                print(f"TIME- ----- {Now}")
+                write_config("./config/Last_times.json", config)
+                # 返回庭院
+                pyautogui.press("esc")
+                time.sleep(0.5)
+                pyautogui.press("esc")
+                time.sleep(0.5)
+                Itface_Host(Hwnd)
+                return 1
+        Itface_Host(Hwnd)
+        return 0
+    else:
+        print("SKIP- ----- 跳过商店免费礼包")
+
+
+def Work_Sign(Hwnd, Account):
+    """
+    签到 福袋 纸人奖励
+    @param Hwnd:    窗口句柄
+    """
+    Itface_Host(Hwnd)
+    # 每日福袋
+    if Fudai(Hwnd, Account):
+        flag_fudai = 1
+    else:
+        flag_fudai = 0
+
+    # 每日一签
+    Qiandao(Hwnd, Account)
+    Itface_Host(Hwnd)
+
+    # 每日福袋(补)
+    if flag_fudai:
+        Fudai(Hwnd, Account)
+        Itface_Host(Hwnd)
+
+    # 纸人奖励
+    zhirenjiangli(Hwnd)
+
+    # 每日友情点
+
+    # 商店免费礼包
+    mianfeilibao(Hwnd, Account)
 
 
 def MainTask_Signin(Hwnd, Account):

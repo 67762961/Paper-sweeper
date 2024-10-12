@@ -11,6 +11,7 @@ import numpy as np
 import random
 from enum import Enum
 from PIL import ImageGrab
+from datetime import datetime
 import os
 import sys
 import config
@@ -197,7 +198,6 @@ def Find_Click_windows(Hwnd, Model_path, Threshold, message_F, message_C):
             return 1
         except:
             print(message_C)
-            time.sleep(0.5)
             # config.stop_thread = True
             return 0
 
@@ -212,7 +212,6 @@ def Find_Click_screen(Model_path, Threshold, message_F, message_C):
             return 1
         except:
             print(message_C)
-            time.sleep(0.5)
             # config.stop_thread = True
             return 0
 
@@ -233,6 +232,24 @@ def write_config(FILE_PATH, data):
     """
     with open(FILE_PATH, "w") as file:
         json.dump(data, file, indent=4)
+
+
+def check_lasttime(Account, Times_name):
+    """
+    检测上次运行的时间
+    """
+    config = read_config("./config/Last_times.json")
+    Times_need_str = config[Account].get(Times_name, None)
+    Times_need = datetime.fromisoformat(Times_need_str) if Times_need_str else None
+    if Times_need is not None:
+        print(f"TIME- ----- {Times_need.strftime('%Y-%m-%d %H:%M:%S')}")
+        return Times_need
+    else:
+        print("TIME- ----- 没有记录上次时间 已重置初始化值")
+        Initial_time = datetime(2000, 1, 1, 0, 0)
+        config[Account][Times_name] = Initial_time.isoformat()
+        write_config("./config/Last_times.json", config)
+        return Initial_time
 
 
 def Itface_Quit(Hwnd):

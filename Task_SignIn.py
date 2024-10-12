@@ -263,20 +263,17 @@ def Work_Sign(Hwnd, Account):
     @param Hwnd:    窗口句柄
     """
     Itface_Host(Hwnd)
+
     # 每日福袋
-    if Fudai(Hwnd, Account):
-        flag_fudai = 1
-    else:
-        flag_fudai = 0
+    Fudai(Hwnd, Account)
 
     # 每日一签
     Qiandao(Hwnd, Account)
     Itface_Host(Hwnd)
 
     # 每日福袋(补)
-    if flag_fudai:
-        Fudai(Hwnd, Account)
-        Itface_Host(Hwnd)
+    Fudai(Hwnd, Account)
+    Itface_Host(Hwnd)
 
     # 纸人奖励
     zhirenjiangli(Hwnd)

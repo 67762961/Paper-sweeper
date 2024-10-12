@@ -314,40 +314,51 @@ def Work_Foster(Hwnd):
                 time.sleep(0.5)
                 Range = Find_in_windows(Hwnd, Jiejieka_Model_path, 0.05, 0)
                 if Range:
-                    Click(Hwnd, Range, 1)
-                    print("检测到", end="")
-                    print(string)
-
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, 0)
-                    Click(Hwnd, Range, 2)
-                    print("点击进入结界")
-
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, 0)
-                    Click(Hwnd, Range, 1)
-                    print("进入式神列表")
-
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, 0)
-                    Click(Hwnd, Range, 1)
-                    print("选择素材")
-
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
-                    if Range:
+                    for i in range(1):
                         Click(Hwnd, Range, 1)
-                        print("放上去一个奉为达摩")
-                    else:
-                        pyautogui.scroll(-100)
-                        Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
-                        Click(Hwnd, Range, 2)
-                        print("放上去一个奉为达摩")
+                        print("检测到", end="")
+                        print(string)
 
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, 0)
-                    Click(Hwnd, Range, 1)
-                    print("点击确定")
-                    pyautogui.press("esc")
-                    time.sleep(2)
-                    pyautogui.press("esc")
-                    time.sleep(2)
-                    return 0
+                        Range = Find_in_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, 0)
+                        Click(Hwnd, Range, 2)
+                        print("点击进入结界")
+
+                        Range = Find_in_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, 0)
+                        # 处理结界被抢
+                        if Range:
+                            Click(Hwnd, Range, 1)
+                            print("进入式神列表")
+                        else:
+                            print("结界已被占用")
+                            pyautogui.press("esc")
+                            time.sleep(0.5)
+                            pyautogui.press("esc")
+                            time.sleep(1)
+                            break
+
+                        Range = Find_in_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, 0)
+                        Click(Hwnd, Range, 1)
+                        print("选择素材")
+
+                        Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
+                        if Range:
+                            Click(Hwnd, Range, 1)
+                            print("放上去一个奉为达摩")
+                        else:
+                            pyautogui.scroll(-100)
+                            Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
+                            Click(Hwnd, Range, 2)
+                            print("放上去一个奉为达摩")
+
+                        Range = Find_in_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, 0)
+                        Click(Hwnd, Range, 1)
+                        print("点击确定")
+                        pyautogui.press("esc")
+                        time.sleep(2)
+                        pyautogui.press("esc")
+                        time.sleep(2)
+                        return 0
+                    Jiyang(Jiejieka_Model_path, string)
                 else:
                     print("未检测到", end="")
                     print(string)

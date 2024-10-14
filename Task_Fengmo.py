@@ -83,22 +83,37 @@ def fengmoboss(Hwnd):
                 if Find_in_windows(Hwnd, "./pic/Fengmo/Zhengrongyushe.png", 0.05, 0):
                     print("已经进入备战场景")
                     found_battle_scene = True
-                    break
+                    return 1
                 else:
                     print("未进入备战场景")
-            # 在备战场景就退出循环
-            if found_battle_scene:
-                break
+                    pyautogui.press("esc")
+                    sleep(0.5)
+                    p = 0
 
-        # 三次寻找封魔-极无果就改换首领
-        if p == 2:
+        # 两次寻找封魔-极无果就改换首领
+        if p == 1:
             flag_Ji = False
 
-        # 在备战场景就退出循环
-        if found_battle_scene:
-            break
+        return 0
 
-    # 此处进入了打boss场景 应添加后续战斗完成的处理
+
+def Itface_daily(Hwnd):
+    """
+    循环检测多种外显的日常入口
+    """
+    for i in range(1):
+        if Find_Click_windows(Hwnd, "./pic/Main/Fengmorukou.png", 0.05, "进入逢魔入口", "未检测到逢魔入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Doujirukou.png", 0.05, "进入斗技入口", "未检测到斗技入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Yinjiezhimenrukou.png", 0.05, "进入阴界之门入口", "未检测到阴界之门入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Daoguanrukou.png", 0.05, "进入道馆入口", "未检测到道馆入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Baiguiyirukou.png", 0.05, "进入百鬼弈入口", "未检测到百鬼弈入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Xiajiananyurukou.png", 0.05, "进入狭间暗域入口", "未检测到狭间暗域入口"):
+            break
 
 
 def MainTask_Fengmo(Hwnd, Account):
@@ -115,7 +130,8 @@ def MainTask_Fengmo(Hwnd, Account):
     Times_fengmozhishi = datetime.fromisoformat(Times_fengmozhishi_str) if Times_fengmozhishi_str else None
     current_time = datetime.now()
     if Times_fengmozhishi is not None:
-        print(f"TIME- ----- 上次逢魔之时时间: {Times_fengmozhishi.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"TIME- ----- 上次逢魔之时时间:")
+        print(f"TIME- ----- {Times_fengmozhishi.strftime('%Y-%m-%d %H:%M:%S')}")
     else:
         print("TIME- ----- 没有记录上次逢魔之时时间")
         one_week_ago = current_time - timedelta(weeks=1)
@@ -128,10 +144,7 @@ def MainTask_Fengmo(Hwnd, Account):
 
         # 开始逢魔任务
         print("INFO- ----- 前往逢魔界面")
-        # ##########################################################################################################
-        # 此处有多个日常入口
-        Find_Click_windows(Hwnd, "./pic/Main/Fengmorukou.png", 0.05, "进入逢魔入口", "未检测到逢魔入口")
-        Find_Click_windows(Hwnd, "./pic/Main/Yinjiezhimenrukou.png", 0.05, "进入阴界之门入口", "未检测到阴界之门入口")
+        Itface_daily(Hwnd)
 
         Range = Find_Click_windows(Hwnd, "./pic/Fengmo/Fengmotubiao.png", 0.05, "点击逢魔图标", "未检测到逢魔图标")
         if not Range:
@@ -139,9 +152,18 @@ def MainTask_Fengmo(Hwnd, Account):
             return 0
         else:
             if Find_Click_windows(Hwnd, "./pic/Main/Qianwang.png", 0.05, "点击前往", "未检测到前往图标"):
-                sleep(2)
+                sleep(3)
                 # 先点封魔再打boss
                 meirifengmo(Hwnd)
-                fengmoboss(Hwnd)
+                if fengmoboss(Hwnd):
+                    # 更新配置，写入当前时间
+                    config = read_config("./config/Last_times.json")
+                    Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
+                    config[Account]["Times_fengmozhishi"] = Now
+                    print("TIME- ----- 本次逢魔之时完成时间")
+                    print(f"TIME- ----- {Now}")
+                    write_config("./config/Last_times.json", config)
+                ######################################################################################################################
+                # 此处进入了打boss场景 应添加后续战斗完成的处理
     else:
         print("SKIP- ----- 跳过逢魔之时")

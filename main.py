@@ -103,6 +103,7 @@ def Main_Login_2():
 
     while not config.stop_thread:
         pyautogui.hotkey("win", "right")
+        time.sleep(0.5)
         pyautogui.hotkey("win", "left")
         print("TASK- ----- 主窗口位置已修改 --------------------------------")
         break
@@ -120,6 +121,7 @@ def Main_Login_2():
 
     while not config.stop_thread:
         pyautogui.hotkey("win", "right")
+        time.sleep(0.5)
         pyautogui.hotkey("win", "right")
         print("TASK- ----- 从窗口位置已修改 --------------------------------")
 

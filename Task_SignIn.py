@@ -163,16 +163,19 @@ def Qiandao(Hwnd, Account):
             if Find_Click_windows(Hwnd, "./pic/Sign/Qiandaoxiaozhiren.png", 0.05, "检测到签到小纸人", "未检测到签到小纸人"):
                 # 点击签到小人后
                 if Find_Click_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, "每日一签", "签到异常"):
-                    Range0 = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
-                    if Range0 or Range1:
-                        print("每日一签成功")
-                        Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
-                        config[Account]["Times_qiandao"] = Now
-                        print(f"TIME- ----- 本次每日一签时间:")
-                        print(f"TIME- ----- {Now}")
-                        write_config("./config/Last_times.json", config)
-                    else:
-                        print("未检测到解签小纸人")
+                    for i in range(1):
+                        Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
+                        if Range:
+                            print("检测到解签小纸人，每日一签成功")
+                            Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
+                            config[Account]["Times_qiandao"] = Now
+                            print(f"TIME- ----- 本次每日一签时间:")
+                            print(f"TIME- ----- {Now}")
+                            write_config("./config/Last_times.json", config)
+                        else:
+                            print("未检测到解签小纸人")
+                            pyautogui.press("esc")
+                            time.sleep(0.5)
                     pyautogui.press("esc")
                     time.sleep(0.5)
                     break

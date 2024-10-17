@@ -405,6 +405,14 @@ def Work_Foster(Hwnd):
 
     if flag_Jiejieka == 1:
         Jiejieka()
+    else:
+        # 新增结界卡运行判据 防止一直不填结界卡
+        Range = Find_in_windows(Hwnd, "./pic/Sis/Jiejiekayunxing.png", 0.05, 0)
+        if Range:
+            print("结界卡依旧生效")
+        else:
+            print("结界卡似乎已耗尽")
+            Jiejieka()
 
     # 保底寄养一次
     if not flag_yucheng:

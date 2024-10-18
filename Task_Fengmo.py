@@ -94,7 +94,7 @@ def fengmoboss(Hwnd):
         if p == 1:
             flag_Ji = False
 
-        return 0
+    return 0
 
 
 def Itface_daily(Hwnd):
@@ -157,14 +157,16 @@ def MainTask_Fengmo(Hwnd, Account):
                 sleep(3)
                 # 先点封魔再打boss
                 meirifengmo(Hwnd)
-                if fengmoboss(Hwnd):
-                    # 更新配置，写入当前时间
-                    config = read_config("./config/Last_times.json")
-                    Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
-                    config[Account]["Times_fengmozhishi"] = Now
-                    print("TIME- ----- 本次逢魔之时完成时间")
-                    print(f"TIME- ----- {Now}")
-                    write_config("./config/Last_times.json", config)
+                for i in range(3):
+                    if fengmoboss(Hwnd):
+                        # 更新配置，写入当前时间
+                        config = read_config("./config/Last_times.json")
+                        Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
+                        config[Account]["Times_fengmozhishi"] = Now
+                        print("TIME- ----- 本次逢魔之时完成时间")
+                        print(f"TIME- ----- {Now}")
+                        write_config("./config/Last_times.json", config)
+                        break
                 ######################################################################################################################
                 # 此处进入了打boss场景 应添加后续战斗完成的处理
     else:

@@ -296,6 +296,11 @@ def MainTask_Signin(Hwnd, Account):
     # 检测是否位于庭院主界面
     Itface_Host(Hwnd)
 
+    # 开始每日签到以及福袋领取
+    print("TASK- +++++ 开始领取签到奖励 ++++++++++++++++++++++++++++++++")
+    Work_Sign(Hwnd, Account)
+    print("TASK- ----- 领取签到奖励成功 --------------------------------")
+
     # 开始领取邮件奖励
     print("TASK- +++++ 开始领取邮件奖励 ++++++++++++++++++++++++++++++++")
     time.sleep(0.5)
@@ -303,8 +308,3 @@ def MainTask_Signin(Hwnd, Account):
         print("TASK- ----- 邮件奖励领取成功 --------------------------------")
     else:
         print("EROR- XXXXX 邮件奖励领取失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-
-    # 开始每日签到以及福袋领取
-    print("TASK- +++++ 开始领取签到奖励 ++++++++++++++++++++++++++++++++")
-    Work_Sign(Hwnd, Account)
-    print("TASK- ----- 领取签到奖励成功 --------------------------------")

@@ -333,7 +333,7 @@ def Work_Foster(Hwnd):
                             pyautogui.press("esc")
                             time.sleep(0.5)
                             pyautogui.press("esc")
-                            time.sleep(1)
+                            time.sleep(2)
                             break
 
                         Range = Find_in_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, 0)

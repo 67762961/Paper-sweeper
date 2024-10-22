@@ -260,6 +260,94 @@ def mianfeilibao(Hwnd, Account):
         print("SKIP- ----- 跳过商店免费礼包")
 
 
+def youqingdain(Hwnd, Account):
+    """
+    每日友情点以及吉闻祝福
+    """
+    # 读取上次友情点时间
+    print("TIME- ----- 读取上次友情点时间")
+    Times_youqingdian = check_lasttime(Account, "Times_youqingdian")
+    current_time = datetime.now()
+
+    # 今日运行过则跳过
+    if Times_youqingdian.date() == current_time.date():
+        print("SKIP- ----- 跳过友情点任务")
+    # 运行友情点任务
+    else:
+        # 开卷轴
+        Itface_scroll(Hwnd)
+
+        current_state = "庭院"
+        flag_jiwen = 0
+        flag_youqingdian = 0
+        for i in range(10):
+            match current_state:
+                case "庭院":
+                    Find = Find_Click_windows(Hwnd, "./pic/Sign/Haoyou.png", 0.05, "进入好友界面", "未检测到好友界面")
+                    if Find:
+                        current_state = "好友界面"
+                    else:
+                        current_state = "end"
+                case "好友界面":
+                    if not flag_jiwen:
+                        Find = Find_Click_windows(Hwnd, "./pic/Sign/Jiwen.png", 0.05, "进入吉闻界面", "未检测到吉闻界面")
+                        if Find:
+                            current_state = "吉闻界面"
+                        else:
+                            current_state = "好友界面"
+                    else:
+                        Find = Find_Click_windows(Hwnd, "./pic/Sign/Youqingdianqiehuan.png", 0.05, "进入友情点界面", "未检测到友情点界面")
+                        if Find:
+                            current_state = "友情点界面"
+                        else:
+                            current_state = "好友界面"
+                case "吉闻界面":
+                    Find_Click_windows(Hwnd, "./pic/Sign/Yijianzhufu.png", 0.05, "一键祝福", "未检测到一键祝福")
+                    if Find:
+                        current_state = "祝福界面"
+                    else:
+                        current_state = "吉闻界面"
+                case "祝福界面":
+                    Find_Click_windows(Hwnd, "./pic/Sign/Zhufu.png", 0.05, "祝福", "未检测到祝福")
+                    if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+                        print("一键祝福成功")
+                        flag_jiwen = 1
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
+                    else:
+                        print("一键祝福似乎未成功")
+                    pyautogui.press("esc")
+                    time.sleep(0.5)
+                    current_state = "好友界面"
+                case "友情点界面":
+                    Find = Find_Click_windows(Hwnd, "./pic/Sign/Yijianshouqu.png", 0.05, "一键收取", "未检测到一键收取")
+                    if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+                        print("一键收取成功")
+                        flag_youqingdian = 1
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
+                        current_state = "end"
+                    else:
+                        print("一键收取似乎未成功")
+                case "end":
+                    if flag_youqingdian and flag_jiwen:
+                        # 更新配置，写入当前时间
+                        config = read_config("./config/Last_times.json")
+                        Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
+                        config[Account]["Times_youqingdian"] = Now
+                        print("TIME- ----- 本次友情点任务时间")
+                        print(f"TIME- ----- {Now}")
+                        write_config("./config/Last_times.json", config)
+                        # 退至庭院
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
+                        Itface_Host(Hwnd)
+                        return 1
+
+        Itface_Host(Hwnd)
+        return 0
+
+
 def Work_Sign(Hwnd, Account):
     """
     签到 福袋 纸人奖励
@@ -281,10 +369,11 @@ def Work_Sign(Hwnd, Account):
     # 纸人奖励
     zhirenjiangli(Hwnd)
 
-    # 每日友情点
-
     # 商店免费礼包
     mianfeilibao(Hwnd, Account)
+
+    # 每日友情点
+    youqingdain(Hwnd, Account)
 
 
 def MainTask_Signin(Hwnd, Account):

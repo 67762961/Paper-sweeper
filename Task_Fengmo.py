@@ -116,6 +116,8 @@ def Itface_daily(Hwnd):
             break
         if Find_Click_windows(Hwnd, "./pic/Main/Qilinrukou.png", 0.05, "进入麒麟入口", "未检测到麒麟入口"):
             break
+        if Find_Click_windows(Hwnd, "./pic/Main/Yanhuirukou.png", 0.05, "进入宴会入口", "未检测到宴会入口"):
+            break
 
 
 def MainTask_Fengmo(Hwnd, Account):

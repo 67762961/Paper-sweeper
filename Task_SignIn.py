@@ -180,7 +180,7 @@ def Qiandao(Hwnd, Account):
                     time.sleep(0.5)
                     break
             else:
-                # time.sleep(0.5)
+                time.sleep(0.1)
                 Wait += 1
                 if Wait >= 3:
                     break

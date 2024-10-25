@@ -232,8 +232,10 @@ def mianfeilibao(Hwnd, Account):
                 break
             if not Find_Click_windows(Hwnd, "./pic/Sign/Libaowu.png", 0.05, "进入礼包屋", "未检测到礼包屋"):
                 break
-            if not Find_Click_windows(Hwnd, "./pic/Sign/Tuijian.png", 0.05, "进入推荐项", "未检测到推荐项"):
-                break
+
+            # 此步骤有时候可跳过
+            Find_Click_windows(Hwnd, "./pic/Sign/Tuijian.png", 0.05, "进入推荐项", "未检测到推荐项")
+
             if Find_Click_windows(Hwnd, "./pic/Sign/Mianfei.png", 0.05, "领取免费礼包", "未检测到免费礼包"):
                 # 检测领取状态
                 Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
@@ -385,11 +387,6 @@ def MainTask_Signin(Hwnd, Account):
     # 检测是否位于庭院主界面
     Itface_Host(Hwnd)
 
-    # 开始每日签到以及福袋领取
-    print("TASK- +++++ 开始领取签到奖励 ++++++++++++++++++++++++++++++++")
-    Work_Sign(Hwnd, Account)
-    print("TASK- ----- 领取签到奖励成功 --------------------------------")
-
     # 开始领取邮件奖励
     print("TASK- +++++ 开始领取邮件奖励 ++++++++++++++++++++++++++++++++")
     time.sleep(0.5)
@@ -397,3 +394,8 @@ def MainTask_Signin(Hwnd, Account):
         print("TASK- ----- 邮件奖励领取成功 --------------------------------")
     else:
         print("EROR- XXXXX 邮件奖励领取失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+    # 开始每日签到以及福袋领取
+    print("TASK- +++++ 开始领取签到奖励 ++++++++++++++++++++++++++++++++")
+    Work_Sign(Hwnd, Account)
+    print("TASK- ----- 领取签到奖励成功 --------------------------------")

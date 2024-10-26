@@ -304,11 +304,14 @@ def youqingdain(Hwnd, Account):
                         else:
                             current_state = "好友界面"
                 case "吉闻界面":
-                    Find_Click_windows(Hwnd, "./pic/Sign/Yijianzhufu.png", 0.05, "一键祝福", "未检测到一键祝福")
+                    Find = Find_Click_windows(Hwnd, "./pic/Sign/Yijianzhufu.png", 0.05, "一键祝福", "未检测到一键祝福")
                     if Find:
                         current_state = "祝福界面"
                     else:
-                        current_state = "吉闻界面"
+                        current_state = "好友界面"
+                        flag_jiwen = 1
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
                 case "祝福界面":
                     Find_Click_windows(Hwnd, "./pic/Sign/Zhufu.png", 0.05, "祝福", "未检测到祝福")
                     if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):

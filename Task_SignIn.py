@@ -319,10 +319,19 @@ def youqingdain(Hwnd, Account):
                         flag_jiwen = 1
                         pyautogui.press("esc")
                         time.sleep(0.5)
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
                     else:
                         print("一键祝福似乎未成功")
-                    pyautogui.press("esc")
-                    time.sleep(0.5)
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
+                        Find = Find_in_windows(Hwnd, "./pic/Sign/Jiwen.png", 0.05, 0)
+                        if not Find:
+                            print("退出吉闻界面异常")
+                            pyautogui.press("esc")
+                            time.sleep(0.5)
+                        else:
+                            print("已正常退出吉闻界面")
                     current_state = "好友界面"
                 case "友情点界面":
                     Find = Find_Click_windows(Hwnd, "./pic/Sign/Yijianshouqu.png", 0.05, "一键收取", "未检测到一键收取")

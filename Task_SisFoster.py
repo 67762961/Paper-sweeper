@@ -469,6 +469,7 @@ def MainTask_Sisfoster(Hwnd, Account):
             print(f"TIME- ----- {Now}")
             write_config("./config/Last_times.json", config)
             print("TASK- ----- 结界寄养任务完成 --------------------------------")
+            time.sleep(2)
         else:
             print("EROR- XXXXX 结界寄养任务失败 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     else:

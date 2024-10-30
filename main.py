@@ -171,13 +171,13 @@ def Fengmo_zhishi():
     while not config.stop_thread:
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        MainTask_Fengmo(hwnds[0], "master")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
+        MainTask_Fengmo(hwnds[1], "slaves")
 
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        MainTask_Fengmo(hwnds[1], "slaves")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
+        MainTask_Fengmo(hwnds[0], "master")
 
         break
 

@@ -3,7 +3,7 @@ import pyautogui
 import ctypes
 import win32gui
 import config
-from Lib import Find_in_windows, Find_in_screen, Find_Click_screen
+from Lib import Find_in_windows, Find_in_screen, Find_Click_screen, Click
 
 
 def LogIn(Log, Hwnd):
@@ -46,9 +46,20 @@ def LogIn(Log, Hwnd):
 
             # 注：此处条件可以极为苛刻 一般识别取值为0.000
             Find_Click_screen("./pic/Main/Zhuzhanghao.png", 0.005, "选择主账号", "无法识别主账号区域")
+            time.sleep(1)
             Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
         else:
             Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
         time.sleep(1)
-        Find_Click_screen("./pic/Main/Jinruyouxi1.png", 0.05, "点击进入游戏", "无法进入游戏")
+        Find = Find_in_screen("./pic/Main/Jinruyouxi1.png", 0.05, 0)
+        if not Find:
+            print("无法识别 尝试坐标点击")
+            # 坐标法
+            Range = ((828, 907), (1112, 1007))
+            Click(Hwnd, Range, 1)
+            return 1
+        else:
+            print("识别进入游戏")
+            Click(Hwnd, Find, 1)
+            return 1
         break

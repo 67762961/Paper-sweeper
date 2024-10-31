@@ -173,6 +173,7 @@ def Click(Hwnd, Loc, Wait):
     if Hwnd:
         # 计算点击区域在窗口内的绝对坐标
         window_x, window_y, _, _ = win32gui.GetWindowRect(Hwnd)
+        ctypes.windll.user32.SetForegroundWindow(Hwnd)
     else:
         window_x, window_y = 0, 0
 
@@ -328,7 +329,7 @@ def Itface_scroll(Hwnd):
     Range = Find_in_windows(Hwnd, "./pic/Thr/Shishenlu.png", 0.05, 0)
     if not Range:
         print("检测到卷轴尚未打开 点击打开卷轴")
-        # 坐标点击展开卷轴
+        # 坐标法点击展开卷轴
         Range = ((1780, 970), (1910, 1120))
         Click(Hwnd, Range, 2)
 

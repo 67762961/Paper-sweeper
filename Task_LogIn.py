@@ -49,6 +49,7 @@ def LogIn(Log, Hwnd):
             time.sleep(1)
             Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
         else:
+            time.sleep(1)
             Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
         time.sleep(1)
         Find = Find_in_screen("./pic/Main/Jinruyouxi1.png", 0.05, 0)

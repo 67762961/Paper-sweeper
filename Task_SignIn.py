@@ -232,7 +232,8 @@ def mianfeilibao(Hwnd, Account):
             if not Find_Click_windows(Hwnd, "./pic/Sign/Shangdian.png", 0.05, "进入商店", "未检测到商店"):
                 break
             if not Find_Click_windows(Hwnd, "./pic/Sign/Libaowu.png", 0.05, "进入礼包屋", "未检测到礼包屋"):
-                break
+                if not Find_Click_windows(Hwnd, "./pic/Sign/Libaowu1.png", 0.05, "进入礼包屋", "未检测到礼包屋"):
+                    break
 
             # 此步骤有时候可跳过
             Find_Click_windows(Hwnd, "./pic/Sign/Tuijian.png", 0.05, "进入推荐项", "未检测到推荐项")

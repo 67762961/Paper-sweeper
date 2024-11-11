@@ -37,7 +37,9 @@ def meirifengmo(Hwnd):
                     break
                 else:
                     print("逢魔奖励未正确领取")
+                    sleep(0.1)
             break
+
 
 def fengmoboss(Hwnd):
     """

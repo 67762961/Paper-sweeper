@@ -183,7 +183,7 @@ def Qiandao(Hwnd, Account):
             else:
                 time.sleep(0.1)
                 Wait += 1
-                if Wait >= 3:
+                if Wait >= 5:
                     break
     else:
         print("SKIP- ----- 跳过每日一签")

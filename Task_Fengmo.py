@@ -9,6 +9,15 @@ from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_
 
 
 def meirifengmo(Hwnd):
+    for i in range(3):
+        Find = Find_in_windows(Hwnd, "./pic/Fengmo/Dingwei.png", 0.05, 0)
+        if Find:
+            print("已进入逢魔地图界面")
+            break
+        else:
+            print("未进入逢魔地图界面 等待10s")
+            sleep(10)
+
     # 点四下逢魔
     while True:
         Range = Find_in_windows(Hwnd, "./pic/Fengmo/Fengmocishu.png", 0.03, 0)

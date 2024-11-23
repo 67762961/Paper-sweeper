@@ -31,7 +31,7 @@ def meirifengmo(Hwnd):
             else:
                 print("逢魔奖励领取失败")
         else:
-            for j in range(5):
+            for j in range(10):
                 if Find_in_windows(Hwnd, "./pic/Fengmo/Fengmojiangliyilingqu.png", 0.05, 0):
                     print("逢魔奖励已经被领取")
                     break

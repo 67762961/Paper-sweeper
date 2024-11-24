@@ -5,7 +5,7 @@ import win32gui
 import config
 from time import sleep
 from datetime import datetime, timedelta, time
-from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, read_config, write_config
+from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, Itface_daily, read_config, write_config
 
 
 def meirifengmo(Hwnd):
@@ -107,29 +107,6 @@ def fengmoboss(Hwnd):
             flag_Ji = False
 
     return 0
-
-
-def Itface_daily(Hwnd):
-    """
-    循环检测多种外显的日常入口
-    """
-    for i in range(1):
-        if Find_Click_windows(Hwnd, "./pic/Main/Fengmorukou.png", 0.05, "进入逢魔入口", "未检测到逢魔入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Doujirukou.png", 0.05, "进入斗技入口", "未检测到斗技入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Yinjiezhimenrukou.png", 0.05, "进入阴界之门入口", "未检测到阴界之门入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Daoguanrukou.png", 0.05, "进入道馆入口", "未检测到道馆入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Baiguiyirukou.png", 0.05, "进入百鬼弈入口", "未检测到百鬼弈入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Xiajiananyurukou.png", 0.05, "进入狭间暗域入口", "未检测到狭间暗域入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Qilinrukou.png", 0.05, "进入麒麟入口", "未检测到麒麟入口"):
-            break
-        if Find_Click_windows(Hwnd, "./pic/Main/Yanhuirukou.png", 0.05, "进入宴会入口", "未检测到宴会入口"):
-            break
 
 
 def MainTask_Fengmo(Hwnd, Account):

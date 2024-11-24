@@ -363,3 +363,43 @@ def Itface_guild(Hwnd):
     else:
         print("进入阴阳寮失败")
         return 0
+
+
+def Itface_daily(Hwnd):
+    """
+    循环检测多种外显的日常入口
+    """
+    for i in range(1):
+        if Find_Click_windows(Hwnd, "./pic/Main/Fengmorukou.png", 0.05, "进入逢魔入口", "未检测到逢魔入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Doujirukou.png", 0.05, "进入斗技入口", "未检测到斗技入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Yinjiezhimenrukou.png", 0.05, "进入阴界之门入口", "未检测到阴界之门入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Daoguanrukou.png", 0.05, "进入道馆入口", "未检测到道馆入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Baiguiyirukou.png", 0.05, "进入百鬼弈入口", "未检测到百鬼弈入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Xiajiananyurukou.png", 0.05, "进入狭间暗域入口", "未检测到狭间暗域入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Qilinrukou.png", 0.05, "进入麒麟入口", "未检测到麒麟入口"):
+            break
+        if Find_Click_windows(Hwnd, "./pic/Main/Yanhuirukou.png", 0.05, "进入宴会入口", "未检测到宴会入口"):
+            break
+
+
+def Itface_explore(Hwnd):
+    """
+    位于庭院时 进入探索界面
+    param Hwnd:    窗口句柄
+    """
+    # 检测是否位于庭院主界面
+    Itface_Host(Hwnd)
+    Find = Find_Click_windows(Hwnd, "./pic/Main/Feng.png", 0.05, "进入悬赏封印界面", "未进入悬赏封印界面")
+    if not Find:
+        Find_Click_windows(Hwnd, "./pic/Main/Feng.png", 0.05, "进入悬赏封印界面", "未进入悬赏封印界面")
+
+    Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangxing.png", 0.05, "点击悬赏星", "未检测到悬赏星")
+    Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangqianwang.png", 0.05, "进入探索地图界面", "未进入探索地图界面")
+    time.sleep(2)
+    pyautogui.press("esc")

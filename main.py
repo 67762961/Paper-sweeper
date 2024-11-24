@@ -15,6 +15,7 @@ import datetime
 from Task_LogIn import LogIn
 from Task_SignIn import MainTask_Signin
 from Task_Fengmo import MainTask_Fengmo
+from Task_Digui import MainTask_Digui
 from contextlib import redirect_stdout
 
 # 全局变量 窗口句柄列表
@@ -182,6 +183,24 @@ def Fengmo_zhishi():
         break
 
 
+def Diyu_guiwang():
+    """
+    逢魔之时
+    """
+    while not config.stop_thread:
+        print()
+        print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
+        MainTask_Digui(hwnds[1], "slaves")
+
+        print()
+        print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
+        MainTask_Digui(hwnds[0], "master")
+
+        break
+
+
 def Full_operation():
     # 获取当前日期和时间，用于生成唯一的文件名
     now = datetime.datetime.now()
@@ -205,6 +224,7 @@ def Full_operation():
             Main_Login_2()
             Sign_In()
             Sis_Foster()
+            # Diyu_guiwang()
             Fengmo_zhishi()
             print("MAIN- ~~~~ 完整运行流程结束 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 

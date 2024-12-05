@@ -46,7 +46,7 @@ def meirifengmo(Hwnd):
                     break
                 else:
                     print("逢魔奖励未正确领取")
-                    sleep(0.1)
+                    sleep(0.5)
             break
 
 

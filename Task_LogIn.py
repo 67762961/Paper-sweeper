@@ -46,12 +46,12 @@ def LogIn(Log, Hwnd):
 
             # 注：此处条件可以极为苛刻 一般识别取值为0.000
             Find_Click_screen("./pic/Main/Zhuzhanghao.png", 0.005, "选择主账号", "无法识别主账号区域")
-            time.sleep(1)
+            time.sleep(2)
             Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
         else:
-            time.sleep(1)
+            time.sleep(2)
             Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
-        time.sleep(1)
+        time.sleep(3)
         Find = Find_in_screen("./pic/Main/Jinruyouxi1.png", 0.05, 0)
         if not Find:
             print("无法识别 尝试坐标点击")

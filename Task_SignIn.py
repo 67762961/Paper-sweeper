@@ -163,7 +163,7 @@ def Qiandao(Hwnd, Account):
             if Find_Click_windows(Hwnd, "./pic/Sign/Qiandaoxiaozhiren.png", 0.05, "检测到签到小纸人", "未检测到签到小纸人"):
                 # 点击签到小人后
                 if Find_Click_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, "每日一签", "签到异常"):
-                    for i in range(1):
+                    for i in range(2):
                         time.sleep(0.5)
                         Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
                         if Range:

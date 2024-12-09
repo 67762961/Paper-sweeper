@@ -298,7 +298,7 @@ def Itface_Host(Hwnd):
             Itface_Quit(Hwnd)
 
             # 检测弹窗
-            Range = Find_in_windows(Hwnd, "./pic/Main/Cha.png", 0.05, 0)
+            Range = Find_in_windows(Hwnd, "./pic/Main/Cha.png", 0.06, 0)
             if Range:
                 # 点击弹窗插
                 Click(Hwnd, Range, 1)

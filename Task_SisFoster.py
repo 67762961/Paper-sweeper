@@ -315,7 +315,7 @@ def Work_Foster(Hwnd):
                 Range = Find_in_windows(Hwnd, Jiejieka_Model_path, 0.05, 0)
                 if Range:
                     for i in range(1):
-                        time.sleep(0.5)
+                        time.sleep(1)
                         Click(Hwnd, Range, 1)
                         print("检测到", end="")
                         print(string)

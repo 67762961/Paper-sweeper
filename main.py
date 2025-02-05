@@ -103,8 +103,10 @@ def Main_Login_2():
         break
 
     while not config.stop_thread:
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
         pyautogui.hotkey("win", "right")
         time.sleep(0.5)
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
         pyautogui.hotkey("win", "left")
         print("TASK- ----- 主窗口位置已修改 --------------------------------")
         break
@@ -121,8 +123,10 @@ def Main_Login_2():
         break
 
     while not config.stop_thread:
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
         pyautogui.hotkey("win", "right")
         time.sleep(0.5)
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
         pyautogui.hotkey("win", "right")
         print("TASK- ----- 从窗口位置已修改 --------------------------------")
 

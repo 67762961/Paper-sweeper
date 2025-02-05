@@ -35,6 +35,7 @@ def meirifengmo(Hwnd):
         if flag:
             if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("逢魔奖励领取成功")
+                ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pyautogui.press("esc")
                 break
             else:
@@ -98,6 +99,7 @@ def fengmoboss(Hwnd):
                     return 1
                 else:
                     print("未进入备战场景")
+                    ctypes.windll.user32.SetForegroundWindow(Hwnd)
                     pyautogui.press("esc")
                     sleep(0.5)
                     p = 0

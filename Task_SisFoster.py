@@ -14,31 +14,24 @@ def Work_Salary(Hwnd):
     :return:        1正常0异常
     """
     # 领取阴阳寮奖励
-    Range = Find_in_windows(Hwnd, "./pic/Sis/Jinbigongzi.png", 0.05, 0)
-    if Range:
-        Click(Hwnd, Range, 1)
-        print("点击工资")
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Lingqu.png", 0.05, 0)
-        Click(Hwnd, Range, 1)
-        print("领取工资")
-        Range = Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
-        print("领取体力工资成功")
-        pyautogui.press("esc")
-        time.sleep(0.5)
-    else:
-        print("未检测到工资")
+    for i in range(1):
+        if not Find_Click_windows(Hwnd, "./pic/Sis/Jinbigongzi.png", 0.05, "点击工资", "未检测到工资"):
+            break
+        Find_Click_windows(Hwnd, "./pic/Sis/Lingqu.png", 0.05, "领取工资", "领取工资异常")
 
-    Range = Find_in_windows(Hwnd, "./pic/Sis/Tiligongzi.png", 0.05, 0)
-    if Range:
-        Click(Hwnd, Range, 1)
-        print("领取体力工资")
-        Range = Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
-        print("领取体力工资成功")
-        pyautogui.press("esc")
-        time.sleep(0.5)
-    else:
-        print("未检测到体力工资")
-    return 1
+        if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+            print("领取体力工资成功")
+            pyautogui.press("esc")
+            time.sleep(0.5)
+
+    for i in range(1):
+        if not Find_Click_windows(Hwnd, "./pic/Sis/Tiligongzi.png", 0.05, "领取体力工资", "未检测到体力工资"):
+            break
+
+        if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+            print("领取体力工资成功")
+            pyautogui.press("esc")
+            time.sleep(0.5)
 
 
 def Work_Foster(Hwnd):
@@ -47,270 +40,175 @@ def Work_Foster(Hwnd):
     :param Hwnd:    窗口句柄
     :return:        1正常0异常
     """
-    time.sleep(1)
+
     # 进入结界
-    Range = Find_in_windows(Hwnd, "./pic/Sis/Jiejie.png", 0.05, 0)
-    if Range:
-        Click(Hwnd, Range, 1)
-        print("进入结界")
-        time.sleep(1)
-    else:
-        print("未检测到结界入口")
-        return 0
+    Find_Click_windows(Hwnd, "./pic/Sis/Jiejie.png", 0.05, "进入结界", "未检测到结界入口")
+    time.sleep(3)
 
     def Jiyang():
         # 检测寄养奖励
-        time.sleep(1)
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Jiyangjingyan.png", 0.05, 0)
-        if Range:
-            Click(Hwnd, Range, 1)
-            print("检测到寄养奖励")
-            time.sleep(0.5)
-            Range = Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
-            print("寄养奖励领取成功")
-            pyautogui.press("esc")
-            time.sleep(0.5)
-        else:
-            print("未检测到寄养奖励")
+        for i in range(1):
+            if not Find_Click_windows(Hwnd, "./pic/Sis/Jiyangjingyan.png", 0.05, "检测到寄养奖励", "未检测到寄养奖励"):
+                break
+
+            if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+                print("寄养奖励领取成功")
+                pyautogui.press("esc")
+                time.sleep(0.5)
+            else:
+                print("寄养奖励领取失败")
 
     def Tilishihe():
-        time.sleep(1)
+        time.sleep(0.5)
         # 检测体力食盒
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Tilingshihe.png", 0.05, 0)
-        if Range:
-            Click(Hwnd, Range, 1)
-            print("检测到体力食盒")
+        for i in range(1):
+            if not Find_Click_windows(Hwnd, "./pic/Sis/Tilingshihe.png", 0.05, "检测到体力食盒", "未检测到体力食盒溢出"):
+                break
 
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Quchu.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("取出体力食盒")
+            Find_Click_windows(Hwnd, "./pic/Sis/Quchu.png", 0.05, "取出体力食盒", "取出体力食盒异常")
 
-            Range = Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
-            print("体力食盒领取成功")
-            pyautogui.press("esc")
-            time.sleep(0.5)
-            pyautogui.press("esc")
-            time.sleep(0.5)
-        else:
-            print("未检测到体力食盒溢出")
+            if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+                print("体力食盒领取成功")
+                pyautogui.press("esc")
+                time.sleep(0.5)
+                pyautogui.press("esc")
+                time.sleep(0.5)
+                return 1
+            else:
+                print("寄养奖励领取失败")
 
     def Jinyanjiuhu():
         time.sleep(1)
         # 检测经验酒壶
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Jingyanjiuhu.png", 0.05, 0)
+        if not Find_Click_windows(Hwnd, "./pic/Sis/Jingyanjiuhu.png", 0.05, "检测到经验酒壶满", "经验酒壶未满"):
+            Find_Click_windows(Hwnd, "./pic/Sis/Jinyanjiuhu0.png", 0.05, "检测到有经验酒壶", "未检测到经验酒壶")
+
+        Find_Click_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, "提取满的经验酒壶", "经验酒壶未满")
+        Range = Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
         if Range:
-            Click(Hwnd, Range, 1)
-            print("检测到经验酒壶满")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("提取满的经验酒壶")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
-            if Range:
-                pyautogui.press("esc")
-                print("经验酒壶提取上限")
-                return 0
-            else:
-                print("经验酒壶提取成功")
-                return 1
-
+            pyautogui.press("esc")
+            print("经验酒壶提取上限")
         else:
-            print("经验酒壶未满")
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Jinyanjiuhu0.png", 0.05, 0)
-            if Range:
-                Click(Hwnd, Range, 1)
-                print("检测到有经验酒壶")
-
-                Range = Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
-                Click(Hwnd, Range, 1)
-                print("提取经验酒壶")
-
-                Range = Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
-                if Range:
-                    pyautogui.press("esc")
-                    print("经验酒壶提取上限")
-                else:
-                    print("经验酒壶提取成功")
-                    return 1
-            else:
-                print("未检测到经验酒壶溢出")
-                return 0
+            print("经验酒壶提取成功")
+            return 1
 
     def Jiejiekajiangli():
         time.sleep(1)
         # 检测太鼓奖励
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Jiejiekajiangli.png", 0.05, 0)
-        if Range:
-            Click(Hwnd, Range, 1)
-            print("检测到结界卡奖励 点击领取")
-            time.sleep(1)
+        for i in range(1):
+            if not Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekajiangli.png", 0.05, "检测到结界卡奖励 点击领取", "未检测到结界卡奖励"):
+                break
 
-            Range = Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
-            if not Range:
+            if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("寄养奖励领取成功")
+                return 1
             else:
                 print("寄养奖励领取失败")
-            return 1
-        else:
-            print("未检测到结界卡奖励")
-            return 0
 
     def Jiejieka():
         time.sleep(1)
         # 进入结界卡界面
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Jiejieka.png", 0.07, 0)
-        if Range:
-            Click(Hwnd, Range, 1)
-            print("进入结界卡界面")
-            time.sleep(1)
-        else:
-            print("未进入结界卡界面")
-            return 0
+        for i in range(3):
+            if Find_Click_windows(Hwnd, "./pic/Sis/Jiejieka.png", 0.07, "进入结界卡界面", "未进入结界卡界面"):
+                break
 
         time.sleep(1)
         # 放置结界卡
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Jiejiekacao.png", 0.05, 0)
-        if not Range:
-            print("结界卡未耗尽")
-            pyautogui.press("esc")
-            time.sleep(0.5)
-        else:
-            print("结界卡已经耗尽")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Jiejiekaliebiao.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("打开结界卡列表")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Taiguliebiao.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击太鼓")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Xingjijiangxu.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击星级降序")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Shouzhangjiejieka.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击首张结界卡")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Jihuo.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击激活")
-
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Yaoqing.png", 0.05, 0)
-            if Range:
-                print("结界卡激活成功")
-                time.sleep(1)
+        for i in range(1):
+            if not Find_in_windows(Hwnd, "./pic/Sis/Jiejiekacao.png", 0.05, 0):
+                print("结界卡未耗尽")
                 pyautogui.press("esc")
                 time.sleep(0.5)
+                break
             else:
-                print("结界卡激活失败")
-                return 0
+                print("结界卡已经耗尽")
+
+                for i in range(1):
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekaliebiao.png", 0.05, "打开结界卡列表", "打开结界卡列表异常"):
+                        break
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Taiguliebiao.png", 0.05, "点击太鼓列表", "点击太鼓列表异常"):
+                        break
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Xingjijiangxu.png", 0.05, "点击星级降序", "点击星级降序异常"):
+                        break
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Shouzhangjiejieka.png", 0.05, "点击首张结界卡", "点击首张结界卡异常"):
+                        break
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Jihuo.png", 0.05, "点击激活", "点击激活异常"):
+                        break
+
+                    if Find_in_windows(Hwnd, "./pic/Sis/Yaoqing.png", 0.05, 0):
+                        print("结界卡激活成功")
+                        time.sleep(1)
+                        pyautogui.press("esc")
+                        time.sleep(0.5)
+                        return 1
+                    else:
+                        print("结界卡激活失败")
+                        return 0
 
     def Yucheng():
         time.sleep(1)
         # 进入结界育成
-        Wait = 0
-        while True:
-            time.sleep(0.5)
-            # 检测到进入结界育成界面 退出循环
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Shishenyucheng.png", 0.05, 0)
-            if Range:
-                Click(Hwnd, Range, 1)
-                print("检测到进入结界育成界面")
+
+        for i in range(10):
+            if Find_Click_windows(Hwnd, "./pic/Sis/Shishenyucheng.png", 0.05, "检测到进入结界育成界面", "未检测到进入结界育成界面"):
                 break
-
-            Wait += 1
-            time.sleep(1)
-            print("未检测到进入结界育成界面")
-
-            # 10s未检测到 超时退出
-            if Wait >= 10:
-                Wait = 0
-                print("EROR- XXXXX 结界育成 超时退出 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                return 0
+            else:
+                time.sleep(1)
 
         # 检测是否有满级式神
-        while True:
-            time.sleep(0.5)
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Manjidamo.png", 0.05, 0)
-            if Range:
-                Click(Hwnd, Range, 1)
-                print("检测到有满级式神")
-            else:
-                print("未检测到有满级式神")
-                break
+        time.sleep(0.5)
 
-        while True:
-            time.sleep(0.5)
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Fangrushishen.png", 0.05, 0)
-            if Range:
-                print("检测到有空位")
+        for i in range(10):
+            if Find_Click_windows(Hwnd, "./pic/Sis/Manjidamo.png", 0.05, "检测到有满级式神", "未检测到有满级式神"):
+                time.sleep(0.5)
+            else:
+                break
+                time.sleep(1)
+
+        time.sleep(0.5)
+        for i in range(10):
+            if not Find_Click_windows(Hwnd, "./pic/Sis/Fangrushishen.png", 0.05, "检测到有空位", "育成池已经放满"):
+                time.sleep(0.5)
+                break
+            else:
+                time.sleep(0.5)
 
                 # 进入素材列表
-                Range = Find_in_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, 0)
-                if Range:
-                    Click(Hwnd, Range, 1)
-                    print("进入全部式神列表")
+                if Find_Click_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, "进入全部式神列表", "正处在素材列表中"):
+                    time.sleep(0.5)
+                    Find_Click_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, "选择素材列表", "选择素材列表异常")
 
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, 0)
-                    Click(Hwnd, Range, 1)
-                    print("选择素材列表")
-                else:
-                    print("正处在素材列表中")
-
-                Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
-                if Range:
-                    Click(Hwnd, Range, 1)
-                    print("放上去一个奉为达摩")
-                else:
-                    print("未检测到达摩素材")
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
-
-                    print("进入翻页区域")
-                    rect = win32gui.GetWindowRect(Hwnd)
-                    x = (Range[0][0] + Range[1][0]) // 2 + rect[0]
-                    y = (Range[0][1] + Range[1][1]) // 2 + rect[1]
-                    pyautogui.moveTo(x, y)
-
-                    pyautogui.scroll(-500)
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
-
-                    if Range:
-                        Click(Hwnd, Range, 1)
-                        print("放上去一个奉为达摩")
+                for j in range(10):
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, "放上去一个奉为达摩", "未检测到达摩素材"):
+                        Range = Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
+                        print("进入翻页区域")
+                        rect = win32gui.GetWindowRect(Hwnd)
+                        x = (Range[0][0] + Range[1][0]) // 2 + rect[0]
+                        y = (Range[0][1] + Range[1][1]) // 2 + rect[1]
+                        pyautogui.moveTo(x, y)
+                        pyautogui.scroll(-500)
                     else:
-                        print("查找奉为达摩失败")
-            else:
-                print("育成池已经放满")
-                break
+                        break
 
         # 寄养
-        Range = Find_in_windows(Hwnd, "./pic/Sis/Jiyangrukou.png", 0.05, 0)
-        if Range:
-            Click(Hwnd, Range, 1)
-            print("检测到寄养空位")
-        else:
-            print("未检测到寄养空位")
+        if not Find_Click_windows(Hwnd, "./pic/Sis/Jiyangrukou.png", 0.05, "检测到寄养空位", "已经有寄养"):
             pyautogui.press("esc")
             time.sleep(3)
             return 1
 
         def Jiyang(Jiejieka_Model_path, string):
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Kuaqu.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击跨区")
+            flag_jiyangqueding = 0
 
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Haoyou.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击好友")
+            Find_Click_windows(Hwnd, "./pic/Sis/Kuaqu.png", 0.05, "点击跨区", "点击跨区异常")
 
-            Range = Find_in_windows(Hwnd, "./pic/Sis/Jiyangliebiao.png", 0.05, 0)
-            Click(Hwnd, Range, 1)
-            print("点击寄养列表")
+            Find_Click_windows(Hwnd, "./pic/Sis/Haoyou.png", 0.05, "点击好友", "点击好友异常")
 
-            while True:
+            Find_Click_windows(Hwnd, "./pic/Sis/Jiyangliebiao.png", 0.05, "点击寄养列表", "点击寄养列表异常")
+
+            for o in range(50):
+                if flag_jiyangqueding:
+                    break
+
                 time.sleep(0.5)
                 Range = Find_in_windows(Hwnd, Jiejieka_Model_path, 0.05, 0)
                 if Range:
@@ -320,54 +218,39 @@ def Work_Foster(Hwnd):
                         print("检测到", end="")
                         print(string)
 
-                        Range = Find_in_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, 0)
-                        Click(Hwnd, Range, 2)
-                        print("点击进入结界")
+                        if Find_Click_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, "点击进入结界", "点击进入结界异常"):
+                            time.sleep(2)
 
-                        Range = Find_in_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, 0)
-                        # 处理结界被抢
-                        if Range:
-                            Click(Hwnd, Range, 1)
-                            print("进入式神列表")
-                        else:
-                            print("结界已被占用")
+                        if not Find_Click_windows(Hwnd, "./pic/Sis/youjiyangwei.png", 0.05, "有寄养位", "结界已被占用"):
                             pyautogui.press("esc")
                             time.sleep(0.5)
                             pyautogui.press("esc")
                             time.sleep(2)
                             break
 
-                        Range = Find_in_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, 0)
-                        Click(Hwnd, Range, 1)
-                        print("选择素材")
+                        # 进入素材列表
+                        if Find_Click_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, "进入全部式神列表", "正处在素材列表中"):
+                            time.sleep(0.5)
+                            Find_Click_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, "选择素材列表", "选择素材列表异常")
 
-                        Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
-                        if Range:
-                            Click(Hwnd, Range, 1)
-                            print("放上去一个奉为达摩")
-                        else:
-                            pyautogui.scroll(-100)
-                            Range = Find_in_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, 0)
-                            Click(Hwnd, Range, 2)
-                            print("放上去一个奉为达摩")
-
-                        Range = Find_in_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, 0)
-                        Click(Hwnd, Range, 1)
-                        print("点击确定")
-                        pyautogui.press("esc")
-                        time.sleep(2)
-                        pyautogui.press("esc")
-                        time.sleep(2)
-                        return 0
-                    Jiyang(Jiejieka_Model_path, string)
+                        for j in range(10):
+                            if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, "放上去一个奉为达摩", "未检测到达摩素材"):
+                                pyautogui.scroll(-100)
+                            else:
+                                Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "点击确定", "点击确定异常")
+                                pyautogui.press("esc")
+                                time.sleep(2)
+                                pyautogui.press("esc")
+                                time.sleep(2)
+                                flag_jiyangqueding = 1
+                                return 0
                 else:
                     print("未检测到", end="")
                     print(string)
-                    Range = Find_in_windows(Hwnd, "./pic/Sis/Jiyangliebiaomowei.png", 0.001, 0)
-
-                    if Range:
+                    if Find_in_windows(Hwnd, "./pic/Sis/Jiyangliebiaomowei.png", 0.001, 0):
                         print("已经到寄养列表末尾")
                         return 1
+                        break
                     else:
                         pyautogui.scroll(-400)
                         print("往下翻页")
@@ -378,7 +261,7 @@ def Work_Foster(Hwnd):
             if flag_Jiyang:
                 flag_Jiyang = Jiyang("./pic/Sis/5xingtaigu.png", "五星太鼓")
                 if flag_Jiyang:
-                    flag_Jiyang = Jiyang("./pic/Sis/5xingdouyu.png", "六星斗鱼")
+                    flag_Jiyang = Jiyang("./pic/Sis/5xingdouyu.png", "五星斗鱼")
                     if flag_Jiyang:
                         return 1
 
@@ -423,9 +306,7 @@ def Work_Foster(Hwnd):
     pyautogui.press("esc")
     time.sleep(2)
 
-    Range = Find_in_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, 0)
-    Click(Hwnd, Range, 1)
-    print("退出寮界面")
+    Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "退出寮界面", "退出寮界面异常")
 
     return 1
 

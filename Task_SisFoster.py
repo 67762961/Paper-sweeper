@@ -75,7 +75,7 @@ def Work_Foster(Hwnd):
                 time.sleep(0.5)
                 return 1
             else:
-                print("寄养奖励领取失败")
+                print("体力食盒领取失败")
 
     def Jinyanjiuhu():
         time.sleep(1)
@@ -89,21 +89,24 @@ def Work_Foster(Hwnd):
             pyautogui.press("esc")
             print("经验酒壶提取上限")
         else:
-            print("经验酒壶提取成功")
+            print("经验酒壶提取未到上限")
+            Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "育成有满级式神 强行提取", "经验酒壶提取成功")
             return 1
 
     def Jiejiekajiangli():
         time.sleep(1)
         # 检测太鼓奖励
         for i in range(1):
-            if not Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekajiangli.png", 0.05, "检测到结界卡奖励 点击领取", "未检测到结界卡奖励"):
-                break
-
-            if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
-                print("寄养奖励领取成功")
-                return 1
+            if Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekajiangli.png", 0.05, "检测到结界卡奖励 点击领取", "未检测到结界卡结束奖励"):
+                if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
+                    print("结界卡奖励领取成功")
+                    return 1
+                else:
+                    print("结界卡奖励领取失败")
+                    return 0
             else:
-                print("寄养奖励领取失败")
+                Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekayunxing.png", 0.05, "检测到结界卡依旧运行 点击领取", "未检测到结界卡依旧运行")
+                return 2
 
     def Jiejieka():
         time.sleep(1)
@@ -269,24 +272,21 @@ def Work_Foster(Hwnd):
     Jiyang()
 
     # 领取结界卡奖励 领取后育成
-    if Jiejiekajiangli():
+    if 1 == Jiejiekajiangli():
         flag_Jiejieka = 1
-        Yucheng()
-        flag_yucheng = 1
     else:
         flag_Jiejieka = 0
-        flag_yucheng = 0
+
+    if Yucheng():
+        flag_yucheng = 1
 
     # 领取体力食盒
     Tilishihe()
 
     # 经验酒壶 领取后育成
     if Jinyanjiuhu():
-        Yucheng()
-        flag_yucheng = 1
-    else:
-        flag_yucheng = 0
-
+        if Yucheng():
+            flag_yucheng = 1
     if flag_Jiejieka == 1:
         Jiejieka()
     else:
@@ -298,17 +298,13 @@ def Work_Foster(Hwnd):
             print("结界卡似乎已耗尽")
             Jiejieka()
 
-    # 保底寄养一次
-    if not flag_yucheng:
-        Yucheng()
-
     # 回到寮界面
     pyautogui.press("esc")
     time.sleep(2)
 
     Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "退出寮界面", "退出寮界面异常")
 
-    return 1
+    return flag_yucheng
 
 
 def MainTask_Sisfoster(Hwnd, Account):

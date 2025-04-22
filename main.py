@@ -73,6 +73,7 @@ def Init():
                         process2.wait()
                         hwnds = Lib.Find_windows("阴阳师-网易游戏")
                         wait += 1
+                        time.sleep(5)
                         if len(hwnds) == 2:
                             print("INIT- ----- 启动并捕获阴阳师 --------------------------------")
                             break

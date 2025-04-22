@@ -238,6 +238,8 @@ def Work_Foster(Hwnd):
 
                         for j in range(10):
                             if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, "放上去一个奉为达摩", "未检测到达摩素材"):
+                                Range = Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
+                                print("进入翻页区域")
                                 pyautogui.scroll(-100)
                             else:
                                 Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "点击确定", "点击确定异常")

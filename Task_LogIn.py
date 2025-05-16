@@ -52,7 +52,7 @@ def LogIn(Log, Hwnd):
             time.sleep(2)
             Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
         time.sleep(3)
-        Find = Find_in_screen("./pic/Main/Jinruyouxi1.png", 0.05, 0)
+        Find = Find_in_screen("./pic/Main/Jinruyouxi1.png", 0.01, 0)
         if not Find:
             print("无法识别 尝试坐标点击")
             # 坐标法

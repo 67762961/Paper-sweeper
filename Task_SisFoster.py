@@ -162,7 +162,7 @@ def Work_Foster(Hwnd):
         time.sleep(0.5)
 
         for i in range(10):
-            if Find_Click_windows(Hwnd, "./pic/Sis/Manjidamo.png", 0.05, "检测到有满级式神", "未检测到有满级式神"):
+            if Find_Click_windows(Hwnd, "./pic/Sis/Manjidamo.png", 0.07, "检测到有满级式神", "未检测到有满级式神"):
                 time.sleep(0.5)
             else:
                 break

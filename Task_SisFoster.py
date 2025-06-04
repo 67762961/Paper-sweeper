@@ -182,7 +182,7 @@ def Work_Foster(Hwnd):
                     Find_Click_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, "选择素材列表", "选择素材列表异常")
 
                 for j in range(10):
-                    if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, "放上去一个奉为达摩", "未检测到达摩素材"):
+                    if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.03, "放上去一个奉为达摩", "未检测到达摩素材"):
                         Range = Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
                         print("进入翻页区域")
                         rect = win32gui.GetWindowRect(Hwnd)
@@ -237,7 +237,7 @@ def Work_Foster(Hwnd):
                             Find_Click_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, "选择素材列表", "选择素材列表异常")
 
                         for j in range(10):
-                            if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.05, "放上去一个奉为达摩", "未检测到达摩素材"):
+                            if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.03, "放上去一个奉为达摩", "未检测到达摩素材"):
                                 Range = Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
                                 print("进入翻页区域")
                                 pyautogui.scroll(-100)
@@ -272,6 +272,9 @@ def Work_Foster(Hwnd):
 
     # 领取寄养
     Jiyang()
+
+    flag_Jiejieka = 0
+    flag_yucheng = 0
 
     # 领取结界卡奖励 领取后育成
     if 1 == Jiejiekajiangli():

@@ -10,7 +10,7 @@ from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_
 
 def meirifengmo(Hwnd):
     for i in range(3):
-        Find = Find_in_windows(Hwnd, "./pic/Fengmo/Dingwei.png", 0.05, 0)
+        Find = Find_in_windows(Hwnd, "./pic/Fengmo/Dingwei.png", 0.06, 0)
         if Find:
             print("已进入逢魔地图界面")
             break
@@ -23,7 +23,7 @@ def meirifengmo(Hwnd):
         Range = Find_in_windows(Hwnd, "./pic/Fengmo/Fengmocishu.png", 0.03, 0)
         if Range:
             print("还有逢魔次数")
-            Find_Click_windows(Hwnd, "./pic/Fengmo/Xianshifengmo.png", 0.05, "点击现世逢魔", "未检测到现世逢魔图标")
+            Find_Click_windows(Hwnd, "./pic/Fengmo/Xianshifengmo.png", 0.07, "点击现世逢魔", "未检测到现世逢魔图标")
             sleep(2.5)
         else:
             print("逢魔次数耗尽")

@@ -134,7 +134,12 @@ def Work_Foster(Hwnd):
                     if not Find_Click_windows(Hwnd, "./pic/Sis/Xingjijiangxu.png", 0.05, "点击星级降序", "点击星级降序异常"):
                         break
                     if not Find_Click_windows(Hwnd, "./pic/Sis/Shouzhangjiejieka.png", 0.05, "点击首张结界卡", "点击首张结界卡异常"):
-                        break
+                        if not Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekaliebiao.png", 0.05, "打开结界卡列表", "打开结界卡列表异常"):
+                            break
+                        if not Find_Click_windows(Hwnd, "./pic/Sis/Douyuliebiao.png", 0.05, "点击斗鱼列表", "点击斗鱼列表异常"):
+                            break
+                        if not Find_Click_windows(Hwnd, "./pic/Sis/Shouzhangjiejieka.png", 0.05, "点击首张结界卡", "点击首张结界卡异常"):
+                            break
                     if not Find_Click_windows(Hwnd, "./pic/Sis/Jihuo.png", 0.05, "点击激活", "点击激活异常"):
                         break
 
@@ -312,9 +317,7 @@ def Work_Foster(Hwnd):
     pyautogui.press("esc")
     time.sleep(2)
 
-    Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "退出寮界面", "退出寮界面异常")
-
-    return flag_yucheng
+    return Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "退出寮界面", "退出寮界面异常")
 
 
 def MainTask_Sisfoster(Hwnd, Account):

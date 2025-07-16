@@ -245,7 +245,7 @@ def mianfeilibao(Hwnd, Account):
                     break
 
             # 此步骤有时候可跳过
-            Find_Click_windows(Hwnd, "./pic/Sign/Tuijian.png", 0.05, "进入推荐项", "未检测到推荐项")
+            Find_Click_windows(Hwnd, "./pic/Sign/Richang.png", 0.05, "进入日常项", "未检测到日常项")
 
             if Find_Click_windows(Hwnd, "./pic/Sign/Mianfei.png", 0.05, "领取免费礼包", "未检测到免费礼包"):
                 # 检测领取状态

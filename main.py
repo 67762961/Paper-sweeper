@@ -190,7 +190,7 @@ def Fengmo_zhishi():
 
 def Diyu_guiwang():
     """
-    逢魔之时
+    地域鬼王
     """
     while not config.stop_thread:
         print()
@@ -229,7 +229,7 @@ def Full_operation():
             Main_Login_2()
             Sign_In()
             Sis_Foster()
-            # Diyu_guiwang()
+            Diyu_guiwang()
             Fengmo_zhishi()
             print("MAIN- ~~~~ 完整运行流程结束 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 

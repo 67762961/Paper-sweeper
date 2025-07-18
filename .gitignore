@@ -11,3 +11,4 @@ config
 GUI.exe
 logs
 Backup
+test_main.py

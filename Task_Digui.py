@@ -21,24 +21,130 @@ def MainTask_Digui(Hwnd, Account):
     current_time = datetime.now()
 
     # 判断跳过条件
-    if Times_diyuguiwang.date() == current_time.date():
+    if Times_diyuguiwang.date() == current_time.date() or (not (time(6, 0) <= current_time.time() <= time(23, 50))):
         print("SKIP- ----- 跳过地鬼任务")
     else:
         # 开始地鬼任务
         print("INFO- ----- 前往地鬼界面")
         Itface_explore(Hwnd)
+        if Diyuguiwang(Hwnd):
+            # 更新配置，写入当前时间
+            config = read_config("./config/Last_times.json")
+            Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
+            config[Account]["Times_地域鬼王"] = Now
+            print("TIME- ----- 本次地域鬼王完成时间")
+            print(f"TIME- ----- {Now}")
+            write_config("./config/Last_times.json", config)
+            print("TASK- +++++ 地域鬼王任务完成 ++++++++++++++++++++++++++++++++")
 
-        ##################################
-        # pyautogui.press("esc")
 
+def Diyuguiwang(Hwnd):
+    """
+    挑战地域鬼王
+    """
+    # 地鬼计数器
+    flag_digui = 1
+    current_state = "探索界面"
+    for step in range(30):
+        sleep(1)
+        match current_state:
+            case "探索界面":
+                Find = Find_Click_windows(Hwnd, "./pic/Digui/Diguitubiao.png", 0.05, "进入地鬼界面", "未检测到地鬼图标")
+                if Find:
+                    current_state = "地鬼界面"
+                    step -= 1
+                else:
+                    # 进入探索界面异常
+                    current_state = "Error"
 
-######################################################################################################################
+            case "地鬼界面":
+                if flag_digui <= 3:
+                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Shaixuan.png", 0.05, "点击筛选", "未检测到筛选图标")
+                    if Find:
+                        current_state = "筛选界面"
+                        step -= 1
+                    else:
+                        # 进入探索界面异常
+                        current_state = "Error"
+                else:
+                    current_state = "Finish"
+                    step -= 1
 
-# # 更新配置，写入当前时间
-# config = read_config("./config/Last_times.json")
-# Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
-# config[Account]["Times_diyuguiwang"] = Now
-# print("TIME- ----- 本次逢魔之时完成时间")
-# print(f"TIME- ----- {Now}")
-# write_config("./config/Last_times.json", config)
-# break
+            case "筛选界面":
+                Find_Click_windows(Hwnd, "./pic/Digui/Remen.png", 0.01, "点击热门", "似乎已经在热门选项中")
+                sleep(1)
+                if Find_in_windows(Hwnd, "./pic/Digui/Shoucangtiaozhan.png", 0.01, 0):
+                    print("热门鬼王可以挑战")
+                    match flag_digui:
+                        case 1:
+                            Find = Find_Click_windows(Hwnd, "./pic/Digui/1st.png", 0.05, "点击第一个", "未检测到第一个图标")
+                        case 2:
+                            Find = Find_Click_windows(Hwnd, "./pic/Digui/2nd.png", 0.05, "点击第二个", "未检测到第二个图标")
+                        case 3:
+                            Find = Find_Click_windows(Hwnd, "./pic/Digui/3rd.png", 0.05, "点击第三个", "未检测到第三个图标")
+                    if Find:
+                        current_state = "挑战界面"
+                        step -= 1
+                else:
+                    print("无法挑战热门鬼王")
+                    Find_Click_windows(Hwnd, "./pic/Digui/Shoucang.png", 0.01, "点击收藏", "似乎已经在收藏选项中")
+                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Shoucangtiaozhan.png", 0.05, "挑战界面点击挑战", "未检测到挑战图标")
+                    if Find:
+                        current_state = "挑战界面"
+                        step -= 1
+                    else:
+                        # 进入探索界面异常
+                        current_state = "Error"
+
+            case "挑战界面":
+                sleep(1)
+                Find = Find_Click_windows(Hwnd, "./pic/Digui/Tiaozhan.png", 0.05, "点击开始挑战", "未检测到挑战图标")
+                if Find:
+                    current_state = "战斗准备阶段"
+                    step -= 1
+                else:
+                    # 进入探索界面异常
+                    current_state = "Error"
+
+            case "战斗准备阶段":
+                sleep(1)
+                Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.05, "点击准备", "未检测到准备图标")
+                if Find:
+                    current_state = "战斗阶段"
+                    step -= 1
+                else:
+                    # 进入探索界面异常
+                    current_state = "Error"
+
+            case "战斗阶段":
+                sleep(10)
+                for Wait in range(60):
+                    if Find_Click_windows(Hwnd, "./pic/Digui/Shengli.png", 0.05, "点击胜利", "似乎战斗未结束"):
+                        sleep(1)
+                        Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhandoujiangli.png", 0.05, "点击战斗奖励", "未检测到战斗奖励图标")
+                        if Find:
+                            flag_digui += 1
+                            sleep(1)
+                            pyautogui.press("esc")
+                            current_state = "地鬼界面"
+                            step -= 1
+                        else:
+                            # 进入探索界面异常
+                            current_state = "Error"
+                        break
+                    else:
+                        sleep(5)
+
+            case "Finish":
+                # 任务结束
+                sleep(2)
+                pyautogui.press("esc")
+                sleep(2)
+                pyautogui.press("esc")
+                Itface_Host(Hwnd)
+                return 1
+
+            case "Error":
+                # 错误结束
+                Itface_Host(Hwnd)
+                return 0

@@ -401,5 +401,6 @@ def Itface_explore(Hwnd):
 
     Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangxing.png", 0.05, "点击悬赏星", "未检测到悬赏星")
     Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangqianwang.png", 0.05, "进入探索地图界面", "未进入探索地图界面")
-    time.sleep(2)
+    time.sleep(1)
     pyautogui.press("esc")
+    time.sleep(1)

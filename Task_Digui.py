@@ -31,11 +31,13 @@ def MainTask_Digui(Hwnd, Account):
             # 更新配置，写入当前时间
             config = read_config("./config/Last_times.json")
             Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
-            config[Account]["Times_地域鬼王"] = Now
+            config[Account]["Times_diyuguiwang"] = Now
             print("TIME- ----- 本次地域鬼王完成时间")
             print(f"TIME- ----- {Now}")
             write_config("./config/Last_times.json", config)
-            print("TASK- +++++ 地域鬼王任务完成 ++++++++++++++++++++++++++++++++")
+            print("TASK- ----- 地域鬼王任务完成 --------------------------------")
+        else:
+            print("EROR- ***** 结界寄养任务失败 ********************************")
 
 
 def Diyuguiwang(Hwnd):
@@ -73,28 +75,25 @@ def Diyuguiwang(Hwnd):
             case "筛选界面":
                 Find_Click_windows(Hwnd, "./pic/Digui/Remen.png", 0.01, "点击热门", "似乎已经在热门选项中")
                 sleep(1)
-                if Find_in_windows(Hwnd, "./pic/Digui/Shoucangtiaozhan.png", 0.01, 0):
-                    print("热门鬼王可以挑战")
-                    match flag_digui:
-                        case 1:
-                            Find = Find_Click_windows(Hwnd, "./pic/Digui/1st.png", 0.05, "点击第一个", "未检测到第一个图标")
-                        case 2:
-                            Find = Find_Click_windows(Hwnd, "./pic/Digui/2nd.png", 0.05, "点击第二个", "未检测到第二个图标")
-                        case 3:
-                            Find = Find_Click_windows(Hwnd, "./pic/Digui/3rd.png", 0.05, "点击第三个", "未检测到第三个图标")
-                    if Find:
-                        current_state = "挑战界面"
-                        step -= 1
+                match flag_digui:
+                    case 1:
+                        Find = Find_Click_windows(Hwnd, "./pic/Digui/1st.png", 0.05, "点击第一个", "似乎无法挑战第一热门鬼王")
+                    case 2:
+                        Find = Find_Click_windows(Hwnd, "./pic/Digui/2nd.png", 0.05, "点击第二个", "似乎无法挑战第二热门鬼王")
+                    case 3:
+                        Find = Find_Click_windows(Hwnd, "./pic/Digui/3rd.png", 0.05, "点击第三个", "似乎无法挑战第三热门鬼王")
+                if Find_in_windows(Hwnd, "./pic/Digui/Zuixin.png", 0.01, 0):
+                    print("检测到最新栏 似乎无法挑战热门")
+                    Find_Click_windows(Hwnd, "./pic/Digui/Zuixin.png", 0.01, "点击最新", "点击最新失败")
+                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Zuixintiaozhan.png", 0.05, "点击最新挑战", "未检测到最新挑战图标")
                 else:
-                    print("无法挑战热门鬼王")
-                    Find_Click_windows(Hwnd, "./pic/Digui/Shoucang.png", 0.01, "点击收藏", "似乎已经在收藏选项中")
-                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Shoucangtiaozhan.png", 0.05, "挑战界面点击挑战", "未检测到挑战图标")
-                    if Find:
-                        current_state = "挑战界面"
-                        step -= 1
-                    else:
-                        # 进入探索界面异常
-                        current_state = "Error"
+                    print("未检测到最新栏 似乎可以挑战热门")
+                if Find:
+                    current_state = "挑战界面"
+                    step -= 1
+                else:
+                    # 进入探索界面异常
+                    current_state = "Error"
 
             case "挑战界面":
                 sleep(1)
@@ -107,7 +106,7 @@ def Diyuguiwang(Hwnd):
                     current_state = "Error"
 
             case "战斗准备阶段":
-                sleep(1)
+                sleep(2)
                 Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.05, "点击准备", "未检测到准备图标")
                 if Find:
                     current_state = "战斗阶段"
@@ -141,6 +140,7 @@ def Diyuguiwang(Hwnd):
                 pyautogui.press("esc")
                 sleep(2)
                 pyautogui.press("esc")
+                sleep(2)
                 Itface_Host(Hwnd)
                 return 1
 

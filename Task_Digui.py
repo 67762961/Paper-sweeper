@@ -28,7 +28,7 @@ def MainTask_Digui(Hwnd, Account):
         print("INFO- ----- 前往地鬼界面")
         Itface_explore(Hwnd)
         if Diyuguiwang("探索界面", Hwnd):
-            # 更新配置，写入当前时间
+            # 更新配置 写入当前时间
             config = read_config("./config/Last_times.json")
             Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
             config[Account]["Times_diyuguiwang"] = Now
@@ -60,6 +60,7 @@ def Diyuguiwang(current_state, Hwnd):
                     current_state = "异常退出"
 
             case "地鬼界面":
+                sleep(1)
                 if flag_digui <= 3:
                     Find = Find_Click_windows(Hwnd, "./pic/Digui/Shaixuan.png", 0.05, "点击筛选", "未检测到筛选图标")
                     if Find:

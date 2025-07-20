@@ -107,7 +107,7 @@ def Diyuguiwang(Hwnd):
 
             case "战斗准备阶段":
                 sleep(2)
-                Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.05, "点击准备", "未检测到准备图标")
+                Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.07, "点击准备", "未检测到准备图标")
                 if Find:
                     current_state = "战斗阶段"
                     step -= 1

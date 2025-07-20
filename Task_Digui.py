@@ -27,7 +27,7 @@ def MainTask_Digui(Hwnd, Account):
         # 开始地鬼任务
         print("INFO- ----- 前往地鬼界面")
         Itface_explore(Hwnd)
-        if Diyuguiwang(Hwnd):
+        if Diyuguiwang("探索界面", Hwnd):
             # 更新配置，写入当前时间
             config = read_config("./config/Last_times.json")
             Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -37,16 +37,16 @@ def MainTask_Digui(Hwnd, Account):
             write_config("./config/Last_times.json", config)
             print("TASK- ----- 地域鬼王任务完成 --------------------------------")
         else:
-            print("EROR- ***** 结界寄养任务失败 ********************************")
+            print("EROR- ***** 地域鬼王任务失败 ********************************")
 
 
-def Diyuguiwang(Hwnd):
+def Diyuguiwang(current_state, Hwnd):
     """
     挑战地域鬼王
     """
     # 地鬼计数器
     flag_digui = 1
-    current_state = "探索界面"
+    print("STEP- vvvvv 从{First_state}开始".format(First_state=current_state))
     for step in range(30):
         sleep(1)
         match current_state:
@@ -55,11 +55,9 @@ def Diyuguiwang(Hwnd):
                 if Find:
                     print("STEP- vvvvv 跳转地鬼界面")
                     current_state = "地鬼界面"
-                    step -= 1
                 else:
-                    # 进入探索界面异常
                     print("STEP- vvvvv 跳转异常退出界面")
-                    current_state = "Error"
+                    current_state = "异常退出"
 
             case "地鬼界面":
                 if flag_digui <= 3:
@@ -67,15 +65,12 @@ def Diyuguiwang(Hwnd):
                     if Find:
                         print("STEP- vvvvv 跳转筛选界面")
                         current_state = "筛选界面"
-                        step -= 1
                     else:
-                        # 进入探索界面异常
                         print("STEP- vvvvv 跳转异常退出界面")
-                        current_state = "Error"
+                        current_state = "异常退出"
                 else:
                     print("STEP- vvvvv 跳转结束状态")
-                    current_state = "Finish"
-                    step -= 1
+                    current_state = "结束"
 
             case "筛选界面":
                 Find_Click_windows(Hwnd, "./pic/Digui/Remen.png", 0.01, "点击热门", "似乎已经在热门选项中")
@@ -87,20 +82,29 @@ def Diyuguiwang(Hwnd):
                         Find = Find_Click_windows(Hwnd, "./pic/Digui/2nd.png", 0.05, "点击第二个", "似乎无法挑战第二热门鬼王")
                     case 3:
                         Find = Find_Click_windows(Hwnd, "./pic/Digui/3rd.png", 0.05, "点击第三个", "似乎无法挑战第三热门鬼王")
+
+                sleep(1)
                 if Find_in_windows(Hwnd, "./pic/Digui/Zuixin.png", 0.01, 0):
                     print("检测到最新栏 似乎无法挑战热门")
                     Find_Click_windows(Hwnd, "./pic/Digui/Zuixin.png", 0.01, "点击最新", "点击最新失败")
-                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Zuixintiaozhan.png", 0.05, "点击最新挑战", "未检测到最新挑战图标")
+                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Zuixintiaozhan.png", 0.03, "点击最新挑战", "未检测到最新挑战图标")
+                    if Find:
+                        print("STEP- vvvvv 跳转挑战界面")
+                        current_state = "挑战界面"
+                    else:
+                        print("STEP- vvvvv 似乎已经无挑战次数 跳转结束")
+                        sleep(1)
+                        pyautogui.press("esc")
+                        sleep(1)
+                        current_state = "结束"
                 else:
                     print("未检测到最新栏 似乎可以挑战热门")
-                if Find:
-                    print("STEP- vvvvv 跳转挑战界面")
-                    current_state = "挑战界面"
-                    step -= 1
-                else:
-                    # 进入探索界面异常
-                    print("STEP- vvvvv 跳转异常退出界面")
-                    current_state = "Error"
+                    if Find:
+                        print("STEP- vvvvv 跳转挑战界面")
+                        current_state = "挑战界面"
+                    else:
+                        print("STEP- vvvvv 跳转异常退出界面")
+                        current_state = "异常退出"
 
             case "挑战界面":
                 sleep(1)
@@ -108,11 +112,9 @@ def Diyuguiwang(Hwnd):
                 if Find:
                     print("STEP- vvvvv 跳转战斗准备阶段")
                     current_state = "战斗准备阶段"
-                    step -= 1
                 else:
-                    # 进入探索界面异常
                     print("STEP- vvvvv 跳转异常退出界面")
-                    current_state = "Error"
+                    current_state = "异常退出"
 
             case "战斗准备阶段":
                 sleep(2)
@@ -120,11 +122,9 @@ def Diyuguiwang(Hwnd):
                 if Find:
                     print("STEP- vvvvv 跳转战斗阶段")
                     current_state = "战斗阶段"
-                    step -= 1
                 else:
-                    # 进入探索界面异常
                     print("STEP- vvvvv 跳转异常退出界面")
-                    current_state = "Error"
+                    current_state = "异常退出"
 
             case "战斗阶段":
                 sleep(10)
@@ -138,26 +138,30 @@ def Diyuguiwang(Hwnd):
                             pyautogui.press("esc")
                             print("STEP- vvvvv 跳转地鬼界面")
                             current_state = "地鬼界面"
-                            step -= 1
                         else:
-                            # 进入探索界面异常
                             print("STEP- vvvvv 跳转异常退出界面")
-                            current_state = "Error"
+                            current_state = "异常退出"
                         break
                     else:
                         sleep(5)
 
-            case "Finish":
-                # 任务结束
-                sleep(2)
-                pyautogui.press("esc")
-                sleep(2)
-                pyautogui.press("esc")
-                sleep(2)
-                Itface_Host(Hwnd)
-                return 1
+            case "结束":
+                Find_Click_windows(Hwnd, "./pic/Digui/Jinritioazhan.png", 0.05, "点击今日挑战", "未检测到今日挑战图标")
+                if Find_in_windows(Hwnd, "./pic/Digui/Weixuanze.png", 0.05, 0):
+                    print("发现仍然有鬼王挑战次数 继续讨伐地域鬼王")
+                    return Diyuguiwang("地鬼界面", Hwnd)
+                else:
+                    print("似乎已无地域鬼王讨伐次数 任务结束")
+                    # 任务结束
+                    sleep(2)
+                    pyautogui.press("esc")
+                    sleep(2)
+                    pyautogui.press("esc")
+                    sleep(2)
+                    Itface_Host(Hwnd)
+                    return 1
 
-            case "Error":
+            case "异常退出":
                 # 错误结束
                 Itface_Host(Hwnd)
                 return 0

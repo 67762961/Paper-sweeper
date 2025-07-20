@@ -53,22 +53,27 @@ def Diyuguiwang(Hwnd):
             case "探索界面":
                 Find = Find_Click_windows(Hwnd, "./pic/Digui/Diguitubiao.png", 0.05, "进入地鬼界面", "未检测到地鬼图标")
                 if Find:
+                    print("STEP- vvvvv 跳转地鬼界面")
                     current_state = "地鬼界面"
                     step -= 1
                 else:
                     # 进入探索界面异常
+                    print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "Error"
 
             case "地鬼界面":
                 if flag_digui <= 3:
                     Find = Find_Click_windows(Hwnd, "./pic/Digui/Shaixuan.png", 0.05, "点击筛选", "未检测到筛选图标")
                     if Find:
+                        print("STEP- vvvvv 跳转筛选界面")
                         current_state = "筛选界面"
                         step -= 1
                     else:
                         # 进入探索界面异常
+                        print("STEP- vvvvv 跳转异常退出界面")
                         current_state = "Error"
                 else:
+                    print("STEP- vvvvv 跳转结束状态")
                     current_state = "Finish"
                     step -= 1
 
@@ -89,30 +94,36 @@ def Diyuguiwang(Hwnd):
                 else:
                     print("未检测到最新栏 似乎可以挑战热门")
                 if Find:
+                    print("STEP- vvvvv 跳转挑战界面")
                     current_state = "挑战界面"
                     step -= 1
                 else:
                     # 进入探索界面异常
+                    print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "Error"
 
             case "挑战界面":
                 sleep(1)
                 Find = Find_Click_windows(Hwnd, "./pic/Digui/Tiaozhan.png", 0.05, "点击开始挑战", "未检测到挑战图标")
                 if Find:
+                    print("STEP- vvvvv 跳转战斗准备阶段")
                     current_state = "战斗准备阶段"
                     step -= 1
                 else:
                     # 进入探索界面异常
+                    print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "Error"
 
             case "战斗准备阶段":
                 sleep(2)
                 Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.07, "点击准备", "未检测到准备图标")
                 if Find:
+                    print("STEP- vvvvv 跳转战斗阶段")
                     current_state = "战斗阶段"
                     step -= 1
                 else:
                     # 进入探索界面异常
+                    print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "Error"
 
             case "战斗阶段":
@@ -125,10 +136,12 @@ def Diyuguiwang(Hwnd):
                             flag_digui += 1
                             sleep(1)
                             pyautogui.press("esc")
+                            print("STEP- vvvvv 跳转地鬼界面")
                             current_state = "地鬼界面"
                             step -= 1
                         else:
                             # 进入探索界面异常
+                            print("STEP- vvvvv 跳转异常退出界面")
                             current_state = "Error"
                         break
                     else:

@@ -21,7 +21,7 @@ def MainTask_Digui(Hwnd, Account):
     current_time = datetime.now()
 
     # 判断跳过条件
-    if Times_diyuguiwang.date() == current_time.date() or (not (time(6, 0) <= current_time.time() <= time(23, 50))):
+    if Times_diyuguiwang.date() == current_time.date() or (not (time(12, 0) <= current_time.time() <= time(23, 50))):
         print("SKIP- ----- 跳过地鬼任务")
     else:
         # 开始地鬼任务

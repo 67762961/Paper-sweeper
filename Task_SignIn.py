@@ -302,6 +302,7 @@ def youqingdain(Hwnd, Account):
                     Find = Find_Click_windows(Hwnd, "./pic/Sign/Haoyou.png", 0.05, "进入好友界面", "未检测到好友界面")
                     if Find:
                         current_state = "好友界面"
+                        time.sleep(2)
                     else:
                         current_state = "end"
                 case "好友界面":

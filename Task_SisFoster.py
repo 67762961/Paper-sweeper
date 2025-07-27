@@ -348,7 +348,7 @@ def MainTask_Sisfoster(Hwnd, Account):
         Itface_guild(Hwnd)
 
         # 开始领取工资任务
-        time.sleep(0.5)
+        time.sleep(2)
         Work_Salary(Hwnd)
 
         # 开始结界寄养任务

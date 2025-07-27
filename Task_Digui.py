@@ -21,6 +21,7 @@ def MainTask_Digui(Hwnd, Account):
     current_time = datetime.now()
 
     # 判断跳过条件
+    # 当日未执行过 且现在时间在12点到23:50之间
     if Times_diyuguiwang.date() == current_time.date() or (not (time(12, 0) <= current_time.time() <= time(23, 50))):
         print("SKIP- ----- 跳过地鬼任务")
     else:
@@ -118,12 +119,17 @@ def Diyuguiwang(current_state, Hwnd):
                     current_state = "异常退出"
 
             case "战斗准备阶段":
-                sleep(2)
-                Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.07, "点击准备", "未检测到准备图标")
-                if Find:
-                    print("STEP- vvvvv 跳转战斗阶段")
-                    current_state = "战斗阶段"
-                else:
+                sleep(1)
+                for Wait in range(10):
+                    Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.07, "点击准备", "未检测到准备图标")
+                    if Find:
+                        print("STEP- vvvvv 跳转战斗阶段")
+                        current_state = "战斗阶段"
+                        break
+                    else:
+                        print("WAIT- wwwww 等待准备 已等待 {waittime} 秒".format(waittime=Wait + 1))
+                        sleep(1)
+                if not Find:
                     print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "异常退出"
 
@@ -144,6 +150,7 @@ def Diyuguiwang(current_state, Hwnd):
                             current_state = "异常退出"
                         break
                     else:
+                        print("WAIT- wwwww 等待战斗 已等待 {waittime} 秒".format(waittime=Wait * 5 + 10))
                         sleep(5)
 
             case "结束":

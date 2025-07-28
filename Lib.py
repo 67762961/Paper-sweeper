@@ -259,7 +259,7 @@ def Itface_Quit(Hwnd):
     :param Hwnd:    窗口句柄
     :return: None
     """
-    time.sleep(0.5)
+    time.sleep(3)
     # 注：此处退出界面条件可以极为苛刻 一般识别取值为0.006
     Range = Find_in_screen("./pic/Main/Tuichuyouxi.png", 0.01, 0)
     if Range:

@@ -1,5 +1,4 @@
 import Lib
-import Task_SisFoster
 import time
 import ctypes
 import win32api
@@ -12,11 +11,14 @@ import config
 import os
 import subprocess
 import datetime
+from contextlib import redirect_stdout
 from Task_LogIn import LogIn
 from Task_SignIn import MainTask_Signin
 from Task_Fengmo import MainTask_Fengmo
 from Task_Digui import MainTask_Digui
-from contextlib import redirect_stdout
+from Task_SisFoster import MainTask_Sisfoster
+from Task_Jiejieyangcheng import MainTask_Jiejieyangcheng
+
 
 # 全局变量 窗口句柄列表
 hwnds = []
@@ -160,12 +162,12 @@ def Sis_Foster():
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        Task_SisFoster.MainTask_Sisfoster(hwnds[0], "slaves")
+        MainTask_Sisfoster(hwnds[0], "master")
 
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        Task_SisFoster.MainTask_Sisfoster(hwnds[1], "master")
+        MainTask_Sisfoster(hwnds[1], "slaves")
 
         break
 
@@ -177,13 +179,13 @@ def Fengmo_zhishi():
     while not config.stop_thread:
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        MainTask_Fengmo(hwnds[1], "slaves")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
+        MainTask_Fengmo(hwnds[0], "master")
 
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        MainTask_Fengmo(hwnds[0], "master")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
+        MainTask_Fengmo(hwnds[1], "slaves")
 
         break
 

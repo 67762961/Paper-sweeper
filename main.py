@@ -172,6 +172,24 @@ def Sis_Foster():
         break
 
 
+def Jiejie_yangcheng():
+    """
+    结界收菜种菜
+    """
+    while not config.stop_thread:
+        print()
+        print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
+        MainTask_Jiejieyangcheng(hwnds[0], "master")
+
+        print()
+        print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
+        MainTask_Jiejieyangcheng(hwnds[1], "slaves")
+
+        break
+
+
 def Fengmo_zhishi():
     """
     逢魔之时
@@ -230,7 +248,7 @@ def Full_operation():
             print("MAIN- ~~~~ 完整运行流程开始 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             Main_Login_2()
             Sign_In()
-            Sis_Foster()
+            Jiejie_yangcheng()
             Diyu_guiwang()
             Fengmo_zhishi()
             print("MAIN- ~~~~ 完整运行流程结束 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")

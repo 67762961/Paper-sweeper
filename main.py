@@ -215,13 +215,13 @@ def Diyu_guiwang():
     while not config.stop_thread:
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
-        MainTask_Digui(hwnds[1], "slaves")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
+        MainTask_Digui(hwnds[0], "master")
 
         print()
         print("SHIF- ^^^^^ 切换游戏账号窗口 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        ctypes.windll.user32.SetForegroundWindow(hwnds[0])
-        MainTask_Digui(hwnds[0], "master")
+        ctypes.windll.user32.SetForegroundWindow(hwnds[1])
+        MainTask_Digui(hwnds[1], "slaves")
 
         break
 

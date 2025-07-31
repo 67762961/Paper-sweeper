@@ -476,7 +476,7 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                     sleep(0.5)
                     pyautogui.press("esc")
                     sleep(2)
-                    return Jiyang(current_state, Hwnd, Jiejieka_Model_path, string)
+                    return Jiyang("结界界面", Hwnd, Jiejieka_Model_path, string)
                 else:
                     # 进入素材列表
                     if Find_Click_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, "进入全部式神列表", "正处在素材列表中"):

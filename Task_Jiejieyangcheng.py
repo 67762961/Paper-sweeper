@@ -119,6 +119,21 @@ def Jiejieyangcheng(current_state, Hwnd):
                 Itface_Host(Hwnd)
                 return 1
 
+            case "异常退出":
+                sleep(1)
+                pyautogui.press("esc")
+                sleep(2)
+                for i in range(5):
+                    Find = Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "点击退出寮界面", "未检测到寮退出图标")
+                    if Find:
+                        sleep(1)
+                        break
+                    else:
+                        sleep(3)
+                        pyautogui.press("esc")
+                Itface_Host(Hwnd)
+                return 0
+
 
 def Work_Salary(Hwnd):
     """
@@ -276,7 +291,7 @@ def Yucheng(current_state, Hwnd):
                 else:
                     print("STEP- vvvvv 跳转异常退出界面")
                     sleep(1)
-                    current_state = "异常退出"
+                    return 0
 
             case "育成界面":
                 # 放出满级式神
@@ -335,7 +350,7 @@ def Yucheng(current_state, Hwnd):
                     else:
                         print("STEP- vvvvv 跳转异常退出界面")
                         sleep(1)
-                        current_state = "异常退出"
+                        return 0
                 else:
                     print("STEP- vvvvv 结束育成")
                     sleep(1)
@@ -358,7 +373,7 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                 else:
                     print("STEP- vvvvv 跳转异常退出界面")
                     sleep(1)
-                    current_state = "异常退出"
+                    return 0
 
             case "育成界面":
                 Find = Find_Click_windows(Hwnd, "./pic/Sis/Jiyangrukou.png", 0.05, "检测到寄养空位", "已经有寄养")
@@ -415,7 +430,7 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                 else:
                     print("STEP- vvvvv 跳转异常退出界面")
                     sleep(1)
-                    current_state = "异常退出"
+                    return 0
 
             case "寄养结界":
                 Find = Find_Click_windows(Hwnd, "./pic/Sis/youjiyangwei.png", 0.05, "有寄养位", "结界已被占用")

@@ -330,6 +330,7 @@ def youqingdain(Hwnd, Account):
                         time.sleep(0.5)
                 case "祝福界面":
                     Find_Click_windows(Hwnd, "./pic/Sign/Zhufu.png", 0.05, "祝福", "未检测到祝福")
+                    time.sleep(1)
                     if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                         print("一键祝福成功")
                         flag_jiwen = 1

@@ -1,5 +1,6 @@
 import time
 import pyautogui
+import pydirectinput
 import ctypes
 import win32gui
 from datetime import datetime, timedelta
@@ -55,7 +56,7 @@ def Work_Mail(Hwnd, Account):
             print(f"TIME- ----- {Now}")
             write_config("./config/Last_times.json", config)
             ctypes.windll.user32.SetForegroundWindow(Hwnd)
-            pyautogui.press("esc")
+            pydirectinput.press("esc")
             time.sleep(0.5)
             return 1
 
@@ -81,7 +82,7 @@ def Work_Mail(Hwnd, Account):
                 print("领取成功")
                 # 按下esc退出
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 # 检测消息邮件
                 while 1:
@@ -93,7 +94,7 @@ def Work_Mail(Hwnd, Account):
                 print(f"TIME- ----- {Now}")
                 write_config("./config/Last_times.json", config)
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 return 1
     else:
@@ -132,7 +133,7 @@ def Fudai(Hwnd, Account):
             print(f"TIME- ----- {Now}")
             write_config("./config/Last_times.json", config)
             ctypes.windll.user32.SetForegroundWindow(Hwnd)
-            pyautogui.press("esc")
+            pydirectinput.press("esc")
             time.sleep(0.5)
             return 1
         else:
@@ -180,10 +181,10 @@ def Qiandao(Hwnd, Account):
                         else:
                             print("未检测到解签小纸人")
                             ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                            pyautogui.press("esc")
+                            pydirectinput.press("esc")
                             time.sleep(0.5)
                     ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                    pyautogui.press("esc")
+                    pydirectinput.press("esc")
                     time.sleep(0.5)
                     break
             else:
@@ -204,7 +205,7 @@ def zhirenjiangli(Hwnd):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("体力领取成功")
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-        pyautogui.press("esc")
+        pydirectinput.press("esc")
         time.sleep(0.5)
 
     # 检测勾玉小纸人
@@ -212,7 +213,7 @@ def zhirenjiangli(Hwnd):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("勾玉领取成功")
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-        pyautogui.press("esc")
+        pydirectinput.press("esc")
         time.sleep(0.5)
 
     # 检测buff小纸人
@@ -220,7 +221,7 @@ def zhirenjiangli(Hwnd):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("BUFF领取成功")
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-        pyautogui.press("esc")
+        pydirectinput.press("esc")
         time.sleep(0.5)
 
 
@@ -252,7 +253,7 @@ def mianfeilibao(Hwnd, Account):
                 Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
                 print("免费礼包领取成功")
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 # 更新配置，写入当前时间
                 config = read_config("./config/Last_times.json")
@@ -263,10 +264,10 @@ def mianfeilibao(Hwnd, Account):
                 write_config("./config/Last_times.json", config)
                 # 返回庭院
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 Itface_Host(Hwnd)
                 return 1
@@ -326,7 +327,7 @@ def youqingdain(Hwnd, Account):
                         current_state = "好友界面"
                         flag_jiwen = 1
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                 case "祝福界面":
                     Find_Click_windows(Hwnd, "./pic/Sign/Zhufu.png", 0.05, "祝福", "未检测到祝福")
@@ -335,21 +336,21 @@ def youqingdain(Hwnd, Account):
                         print("一键祝福成功")
                         flag_jiwen = 1
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                     else:
                         print("一键祝福似乎未成功")
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                         Find = Find_in_windows(Hwnd, "./pic/Sign/Jiwen.png", 0.05, 0)
                         if not Find:
                             print("退出吉闻界面异常")
                             ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                            pyautogui.press("esc")
+                            pydirectinput.press("esc")
                             time.sleep(0.5)
                         else:
                             print("已正常退出吉闻界面")
@@ -360,7 +361,7 @@ def youqingdain(Hwnd, Account):
                         print("一键收取成功")
                         flag_youqingdian = 1
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                         current_state = "end"
                     else:
@@ -376,7 +377,7 @@ def youqingdain(Hwnd, Account):
                         write_config("./config/Last_times.json", config)
                         # 退至庭院
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                         Itface_Host(Hwnd)
                         return 1

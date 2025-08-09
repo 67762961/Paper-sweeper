@@ -6,6 +6,7 @@ import win32process
 import ctypes
 import cv2
 import pyautogui
+import pydirectinput
 import time
 import numpy as np
 import random
@@ -53,7 +54,8 @@ def Find_in_windows(Hwnd, Model_path, Threshold, Flag_show):
     # 获取DPI缩放因子
     # dpi_scale = win32api.GetDeviceCaps(win32api.GetDC(Hwnd), win32con.LOGPIXELSX) / 96.0
     # 此处因为不明原因无法获取 1K分辨路下默认缩放为0.5
-    dpi_scale = 0.5
+    # dpi_scale = 0.5
+    dpi_scale = 1
 
     # 计算实际截图大小，考虑DPI缩放
     width = int((right - left) * dpi_scale)
@@ -293,7 +295,8 @@ def Itface_Host(Hwnd):
 
         if Wait >= 10:
             # 按esc尝试回到主界面
-            pyautogui.press("esc")
+            # pyautogui.press("esc")
+            pydirectinput.press("esc")
             print("未检测到进入庭院 尝试esc")
             Itface_Quit(Hwnd)
 
@@ -402,5 +405,7 @@ def Itface_explore(Hwnd):
     Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangxing.png", 0.05, "点击悬赏星", "未检测到悬赏星")
     Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangqianwang.png", 0.05, "进入探索地图界面", "未进入探索地图界面")
     time.sleep(1)
-    pyautogui.press("esc")
+    # pyautogui.press("esc")
+    pydirectinput.press("esc")
+
     time.sleep(1)

@@ -1,6 +1,7 @@
 import Lib
 import time
 import pyautogui
+import pydirectinput
 from Lib import get_path
 
 

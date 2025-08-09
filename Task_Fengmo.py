@@ -1,5 +1,6 @@
 import Lib
 import pyautogui
+import pydirectinput
 import ctypes
 import win32gui
 import config
@@ -36,7 +37,7 @@ def meirifengmo(Hwnd):
             if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("逢魔奖励领取成功")
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 break
             else:
                 print("逢魔奖励领取失败")
@@ -100,7 +101,7 @@ def fengmoboss(Hwnd):
                 else:
                     print("未进入备战场景")
                     ctypes.windll.user32.SetForegroundWindow(Hwnd)
-                    pyautogui.press("esc")
+                    pydirectinput.press("esc")
                     sleep(0.5)
                     p = 0
 

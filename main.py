@@ -6,6 +6,7 @@ import win32con
 import win32gui
 import sys
 import pyautogui
+import pydirectinput
 import win32process
 import config
 import os
@@ -87,6 +88,14 @@ def Init():
     except:
         print(f"获取窗口句柄时发生异常: {e}")
 
+    return hwnds
+
+
+def Init_MuMu():
+    global hwnds
+    hwnds_1 = Lib.Find_windows("阴阳师-主账号")
+    hwnds_2 = Lib.Find_windows("阴阳师-副账号")
+    hwnds = [hwnds_1[0], hwnds_2[0]]
     return hwnds
 
 
@@ -246,7 +255,7 @@ def Full_operation():
         try:
             print()
             print("MAIN- ~~~~ 完整运行流程开始 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-            Main_Login_2()
+            # Main_Login_2()
             Sign_In()
             Jiejie_yangcheng()
             Diyu_guiwang()

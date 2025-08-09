@@ -1,6 +1,7 @@
 import Lib
 import time
 import pyautogui
+import pydirectinput
 import ctypes
 import win32gui
 from datetime import datetime, timedelta
@@ -21,7 +22,7 @@ def Work_Salary(Hwnd):
 
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
             print("领取体力工资成功")
-            pyautogui.press("esc")
+            pydirectinput.press("esc")
             time.sleep(0.5)
 
     for i in range(1):
@@ -30,7 +31,7 @@ def Work_Salary(Hwnd):
 
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
             print("领取体力工资成功")
-            pyautogui.press("esc")
+            pydirectinput.press("esc")
             time.sleep(0.5)
 
 
@@ -53,7 +54,7 @@ def Work_Foster(Hwnd):
 
             if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("寄养奖励领取成功")
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
             else:
                 print("寄养奖励领取失败")
@@ -69,9 +70,9 @@ def Work_Foster(Hwnd):
 
             if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("体力食盒领取成功")
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 return 1
             else:
@@ -86,7 +87,7 @@ def Work_Foster(Hwnd):
         Find_Click_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, "提取满的经验酒壶", "经验酒壶未满")
         Range = Find_in_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, 0)
         if Range:
-            pyautogui.press("esc")
+            pydirectinput.press("esc")
             print("经验酒壶提取上限")
         else:
             print("经验酒壶提取未到上限")
@@ -120,7 +121,7 @@ def Work_Foster(Hwnd):
         for i in range(1):
             if not Find_in_windows(Hwnd, "./pic/Sis/Jiejiekacao.png", 0.05, 0):
                 print("结界卡未耗尽")
-                pyautogui.press("esc")
+                pydirectinput.press("esc")
                 time.sleep(0.5)
                 break
             else:
@@ -146,7 +147,7 @@ def Work_Foster(Hwnd):
                     if Find_in_windows(Hwnd, "./pic/Sis/Yaoqing.png", 0.05, 0):
                         print("结界卡激活成功")
                         time.sleep(1)
-                        pyautogui.press("esc")
+                        pydirectinput.press("esc")
                         time.sleep(0.5)
                         return 1
                     else:
@@ -200,7 +201,7 @@ def Work_Foster(Hwnd):
 
         # 寄养
         if not Find_Click_windows(Hwnd, "./pic/Sis/Jiyangrukou.png", 0.05, "检测到寄养空位", "已经有寄养"):
-            pyautogui.press("esc")
+            pydirectinput.press("esc")
             time.sleep(3)
             return 1
 
@@ -230,9 +231,9 @@ def Work_Foster(Hwnd):
                             time.sleep(2)
 
                         if not Find_Click_windows(Hwnd, "./pic/Sis/youjiyangwei.png", 0.05, "有寄养位", "结界已被占用"):
-                            pyautogui.press("esc")
+                            pydirectinput.press("esc")
                             time.sleep(0.5)
-                            pyautogui.press("esc")
+                            pydirectinput.press("esc")
                             time.sleep(2)
                             break
 
@@ -253,9 +254,9 @@ def Work_Foster(Hwnd):
                                 pyautogui.scroll(-100)
                             else:
                                 Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "点击确定", "点击确定异常")
-                                pyautogui.press("esc")
+                                pydirectinput.press("esc")
                                 time.sleep(2)
-                                pyautogui.press("esc")
+                                pydirectinput.press("esc")
                                 time.sleep(2)
                                 flag_jiyangqueding = 1
                                 return 0
@@ -314,7 +315,7 @@ def Work_Foster(Hwnd):
             Jiejieka()
 
     # 回到寮界面
-    pyautogui.press("esc")
+    pydirectinput.press("esc")
     time.sleep(2)
 
     return Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "退出寮界面", "退出寮界面异常")

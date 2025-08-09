@@ -1,5 +1,6 @@
 import time
 import pyautogui
+import pydirectinput
 import ctypes
 import win32gui
 import config

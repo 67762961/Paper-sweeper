@@ -38,6 +38,7 @@ def meirifengmo(Hwnd):
                 print("逢魔奖励领取成功")
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pydirectinput.press("esc")
+                print("QUIT- ccccc 按Esc退出")
                 break
             else:
                 print("逢魔奖励领取失败")
@@ -102,6 +103,7 @@ def fengmoboss(Hwnd):
                     print("未进入备战场景")
                     ctypes.windll.user32.SetForegroundWindow(Hwnd)
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(0.5)
                     p = 0
 

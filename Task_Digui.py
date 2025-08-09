@@ -98,6 +98,7 @@ def Diyuguiwang(current_state, Hwnd):
                         print("STEP- vvvvv 似乎已经无挑战次数 跳转结束")
                         sleep(1)
                         pydirectinput.press("esc")
+                        print("QUIT- ccccc 按Esc退出")
                         sleep(1)
                         current_state = "结束"
                 else:
@@ -144,6 +145,7 @@ def Diyuguiwang(current_state, Hwnd):
                             flag_digui += 1
                             sleep(1)
                             pydirectinput.press("esc")
+                            print("QUIT- ccccc 按Esc退出")
                             print("STEP- vvvvv 跳转地鬼界面")
                             current_state = "地鬼界面"
                         else:
@@ -164,8 +166,10 @@ def Diyuguiwang(current_state, Hwnd):
                     # 任务结束
                     sleep(2)
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(2)
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(2)
                     Itface_Host(Hwnd)
                     return 1

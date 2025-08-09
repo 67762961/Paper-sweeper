@@ -114,6 +114,7 @@ def Jiejieyangcheng(current_state, Hwnd):
             case "结束":
                 sleep(1)
                 pydirectinput.press("esc")
+                print("QUIT- ccccc 按Esc退出")
                 sleep(2)
                 for i in range(5):
                     Find = Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "点击退出寮界面", "未检测到寮退出图标")
@@ -123,12 +124,14 @@ def Jiejieyangcheng(current_state, Hwnd):
                     else:
                         sleep(3)
                         pydirectinput.press("esc")
+                        print("QUIT- ccccc 按Esc退出")
                 Itface_Host(Hwnd)
                 return 1
 
             case "异常退出":
                 sleep(1)
                 pydirectinput.press("esc")
+                print("QUIT- ccccc 按Esc退出")
                 sleep(2)
                 for i in range(5):
                     Find = Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "点击退出寮界面", "未检测到寮退出图标")
@@ -138,6 +141,7 @@ def Jiejieyangcheng(current_state, Hwnd):
                     else:
                         sleep(3)
                         pydirectinput.press("esc")
+                        print("QUIT- ccccc 按Esc退出")
                         sleep(3)
                 Itface_Host(Hwnd)
                 return 0
@@ -156,6 +160,7 @@ def Work_Salary(Hwnd):
             if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("领取体力工资成功")
                 pydirectinput.press("esc")
+                print("QUIT- ccccc 按Esc退出")
                 sleep(1)
 
     if Find_Click_windows(Hwnd, "./pic/Sis/Tiligongzi.png", 0.05, "领取体力工资", "未检测到体力工资"):
@@ -163,6 +168,7 @@ def Work_Salary(Hwnd):
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
             print("领取体力工资成功")
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(1)
 
     sleep(1)
@@ -178,6 +184,7 @@ def Jiyangjiangli(Hwnd):
             print("寄养奖励领取成功")
             sleep(1)
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(1)
         else:
             print("寄养奖励领取失败")
@@ -195,13 +202,16 @@ def Tilishihe(Hwnd):
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
             print("体力食盒领取成功")
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(1)
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(1)
             return 1
         else:
             print("体力食盒领取失败")
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(1)
             return 0
 
@@ -211,6 +221,7 @@ def Jinyanjiuhu(Hwnd):
     def Tiqu(Range):
         if Range:
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(1)
             print("经验酒壶提取上限")
             return 0
@@ -268,6 +279,7 @@ def Jiejieka(Hwnd):
         if not Find_in_windows(Hwnd, "./pic/Sis/Jiejiekacao.png", 0.05, 0):
             print("结界卡未耗尽")
             pydirectinput.press("esc")
+            print("QUIT- ccccc 按Esc退出")
             sleep(0.5)
             return 1
         else:
@@ -294,6 +306,7 @@ def Jiejieka(Hwnd):
                     print("结界卡激活成功")
                     sleep(1)
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(0.5)
                     return 1
                 else:
@@ -377,6 +390,7 @@ def Yucheng(current_state, Hwnd):
                         print("STEP- vvvvv 结束育成")
                         sleep(1)
                         pydirectinput.press("esc")
+                        print("QUIT- ccccc 按Esc退出")
                         sleep(1)
                         return 1
                     else:
@@ -387,6 +401,7 @@ def Yucheng(current_state, Hwnd):
                     print("STEP- vvvvv 结束育成")
                     sleep(1)
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(1)
                     return 1
 
@@ -474,8 +489,10 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                 Find = Find_Click_windows(Hwnd, "./pic/Sis/youjiyangwei.png", 0.05, "有寄养位", "结界已被占用")
                 if not Find:
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(0.5)
                     pydirectinput.press("esc")
+                    print("QUIT- ccccc 按Esc退出")
                     sleep(2)
                     return Jiyang("结界界面", Hwnd, Jiejieka_Model_path, string)
                 else:
@@ -496,7 +513,9 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                         else:
                             Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "点击确定", "点击确定异常")
                             pydirectinput.press("esc")
+                            print("QUIT- ccccc 按Esc退出")
                             sleep(2)
                             pydirectinput.press("esc")
+                            print("QUIT- ccccc 按Esc退出")
                             sleep(2)
                             return Jiyang("结界界面", Hwnd, Jiejieka_Model_path, string)

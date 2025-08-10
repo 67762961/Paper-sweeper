@@ -4,7 +4,7 @@ import pydirectinput
 import ctypes
 import win32gui
 import config
-from time import sleep
+from Lib import Sleep_print
 from datetime import datetime, timedelta, time
 from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, Itface_daily, read_config, write_config
 
@@ -17,7 +17,7 @@ def meirifengmo(Hwnd):
             break
         else:
             print("未进入逢魔地图界面 等待10s")
-            sleep(10)
+            Sleep_print(10)
 
     # 点四下逢魔
     while True:
@@ -25,7 +25,7 @@ def meirifengmo(Hwnd):
         if Range:
             print("还有逢魔次数")
             Find_Click_windows(Hwnd, "./pic/Fengmo/Xianshifengmo.png", 0.07, "点击现世逢魔", "未检测到现世逢魔图标")
-            sleep(2.5)
+            Sleep_print(2.5)
         else:
             print("逢魔次数耗尽")
             break
@@ -49,7 +49,7 @@ def meirifengmo(Hwnd):
                     break
                 else:
                     print("逢魔奖励未正确领取")
-                    sleep(0.5)
+                    Sleep_print(0.5)
             break
 
 
@@ -58,7 +58,7 @@ def fengmoboss(Hwnd):
     封魔打boss
     """
     # 初始化
-    sleep(1)
+    Sleep_print(1)
     flag_boss = 1
     flag_Ji = True
     found_battle_scene = False
@@ -72,13 +72,13 @@ def fengmoboss(Hwnd):
                 Range = Find_Click_windows(Hwnd, "./pic/Fengmo/Fengmoji.png", 0.05, "点击逢魔-极", "未检测到逢魔-极图标")
                 if Range:
                     flag_boss = 1
-                    sleep(1)
+                    Sleep_print(1)
                     break
             else:
                 # 封魔-极检索失败则转为打首领
                 if Find_Click_windows(Hwnd, "./pic/Fengmo/Shouling.png", 0.05, "点击首领", "未检测到首领图标"):
                     flag_boss = 0
-                    sleep(1)
+                    Sleep_print(1)
                     break
 
         # 集结 简化为只识别一次
@@ -88,7 +88,7 @@ def fengmoboss(Hwnd):
             else:
                 Range = Find_Click_windows(Hwnd, "./pic/Fengmo/Jijie0.png", 0.05, "点击集结", "未检测到集结图标")
 
-            sleep(1)
+            Sleep_print(1)
 
             if Range:
                 if flag_boss:
@@ -104,7 +104,7 @@ def fengmoboss(Hwnd):
                     ctypes.windll.user32.SetForegroundWindow(Hwnd)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(0.5)
+                    Sleep_print(0.5)
                     p = 0
 
         # 两次寻找封魔-极无果就改换首领
@@ -150,7 +150,7 @@ def MainTask_Fengmo(Hwnd, Account):
             return 0
         else:
             if Find_Click_windows(Hwnd, "./pic/Main/Qianwang.png", 0.05, "点击前往", "未检测到前往图标"):
-                sleep(3)
+                Sleep_print(3)
                 # 先点封魔再打boss
                 meirifengmo(Hwnd)
                 for i in range(3):

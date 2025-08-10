@@ -2,7 +2,7 @@ import pyautogui
 import pydirectinput
 import ctypes
 import win32gui
-from time import sleep
+from Lib import Sleep_print
 from datetime import datetime, timedelta
 from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, Itface_explore, read_config, write_config, check_lasttime
 
@@ -58,25 +58,25 @@ def Jiejieyangcheng(current_state, Hwnd):
                     else:
                         print("未检测到结界入口")
                         print("WAIT- wwwww 等待进入寮界面 已等待 {waittime} 秒".format(waittime=Wait))
-                        sleep(1)
+                        Sleep_print(1)
                 if not Find:
                     print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "异常退出"
 
             case "寮界面":
-                sleep(1)
+                Sleep_print(1)
                 Work_Salary(Hwnd)
                 Find = Find_Click_windows(Hwnd, "./pic/Sis/Jiejie.png", 0.05, "点击进入结界", "未检测到结界图标")
                 if Find:
                     print("STEP- vvvvv 跳转结界界面")
-                    sleep(1)
+                    Sleep_print(1)
                     current_state = "结界界面"
                 else:
                     print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "异常退出"
 
             case "结界界面":
-                sleep(3)
+                Sleep_print(3)
                 # 领取寄养
                 Jiyangjiangli(Hwnd)
 
@@ -112,37 +112,37 @@ def Jiejieyangcheng(current_state, Hwnd):
                     current_state = "异常退出"
 
             case "结束":
-                sleep(1)
+                Sleep_print(1)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                sleep(2)
+                Sleep_print(2)
                 for i in range(5):
                     Find = Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "点击退出寮界面", "未检测到寮退出图标")
                     if Find:
-                        sleep(1)
+                        Sleep_print(1)
                         break
                     else:
-                        sleep(3)
+                        Sleep_print(3)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
                 Itface_Host(Hwnd)
                 return 1
 
             case "异常退出":
-                sleep(1)
+                Sleep_print(1)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                sleep(2)
+                Sleep_print(2)
                 for i in range(5):
                     Find = Find_Click_windows(Hwnd, "./pic/Sis/Tuichu.png", 0.05, "点击退出寮界面", "未检测到寮退出图标")
                     if Find:
-                        sleep(1)
+                        Sleep_print(1)
                         break
                     else:
-                        sleep(3)
+                        Sleep_print(3)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        sleep(3)
+                        Sleep_print(3)
                 Itface_Host(Hwnd)
                 return 0
 
@@ -161,7 +161,7 @@ def Work_Salary(Hwnd):
                 print("领取体力工资成功")
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                sleep(1)
+                Sleep_print(1)
 
     if Find_Click_windows(Hwnd, "./pic/Sis/Tiligongzi.png", 0.05, "领取体力工资", "未检测到体力工资"):
 
@@ -169,9 +169,9 @@ def Work_Salary(Hwnd):
             print("领取体力工资成功")
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(1)
+            Sleep_print(1)
 
-    sleep(1)
+    Sleep_print(1)
 
 
 def Jiyangjiangli(Hwnd):
@@ -182,37 +182,37 @@ def Jiyangjiangli(Hwnd):
 
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
             print("寄养奖励领取成功")
-            sleep(1)
+            Sleep_print(1)
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(1)
+            Sleep_print(1)
         else:
             print("寄养奖励领取失败")
 
 
 def Tilishihe(Hwnd):
-    sleep(0.5)
+    Sleep_print(0.5)
     # 检测体力食盒
     for i in range(1):
         if not Find_Click_windows(Hwnd, "./pic/Sis/Tilingshihe.png", 0.05, "检测到体力食盒", "未检测到体力食盒溢出"):
             break
 
         Find_Click_windows(Hwnd, "./pic/Sis/Quchu.png", 0.05, "取出体力食盒", "取出体力食盒异常")
-        sleep(1)
+        Sleep_print(1)
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
             print("体力食盒领取成功")
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(1)
+            Sleep_print(1)
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(1)
+            Sleep_print(1)
             return 1
         else:
             print("体力食盒领取失败")
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(1)
+            Sleep_print(1)
             return 0
 
 
@@ -222,7 +222,7 @@ def Jinyanjiuhu(Hwnd):
         if Range:
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(1)
+            Sleep_print(1)
             print("经验酒壶提取上限")
             return 0
         else:
@@ -230,7 +230,7 @@ def Jinyanjiuhu(Hwnd):
             Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "育成有满级式神 强行提取", "经验酒壶提取成功")
             return 1
 
-    sleep(1)
+    Sleep_print(1)
     # 满经验酒壶情况
     if Find_Click_windows(Hwnd, "./pic/Sis/Jingyanjiuhu.png", 0.05, "检测到经验酒壶满", "经验酒壶未满"):
         Find_Click_windows(Hwnd, "./pic/Sis/Tiqu.png", 0.05, "提取满的经验酒壶", "提取满的经验酒壶失败")
@@ -247,11 +247,11 @@ def Jinyanjiuhu(Hwnd):
 
 
 def Jiejiekajiangli(Hwnd):
-    sleep(1)
+    Sleep_print(1)
     # 检测结界卡奖励
     for i in range(1):
         if Find_Click_windows(Hwnd, "./pic/Sis/Jiejiekajiangli.png", 0.05, "检测到结界卡奖励 点击领取", "未检测到结界卡结束奖励"):
-            sleep(0.5)
+            Sleep_print(0.5)
             if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                 print("结界卡奖励领取成功")
             else:
@@ -263,7 +263,7 @@ def Jiejiekajiangli(Hwnd):
 
 
 def Jiejieka(Hwnd):
-    sleep(1)
+    Sleep_print(1)
     # 进入结界卡界面
     for Wait in range(10):
         Find = Find_Click_windows(Hwnd, "./pic/Sis/Jiejieka.png", 0.07, "进入结界卡界面", "未进入结界卡界面")
@@ -271,16 +271,16 @@ def Jiejieka(Hwnd):
             break
         else:
             print("WAIT- wwwww 等待进入结界卡界面 已等待 {waittime} 秒".format(waittime=Wait + 1))
-            sleep(1)
+            Sleep_print(1)
 
-    sleep(1)
+    Sleep_print(1)
     # 放置结界卡
     for i in range(1):
         if not Find_in_windows(Hwnd, "./pic/Sis/Jiejiekacao.png", 0.05, 0):
             print("结界卡未耗尽")
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            sleep(0.5)
+            Sleep_print(0.5)
             return 1
         else:
             print("结界卡已经耗尽")
@@ -304,10 +304,10 @@ def Jiejieka(Hwnd):
 
                 if Find_in_windows(Hwnd, "./pic/Sis/Yaoqing.png", 0.05, 0):
                     print("结界卡激活成功")
-                    sleep(1)
+                    Sleep_print(1)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(0.5)
+                    Sleep_print(0.5)
                     return 1
                 else:
                     print("结界卡激活失败")
@@ -315,47 +315,47 @@ def Jiejieka(Hwnd):
 
 
 def Yucheng(current_state, Hwnd):
-    sleep(1)
+    Sleep_print(1)
     # 进入结界育成
     print("STEP- vvvvv 从{First_state}开始育成任务".format(First_state=current_state))
     for step in range(30):
-        sleep(1)
+        Sleep_print(1)
         match current_state:
             case "结界界面":
-                sleep(1)
+                Sleep_print(1)
                 for Wait in range(10):
                     Find = Find_Click_windows(Hwnd, "./pic/Sis/Shishenyucheng.png", 0.05, "检测到进入结界育成界面", "未检测到进入结界育成界面")
                     if Find:
                         print("STEP- vvvvv 跳转育成界面")
-                        sleep(1)
+                        Sleep_print(1)
                         current_state = "育成界面"
                         break
                     else:
                         print("WAIT- wwwww 等待育成界面检测 已等待 {waittime} 秒".format(waittime=Wait + 1))
-                        sleep(1)
+                        Sleep_print(1)
                 if not Find:
                     print("STEP- vvvvv 跳转异常退出界面")
-                    sleep(1)
+                    Sleep_print(1)
                     return 0
 
             case "育成界面":
                 # 放出满级式神
                 for i in range(10):
                     if Find_Click_windows(Hwnd, "./pic/Sis/Manjidamo.png", 0.07, "检测到有满级式神", "未检测到有满级式神"):
-                        sleep(0.5)
+                        Sleep_print(0.5)
                     else:
                         break
-                        sleep(0.5)
+                        Sleep_print(0.5)
 
                 Find = Find_Click_windows(Hwnd, "./pic/Sis/Fangrushishen.png", 0.05, "检测到有空位", "育成池已经放满")
                 if Find:
                     # 进入素材列表
                     if Find_Click_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, "进入全部式神列表", "正处在素材列表中"):
-                        sleep(0.5)
+                        Sleep_print(0.5)
                         Find_Click_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, "选择素材列表", "选择素材列表异常")
 
                     for j in range(10):
-                        sleep(0.5)
+                        Sleep_print(0.5)
                         if not Find_Click_windows(Hwnd, "./pic/Sis/Fengweidamo.png", 0.07, "放上去一个奉为达摩", "未检测到达摩素材"):
                             Range = Find_in_windows(Hwnd, "./pic/Sis/Yuchengliebioakuang.png", 0.05, 0)
                             print("进入翻页区域")
@@ -368,7 +368,7 @@ def Yucheng(current_state, Hwnd):
                             break
                 else:
                     print("STEP- vvvvv 跳转寄养任务")
-                    sleep(1)
+                    Sleep_print(1)
                     current_state = "寄养任务"
 
             case "寄养任务":
@@ -388,51 +388,51 @@ def Yucheng(current_state, Hwnd):
 
                     if Finish:
                         print("STEP- vvvvv 结束育成")
-                        sleep(1)
+                        Sleep_print(1)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        sleep(1)
+                        Sleep_print(1)
                         return 1
                     else:
                         print("STEP- vvvvv 跳转异常退出界面")
-                        sleep(1)
+                        Sleep_print(1)
                         return 0
                 else:
                     print("STEP- vvvvv 结束育成")
-                    sleep(1)
+                    Sleep_print(1)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(1)
+                    Sleep_print(1)
                     return 1
 
 
 def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
     print("STEP- vvvvv 从{First_state}开始寄养任务".format(First_state=current_state))
     for step in range(30):
-        sleep(1)
+        Sleep_print(1)
         match current_state:
             case "结界界面":
-                sleep(1)
+                Sleep_print(1)
                 for Wait in range(10):
                     Find = Find_Click_windows(Hwnd, "./pic/Sis/Shishenyucheng.png", 0.05, "检测到进入结界育成界面", "未检测到进入结界育成界面")
                     if Find:
                         print("STEP- vvvvv 跳转育成界面")
-                        sleep(1)
+                        Sleep_print(1)
                         current_state = "育成界面"
                         break
                     else:
                         print("WAIT- wwwww 等待育成界面检测 已等待 {waittime} 秒".format(waittime=Wait + 1))
-                        sleep(1)
+                        Sleep_print(1)
                 if not Find:
                     print("STEP- vvvvv 跳转异常退出界面")
-                    sleep(1)
+                    Sleep_print(1)
                     return 0
 
             case "育成界面":
                 Find = Find_Click_windows(Hwnd, "./pic/Sis/Jiyangrukou.png", 0.05, "检测到寄养空位", "已经有寄养")
                 if Find:
                     print("STEP- vvvvv 跳转寄养列表")
-                    sleep(1)
+                    Sleep_print(1)
                     current_state = "寄养列表"
                 else:
                     print("STEP- vvvvv 寄养任务完成")
@@ -440,9 +440,9 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
 
             case "寄养列表":
                 # 刷新好友结界卡列表
-                sleep(2)
+                Sleep_print(2)
                 Find_Click_windows(Hwnd, "./pic/Sis/Kuaqu.png", 0.05, "点击跨区", "点击跨区异常")
-                sleep(2)
+                Sleep_print(2)
                 Find_Click_windows(Hwnd, "./pic/Sis/Haoyou.png", 0.05, "点击好友", "点击好友异常")
                 # 寻找对应结界卡
                 for times in range(30):
@@ -452,19 +452,19 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                     x = (Range[0][0] + Range[1][0]) // 2 + rect[0]
                     y = (Range[0][1] + Range[1][1]) // 2 + rect[1]
                     pyautogui.moveTo(x, y)
-                    sleep(0.5)
+                    Sleep_print(0.5)
                     pyautogui.scroll(-100)
-                    sleep(0.5)
+                    Sleep_print(0.5)
 
                     Find = Find_in_windows(Hwnd, Jiejieka_Model_path, 0.05, 0)
                     if Find:
-                        sleep(1)
+                        Sleep_print(1)
                         Click(Hwnd, Find, 1)
                         print("检测到", end="")
                         print(string)
 
                         if Find_Click_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, "点击进入结界", "点击进入结界异常"):
-                            sleep(2)
+                            Sleep_print(2)
                             break
                     else:
                         print("未检测到", end="")
@@ -478,11 +478,11 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
 
                 if Find:
                     print("STEP- vvvvv 跳转寄养结界")
-                    sleep(1)
+                    Sleep_print(1)
                     current_state = "寄养结界"
                 else:
                     print("STEP- vvvvv 跳转异常退出界面")
-                    sleep(1)
+                    Sleep_print(1)
                     return 0
 
             case "寄养结界":
@@ -490,15 +490,15 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                 if not Find:
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(0.5)
+                    Sleep_print(0.5)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(2)
+                    Sleep_print(2)
                     return Jiyang("结界界面", Hwnd, Jiejieka_Model_path, string)
                 else:
                     # 进入素材列表
                     if Find_Click_windows(Hwnd, "./pic/Sis/Quanbu.png", 0.05, "进入全部式神列表", "正处在素材列表中"):
-                        sleep(0.5)
+                        Sleep_print(0.5)
                         Find_Click_windows(Hwnd, "./pic/Sis/Sucai.png", 0.05, "选择素材列表", "选择素材列表异常")
 
                     for j in range(10):
@@ -514,8 +514,8 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                             Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "点击确定", "点击确定异常")
                             pydirectinput.press("esc")
                             print("QUIT- ccccc 按Esc退出")
-                            sleep(2)
+                            Sleep_print(2)
                             pydirectinput.press("esc")
                             print("QUIT- ccccc 按Esc退出")
-                            sleep(2)
+                            Sleep_print(2)
                             return Jiyang("结界界面", Hwnd, Jiejieka_Model_path, string)

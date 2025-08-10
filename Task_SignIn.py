@@ -1,9 +1,9 @@
-import time
 import pyautogui
 import pydirectinput
 import ctypes
 import win32gui
 from datetime import datetime, timedelta
+from Lib import Sleep_print
 from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, read_config, write_config, Itface_scroll, check_lasttime
 
 
@@ -37,7 +37,7 @@ def Work_Mail(Hwnd, Account):
             print("检测到进入邮箱")
         else:
             print("进入邮箱异常")
-            time.sleep(0.5)
+            Sleep_print(0.5)
             return 0
 
         # 检测是否有奖励未领取
@@ -58,7 +58,7 @@ def Work_Mail(Hwnd, Account):
             ctypes.windll.user32.SetForegroundWindow(Hwnd)
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            time.sleep(0.5)
+            Sleep_print(0.5)
             return 1
 
         # 有奖励未领取
@@ -72,7 +72,7 @@ def Work_Mail(Hwnd, Account):
                 print("检测到进入领取界面")
             else:
                 print("error 未正常领取")
-                time.sleep(0.5)
+                Sleep_print(0.5)
                 return 0
 
             # 点击确定
@@ -85,7 +85,7 @@ def Work_Mail(Hwnd, Account):
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                time.sleep(0.5)
+                Sleep_print(0.5)
                 # 检测消息邮件
                 while 1:
                     if not Find_Click_windows(Hwnd, "./pic/Mail/Xiaoxiyoujian.png", 0.05, "点击消息邮件", "未发现消息邮件"):
@@ -98,7 +98,7 @@ def Work_Mail(Hwnd, Account):
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                time.sleep(0.5)
+                Sleep_print(0.5)
                 return 1
     else:
         print("SKIP- ----- 跳过领取邮箱")
@@ -138,7 +138,7 @@ def Fudai(Hwnd, Account):
             ctypes.windll.user32.SetForegroundWindow(Hwnd)
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
-            time.sleep(0.5)
+            Sleep_print(0.5)
             return 1
         else:
             return 0
@@ -173,7 +173,7 @@ def Qiandao(Hwnd, Account):
                 # 点击签到小人后
                 if Find_Click_windows(Hwnd, "./pic/Sign/Meiriyiqian.png", 0.05, "每日一签", "签到异常"):
                     for i in range(2):
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                         Range = Find_in_windows(Hwnd, "./pic/Sign/Jieqianxiaozhiren.png", 0.05, 0)
                         if Range:
                             print("检测到解签小纸人，每日一签成功")
@@ -187,14 +187,14 @@ def Qiandao(Hwnd, Account):
                             ctypes.windll.user32.SetForegroundWindow(Hwnd)
                             pydirectinput.press("esc")
                             print("QUIT- ccccc 按Esc退出")
-                            time.sleep(0.5)
+                            Sleep_print(0.5)
                     ctypes.windll.user32.SetForegroundWindow(Hwnd)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    time.sleep(0.5)
+                    Sleep_print(0.5)
                     break
             else:
-                time.sleep(0.1)
+                Sleep_print(0.1)
                 Wait += 1
                 if Wait >= 5:
                     break
@@ -213,7 +213,7 @@ def zhirenjiangli(Hwnd):
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
         pydirectinput.press("esc")
         print("QUIT- ccccc 按Esc退出")
-        time.sleep(0.5)
+        Sleep_print(0.5)
 
     # 检测勾玉小纸人
     if Find_Click_windows(Hwnd, "./pic/Sign/Gouyuxiaozhiren.png", 0.05, "检测到勾玉小纸人", "未检测到勾玉小纸人"):
@@ -222,7 +222,7 @@ def zhirenjiangli(Hwnd):
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
         pydirectinput.press("esc")
         print("QUIT- ccccc 按Esc退出")
-        time.sleep(0.5)
+        Sleep_print(0.5)
 
     # 检测buff小纸人
     if Find_Click_windows(Hwnd, "./pic/Sign/BUFFxiaozhiren.png", 0.05, "检测到BUFF小纸人", "未检测到BUFF小纸人"):
@@ -231,7 +231,7 @@ def zhirenjiangli(Hwnd):
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
         pydirectinput.press("esc")
         print("QUIT- ccccc 按Esc退出")
-        time.sleep(0.5)
+        Sleep_print(0.5)
 
 
 def mianfeilibao(Hwnd, Account):
@@ -264,7 +264,7 @@ def mianfeilibao(Hwnd, Account):
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                time.sleep(0.5)
+                Sleep_print(0.5)
                 # 更新配置，写入当前时间
                 config = read_config("./config/Last_times.json")
                 Now = current_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -276,11 +276,11 @@ def mianfeilibao(Hwnd, Account):
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                time.sleep(0.5)
+                Sleep_print(0.5)
                 ctypes.windll.user32.SetForegroundWindow(Hwnd)
                 pydirectinput.press("esc")
                 print("QUIT- ccccc 按Esc退出")
-                time.sleep(0.5)
+                Sleep_print(0.5)
                 Itface_Host(Hwnd)
                 return 1
         Itface_Host(Hwnd)
@@ -315,7 +315,7 @@ def youqingdain(Hwnd, Account):
                     Find = Find_Click_windows(Hwnd, "./pic/Sign/Haoyou.png", 0.05, "进入好友界面", "未检测到好友界面")
                     if Find:
                         current_state = "好友界面"
-                        time.sleep(2)
+                        Sleep_print(2)
                     else:
                         current_state = "end"
                 case "好友界面":
@@ -341,34 +341,34 @@ def youqingdain(Hwnd, Account):
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                 case "祝福界面":
                     Find_Click_windows(Hwnd, "./pic/Sign/Zhufu.png", 0.05, "祝福", "未检测到祝福")
-                    time.sleep(1)
+                    Sleep_print(1)
                     if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
                         print("一键祝福成功")
                         flag_jiwen = 1
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                     else:
                         print("一键祝福似乎未成功")
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                         Find = Find_in_windows(Hwnd, "./pic/Sign/Jiwen.png", 0.05, 0)
                         if not Find:
                             print("退出吉闻界面异常")
                             ctypes.windll.user32.SetForegroundWindow(Hwnd)
                             pydirectinput.press("esc")
                             print("QUIT- ccccc 按Esc退出")
-                            time.sleep(0.5)
+                            Sleep_print(0.5)
                         else:
                             print("已正常退出吉闻界面")
                     current_state = "好友界面"
@@ -380,7 +380,7 @@ def youqingdain(Hwnd, Account):
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                         current_state = "end"
                     else:
                         print("一键收取似乎未成功")
@@ -397,7 +397,7 @@ def youqingdain(Hwnd, Account):
                         ctypes.windll.user32.SetForegroundWindow(Hwnd)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        time.sleep(0.5)
+                        Sleep_print(0.5)
                         Itface_Host(Hwnd)
                         return 1
 
@@ -444,7 +444,7 @@ def MainTask_Signin(Hwnd, Account):
 
     # 开始领取邮件奖励
     print("TASK- +++++ 开始领取邮件奖励 ++++++++++++++++++++++++++++++++")
-    time.sleep(0.5)
+    Sleep_print(0.5)
     if Work_Mail(Hwnd, Account):
         print("TASK- ----- 邮件奖励领取成功 --------------------------------")
     else:

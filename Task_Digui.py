@@ -4,7 +4,7 @@ import pydirectinput
 import ctypes
 import win32gui
 import config
-from time import sleep
+from Lib import Sleep_print
 from datetime import datetime, timedelta, time
 from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, Itface_explore, read_config, write_config, check_lasttime
 
@@ -50,7 +50,7 @@ def Diyuguiwang(current_state, Hwnd):
     flag_digui = 1
     print("STEP- vvvvv 从{First_state}开始".format(First_state=current_state))
     for step in range(30):
-        sleep(1)
+        Sleep_print(1)
         match current_state:
             case "探索界面":
                 Find = Find_Click_windows(Hwnd, "./pic/Digui/Diguitubiao.png", 0.05, "进入地鬼界面", "未检测到地鬼图标")
@@ -62,7 +62,7 @@ def Diyuguiwang(current_state, Hwnd):
                     current_state = "异常退出"
 
             case "地鬼界面":
-                sleep(1)
+                Sleep_print(1)
                 if flag_digui <= 3:
                     Find = Find_Click_windows(Hwnd, "./pic/Digui/Shaixuan.png", 0.05, "点击筛选", "未检测到筛选图标")
                     if Find:
@@ -77,7 +77,7 @@ def Diyuguiwang(current_state, Hwnd):
 
             case "筛选界面":
                 Find_Click_windows(Hwnd, "./pic/Digui/Remen.png", 0.01, "点击热门", "似乎已经在热门选项中")
-                sleep(1)
+                Sleep_print(1)
                 match flag_digui:
                     case 1:
                         Find = Find_Click_windows(Hwnd, "./pic/Digui/1st.png", 0.05, "点击第一个", "似乎无法挑战第一热门鬼王")
@@ -86,7 +86,7 @@ def Diyuguiwang(current_state, Hwnd):
                     case 3:
                         Find = Find_Click_windows(Hwnd, "./pic/Digui/3rd.png", 0.05, "点击第三个", "似乎无法挑战第三热门鬼王")
 
-                sleep(1)
+                Sleep_print(1)
                 if Find_in_windows(Hwnd, "./pic/Digui/Zuixin.png", 0.01, 0):
                     print("检测到最新栏 似乎无法挑战热门")
                     Find_Click_windows(Hwnd, "./pic/Digui/Zuixin.png", 0.01, "点击最新", "点击最新失败")
@@ -96,10 +96,10 @@ def Diyuguiwang(current_state, Hwnd):
                         current_state = "挑战界面"
                     else:
                         print("STEP- vvvvv 似乎已经无挑战次数 跳转结束")
-                        sleep(1)
+                        Sleep_print(1)
                         pydirectinput.press("esc")
                         print("QUIT- ccccc 按Esc退出")
-                        sleep(1)
+                        Sleep_print(1)
                         current_state = "结束"
                 else:
                     print("未检测到最新栏 似乎可以挑战热门")
@@ -111,7 +111,7 @@ def Diyuguiwang(current_state, Hwnd):
                         current_state = "异常退出"
 
             case "挑战界面":
-                sleep(1)
+                Sleep_print(1)
                 Find = Find_Click_windows(Hwnd, "./pic/Digui/Tiaozhan.png", 0.05, "点击开始挑战", "未检测到挑战图标")
                 if Find:
                     print("STEP- vvvvv 跳转战斗准备阶段")
@@ -121,7 +121,7 @@ def Diyuguiwang(current_state, Hwnd):
                     current_state = "异常退出"
 
             case "战斗准备阶段":
-                sleep(1)
+                Sleep_print(1)
                 for Wait in range(10):
                     Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhunbei.png", 0.07, "点击准备", "未检测到准备图标")
                     if Find:
@@ -130,20 +130,20 @@ def Diyuguiwang(current_state, Hwnd):
                         break
                     else:
                         print("WAIT- wwwww 等待准备 已等待 {waittime} 秒".format(waittime=Wait + 1))
-                        sleep(1)
+                        Sleep_print(1)
                 if not Find:
                     print("STEP- vvvvv 跳转异常退出界面")
                     current_state = "异常退出"
 
             case "战斗阶段":
-                sleep(10)
+                Sleep_print(10)
                 for Wait in range(60):
                     if Find_Click_windows(Hwnd, "./pic/Digui/Shengli.png", 0.05, "点击胜利", "似乎战斗未结束"):
-                        sleep(1)
+                        Sleep_print(1)
                         Find = Find_Click_windows(Hwnd, "./pic/Digui/Zhandoujiangli.png", 0.05, "点击战斗奖励", "未检测到战斗奖励图标")
                         if Find:
                             flag_digui += 1
-                            sleep(1)
+                            Sleep_print(1)
                             pydirectinput.press("esc")
                             print("QUIT- ccccc 按Esc退出")
                             print("STEP- vvvvv 跳转地鬼界面")
@@ -154,7 +154,7 @@ def Diyuguiwang(current_state, Hwnd):
                         break
                     else:
                         print("WAIT- wwwww 等待战斗 已等待 {waittime} 秒".format(waittime=Wait * 5 + 10))
-                        sleep(5)
+                        Sleep_print(5)
 
             case "结束":
                 Find_Click_windows(Hwnd, "./pic/Digui/Jinritioazhan.png", 0.05, "点击今日挑战", "未检测到今日挑战图标")
@@ -164,13 +164,13 @@ def Diyuguiwang(current_state, Hwnd):
                 else:
                     print("似乎已无地域鬼王讨伐次数 任务结束")
                     # 任务结束
-                    sleep(2)
+                    Sleep_print(2)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(2)
+                    Sleep_print(2)
                     pydirectinput.press("esc")
                     print("QUIT- ccccc 按Esc退出")
-                    sleep(2)
+                    Sleep_print(2)
                     Itface_Host(Hwnd)
                     return 1
 

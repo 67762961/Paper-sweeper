@@ -19,6 +19,11 @@ import config
 import json
 
 
+def Sleep_print(Wait_time):
+    time.sleep(Wait_time)
+    print("WAIT- sssss 等待{Time}秒钟".format(Time=Wait_time))
+
+
 def Find_windows(title):
     """
     寻找与标题相符的句柄

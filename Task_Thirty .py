@@ -1,7 +1,7 @@
 import Lib
-import time
 import pyautogui
 import pydirectinput
+from Lib import Sleep_print
 from Lib import get_path
 
 
@@ -15,7 +15,7 @@ def MainTask_Thirty(Hwnd):
 
     # 开始领取工资任务
     print("TASK- +++++ 开始领取工资任务 ++++++++++++++++++++++++++++++++")
-    time.sleep(0.5)
+    Sleep_print(0.5)
     if Work_Salary(Hwnd):
         print("TASK- ----- 领取工资任务完成 --------------------------------")
     else:
@@ -23,7 +23,7 @@ def MainTask_Thirty(Hwnd):
 
     # 开始结界寄养任务
     print("TASK- +++++ 开始结界寄养任务 ++++++++++++++++++++++++++++++++")
-    time.sleep(0.5)
+    Sleep_print(0.5)
     if Work_Foster(Hwnd):
         print("TASK- ----- 结界寄养任务完成 --------------------------------")
     else:

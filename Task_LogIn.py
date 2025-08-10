@@ -1,9 +1,9 @@
-import time
 import pyautogui
 import pydirectinput
 import ctypes
 import win32gui
 import config
+from Lib import Sleep_print
 from Lib import Find_in_windows, Find_in_screen, Find_Click_screen, Click
 
 
@@ -13,7 +13,7 @@ def LogIn(Log, Hwnd):
     :return:    1正常0异常
     """
     win32gui.SetWindowPos(Hwnd, 0, 960, 540, 1920, 1158, 0x0040)
-    time.sleep(1)
+    Sleep_print(1)
     # 先检测是否已经登录
 
     if Find_in_windows(Hwnd, "./pic/Main/Zhujiemian.png", 0.05, 0):
@@ -31,7 +31,7 @@ def LogIn(Log, Hwnd):
         else:
             Wait += 1
             print("未检测到登录界面 等待:", Wait)
-            time.sleep(1)
+            Sleep_print(1)
             ctypes.windll.user32.SetForegroundWindow(Hwnd)
 
         if Wait >= 30:
@@ -47,12 +47,12 @@ def LogIn(Log, Hwnd):
 
             # 注：此处条件可以极为苛刻 一般识别取值为0.000
             Find_Click_screen("./pic/Main/Zhuzhanghao.png", 0.005, "选择主账号", "无法识别主账号区域")
-            time.sleep(2)
+            Sleep_print(2)
             Find_Click_screen("./pic/Main/Jinruyouxi0.png", 0.05, "点击账号登录", "账号未登录")
         else:
-            time.sleep(2)
+            Sleep_print(2)
             Find_Click_screen("./pic/Main/Jinruyouxi.png", 0.05, "点击账号登录", "账号未登录")
-        time.sleep(3)
+        Sleep_print(3)
         Find = Find_in_screen("./pic/Main/Jinruyouxi1.png", 0.01, 0)
         if not Find:
             print("无法识别 尝试坐标点击")

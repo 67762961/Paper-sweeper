@@ -21,10 +21,12 @@ def Work_Salary(Hwnd):
         Find_Click_windows(Hwnd, "./pic/Sis/Lingqu.png", 0.05, "领取工资", "领取工资异常")
 
         if Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0):
-            print("领取体力工资成功")
+            print("领取工资成功")
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
             Sleep_print(0.5)
+        else:
+            print("工资似乎领取失败")
 
     for i in range(1):
         if not Find_Click_windows(Hwnd, "./pic/Sis/Tiligongzi.png", 0.05, "领取体力工资", "未检测到体力工资"):
@@ -35,6 +37,8 @@ def Work_Salary(Hwnd):
             pydirectinput.press("esc")
             print("QUIT- ccccc 按Esc退出")
             Sleep_print(0.5)
+        else:
+            print("体力工资似乎领取失败")
 
 
 def Work_Foster(Hwnd):

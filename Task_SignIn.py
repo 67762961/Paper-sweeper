@@ -207,7 +207,7 @@ def zhirenjiangli(Hwnd):
     体力小纸人 勾玉小纸人 buff小纸人
     """
     # 检测体力小纸人
-    if Find_Click_windows(Hwnd, "./pic/Sign/Tilixiaozhire.png", 0.05, "检测到体力小纸人", "未检测到体力小纸人"):
+    if Find_Click_windows(Hwnd, "./pic/Sign/Tilixiaozhire.png", 0.07, "检测到体力小纸人", "未检测到体力小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("体力领取成功")
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
@@ -216,7 +216,7 @@ def zhirenjiangli(Hwnd):
         Sleep_print(0.5)
 
     # 检测勾玉小纸人
-    if Find_Click_windows(Hwnd, "./pic/Sign/Gouyuxiaozhiren.png", 0.05, "检测到勾玉小纸人", "未检测到勾玉小纸人"):
+    if Find_Click_windows(Hwnd, "./pic/Sign/Gouyuxiaozhiren.png", 0.07, "检测到勾玉小纸人", "未检测到勾玉小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("勾玉领取成功")
         ctypes.windll.user32.SetForegroundWindow(Hwnd)
@@ -225,7 +225,7 @@ def zhirenjiangli(Hwnd):
         Sleep_print(0.5)
 
     # 检测buff小纸人
-    if Find_Click_windows(Hwnd, "./pic/Sign/BUFFxiaozhiren.png", 0.05, "检测到BUFF小纸人", "未检测到BUFF小纸人"):
+    if Find_Click_windows(Hwnd, "./pic/Sign/BUFFxiaozhiren.png", 0.07, "检测到BUFF小纸人", "未检测到BUFF小纸人"):
         Find_in_windows(Hwnd, "./pic/Main/Huodejiangli.png", 0.05, 0)
         print("BUFF领取成功")
         ctypes.windll.user32.SetForegroundWindow(Hwnd)

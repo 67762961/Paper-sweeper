@@ -364,6 +364,7 @@ def Yucheng(current_state, Hwnd):
                             y = (Range[0][1] + Range[1][1]) // 2 + rect[1]
                             pyautogui.moveTo(x, y)
                             pyautogui.scroll(-500)
+                            print("INFO- ----- 往下翻页")
                         else:
                             break
                 else:
@@ -445,23 +446,20 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                 Sleep_print(2)
                 Find_Click_windows(Hwnd, "./pic/Sis/Haoyou.png", 0.05, "点击好友", "点击好友异常")
                 # 寻找对应结界卡
-                for times in range(30):
+                for times in range(100):
                     Range = Find_in_windows(Hwnd, "./pic/Sis/Jiyangliebiao.png", 0.05, 0)
                     print("移动到寄养列表")
                     rect = win32gui.GetWindowRect(Hwnd)
                     x = (Range[0][0] + Range[1][0]) // 2 + rect[0]
                     y = (Range[0][1] + Range[1][1]) // 2 + rect[1]
                     pyautogui.moveTo(x, y)
-                    Sleep_print(0.5)
-                    pyautogui.scroll(-100)
-                    Sleep_print(0.5)
 
                     Find = Find_in_windows(Hwnd, Jiejieka_Model_path, 0.05, 0)
                     if Find:
-                        Sleep_print(1)
                         Click(Hwnd, Find, 1)
                         print("检测到", end="")
                         print(string)
+                        Sleep_print(1)
 
                         if Find_Click_windows(Hwnd, "./pic/Sis/Jinrujiejie.png", 0.05, "点击进入结界", "点击进入结界异常"):
                             Sleep_print(2)
@@ -473,8 +471,9 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                             print("已经到寄养列表末尾")
                             return 0
                         else:
-                            pyautogui.scroll(-400)
-                            print("往下翻页")
+                            print("未到寄养列表末尾")
+                            pyautogui.scroll(-500)
+                            print("INFO- ----- 往下翻页")
 
                 if Find:
                     print("STEP- vvvvv 跳转寄养结界")
@@ -510,6 +509,7 @@ def Jiyang(current_state, Hwnd, Jiejieka_Model_path, string):
                             y = (Find[0][1] + Find[1][1]) // 2 + rect[1]
                             pyautogui.moveTo(x, y)
                             pyautogui.scroll(-500)
+                            print("INFO- ----- 往下翻页")
                         else:
                             Find_Click_windows(Hwnd, "./pic/Sis/Queding.png", 0.05, "点击确定", "点击确定异常")
                             pydirectinput.press("esc")

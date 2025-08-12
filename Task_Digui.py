@@ -6,7 +6,7 @@ import win32gui
 import config
 from Lib import Sleep_print
 from datetime import datetime, timedelta, time
-from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, Itface_explore, read_config, write_config, check_lasttime
+from Lib import Find_in_windows, Find_Click_windows, Click, Itface_Host, Itface_guild, Itface_explore, read_config, write_config, check_lasttime, Esc_print
 
 
 def MainTask_Digui(Hwnd, Account):
@@ -97,8 +97,7 @@ def Diyuguiwang(current_state, Hwnd):
                     else:
                         print("STEP- vvvvv 似乎已经无挑战次数 跳转结束")
                         Sleep_print(1)
-                        pydirectinput.press("esc")
-                        print("QUIT- ccccc 按Esc退出")
+                        Esc_print()
                         Sleep_print(1)
                         current_state = "结束"
                 else:
@@ -144,8 +143,7 @@ def Diyuguiwang(current_state, Hwnd):
                         if Find:
                             flag_digui += 1
                             Sleep_print(1)
-                            pydirectinput.press("esc")
-                            print("QUIT- ccccc 按Esc退出")
+                            Esc_print()
                             print("STEP- vvvvv 跳转地鬼界面")
                             current_state = "地鬼界面"
                         else:
@@ -165,11 +163,9 @@ def Diyuguiwang(current_state, Hwnd):
                     print("似乎已无地域鬼王讨伐次数 任务结束")
                     # 任务结束
                     Sleep_print(2)
-                    pydirectinput.press("esc")
-                    print("QUIT- ccccc 按Esc退出")
+                    Esc_print()
                     Sleep_print(2)
-                    pydirectinput.press("esc")
-                    print("QUIT- ccccc 按Esc退出")
+                    Esc_print()
                     Sleep_print(2)
                     Itface_Host(Hwnd)
                     return 1

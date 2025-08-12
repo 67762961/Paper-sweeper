@@ -140,9 +140,9 @@ def Jiejieyangcheng(current_state, Hwnd):
                         break
                     else:
                         Sleep_print(3)
-                        pydirectinput.press("esc")
-                        print("QUIT- ccccc 按Esc退出")
-                        Sleep_print(3)
+                        if i > 3:
+                            pydirectinput.press("esc")
+                            print("QUIT- ccccc 按Esc退出")
                 Itface_Host(Hwnd)
                 return 0
 

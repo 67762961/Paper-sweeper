@@ -429,4 +429,5 @@ def Itface_explore(Hwnd):
     if Find_in_windows(Hwnd, "./pic/Digui/Diguitubiao.png", 0.05, 0):
         print("检测到地鬼入口 已进入探索界面")
     else:
+        print("未检测到地鬼入口 似乎未进入探索界面")
         Esc_print()

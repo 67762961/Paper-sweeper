@@ -24,6 +24,19 @@ def Sleep_print(Wait_time):
     print("WAIT- sssss 等待{Time}秒钟".format(Time=Wait_time))
 
 
+def Scroll_print(length):
+    for i in range(abs(length)):
+        pyautogui.scroll(int(length / abs(length)))
+        time.sleep(0.01)
+    print("Move- mmmmm 滚轮滚动{Length}".format(Length=length))
+
+
+def Esc_print():
+    pydirectinput.press("esc")
+    time.sleep(0.1)
+    print("QUIT- ccccc 按Esc退出")
+
+
 def Find_windows(title):
     """
     寻找与标题相符的句柄
@@ -300,7 +313,6 @@ def Itface_Host(Hwnd):
 
         if Wait >= 10:
             # 按esc尝试回到主界面
-            # pyautogui.press("esc")
             pydirectinput.press("esc")
             print("未检测到进入庭院 尝试esc")
             Itface_Quit(Hwnd)
@@ -409,8 +421,12 @@ def Itface_explore(Hwnd):
 
     Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangxing.png", 0.05, "点击悬赏星", "未检测到悬赏星")
     Find = Find_Click_windows(Hwnd, "./pic/Main/Xuanshangqianwang.png", 0.05, "进入探索地图界面", "未进入探索地图界面")
-    time.sleep(1)
-    # pyautogui.press("esc")
-    pydirectinput.press("esc")
 
     time.sleep(1)
+    Esc_print()
+    time.sleep(1)
+
+    if Find_in_windows(Hwnd, "./pic/Digui/Diguitubiao.png", 0.05, 0):
+        print("检测到地鬼入口 已进入探索界面")
+    else:
+        Esc_print()

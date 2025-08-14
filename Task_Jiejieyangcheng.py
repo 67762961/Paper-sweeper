@@ -85,6 +85,9 @@ def Jiejieyangcheng(current_state, Hwnd):
 
                 flag_yucheng = Yucheng("结界界面", Hwnd)
 
+                # 领取体力食盒
+                Tilishihe(Hwnd)
+
                 # 经验酒壶 领取后育成
                 if Jinyanjiuhu(Hwnd):
                     flag_yucheng = Yucheng("结界界面", Hwnd)
